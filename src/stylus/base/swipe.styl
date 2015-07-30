@@ -1,0 +1,28 @@
+.swipe
+  overflow hidden
+  visibility hidden
+  position relative
+  .swipe-wrap
+    overflow hidden
+    position relative
+    &>div
+      float left
+      width 100%
+      position relative
+.swipe-controls
+  .prev
+    position absolute
+    left 10px
+    top 50%
+    margin-top -10px
+    cursor pointer
+    i
+      display inline-block
+  .next
+    position absolute
+    right 10px
+    margin-top -10px
+    top 50%
+    cursor pointer
+    i
+      display inline-block

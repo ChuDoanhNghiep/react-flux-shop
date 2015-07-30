@@ -1,0 +1,41 @@
+extends templates/master
+include includes/mixins
+
+//- block variables
+//-   include ../../inc/variables
+
+
+prepend body
+  +Menu('mobile')
+
+append menu
+  +Menu('desktop')
+
+block content
+  main.page#brand-collection
+    .area-container
+      .pos-relative
+        h1.divider.GNB-line Wine & spirits
+        .arrow-wines-spirits
+      +breadcrumb(['Home', 'Wine & Spirits'])
+      
+      <!-- Brand details -->
+      .kiwi-grid.divider
+        .kiwi-col.l-7-16.m-1
+          .block.img
+            img.fade-in(src="http://placehold.it/450x280")
+        .kiwi-col.l-9-16.m-1
+          .block.details
+            .title Chateau Beychevelle
+            p.description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod, erat non porttitor consequat, dolor enim molestie eros, ut fringilla augue urna sit amet felis. Quisque imperdiet orci at nulla sodales, et porttitor leo porta. Nullam neque arcu, mollis bibendum lobortis non, mattis in lorem. Aliquam nec mollis turpis. Ut vulputate pellentesque gravida. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed consectetur elit quis lectus dapibus, sed tincidunt nisi elementum.
+            p.discover Discover the latest collection at your nearest 
+              a.underline(href="#") DFS store
+              | .
+      <!-- END Brand details -->
+      <!-- Product listing -->
+      #product-listing
+
+      <!-- END Product listing -->
+  .area-container.mobile-full-width
+    include ./modules/promotions
+

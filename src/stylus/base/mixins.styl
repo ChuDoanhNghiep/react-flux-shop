@@ -1,0 +1,26 @@
+rem-prop(property, value)
+  {property} value /* add PX (or original value) as backup */
+
+  unless value is 'inherit' and value is 'initial'
+    {property} remify(value)
+
+// rem-font-size(value)
+//   font-size: value;  add PX (or original value) as backup 
+
+//   unless value is 'inherit' and value is 'initial'
+//     font-size remify(value)
+
+
+// Calculate a size in REM
+remify(value)
+  u = unit(value)
+
+  if u is 'px'
+    return unit(value/font-size-root, 'rem')
+  else
+    return unit(value, u)
+
+font-preorder(weight, size)
+  font-family font-family-preorder
+  font-size size
+  font-weight weight

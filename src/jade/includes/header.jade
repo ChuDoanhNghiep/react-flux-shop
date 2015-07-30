@@ -1,0 +1,100 @@
+header.main-header
+  .area-container
+
+    <!-- select location -->
+    .location
+      div.visiting.kiwi-hidden-m.kiwi-hidden-s 
+        +flag('hongkong')(class="icon-appendInline")
+        |You are visiting our 
+        a.link(href="./landing.html", data-mfp-src="#select-location-modal", data-effect="mfp-fade-in") 
+          span T Galleria Hong Kong Store
+          
+        .locationPopupWrap
+          .arrow
+          #home-popup.locationPopup.desktop
+            .img
+              img(src="http://placehold.it/150x100", style="width:150px;height:100px")
+            .text
+              strong.uppercase YOU ARE VISITING OUR T Galleria Hong Kong Store.
+              p Visiting another location? Please click on the flag.
+
+      .kiwi-visible-s.kiwi-visible-m
+        #mobile-popup.locationPopup.mobile
+          .close
+            +icon('banner-close')
+          .text
+            a.link(href="./landing.html", data-mfp-src="#select-location-modal")
+              i.icon.margin-left-5
+              .store
+                .uppercase You are visiting our 
+                  strong Airport Singapore Store
+                | Visiting another location
+    <!-- END select location -->    
+
+    .mobile-menu
+      a(href="#", toggle="fashion-mobile-left-menu")
+        img.icon(src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAkCAMAAADxcOlCAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0QkVCODVEQUVFQjExMUUzQjZEM0Y4RUNGQjBENDQ5OSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0QkVCODVEQkVFQjExMUUzQjZEM0Y4RUNGQjBENDQ5OSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjRCRUI4NUQ4RUVCMTExRTNCNkQzRjhFQ0ZCMEQ0NDk5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjRCRUI4NUQ5RUVCMTExRTNCNkQzRjhFQ0ZCMEQ0NDk5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+1ZAssQAAAEhQTFRF////AAAAmZmZq6urx8fHlJSUbm5unp6e8fHx7+/v/v7+oaGhZ2dnyMjIlZWVb29vkJCQrKysm5ubioqKu7u7oKCgjIyMvb29Eqm+qgAAAFtJREFUeNrs1DcSgDAMRNHFZORMuv9NKRgOsHJDodf/RrMj7G4kuQsbFFY+Wf4eqQ5xhIEUbnQKFn2RTxMpecBW/kYqZ+lJRWywTVGUmSTRfnnTL8/VkWp+BBgAtYoJ1QjxulAAAAAASUVORK5CYII=")
+
+    .sticky-menu
+      a(href="#" toggle="sticky-header-menu")
+        img.icon(src="./images/icons/hamburger_icon_white_2x.png" style="width:24px;")
+      .arrow          
+
+    .header-logo
+      a(href="#")
+        img.icon(src="http://placehold.it/50x50")
+
+    .register-menu.fashion.menu-tabs
+      .tabs.list
+        block sign-in
+          .li.tab.sign-in.kiwi-hidden-m.kiwi-hidden-s
+            .title.text 
+              a(href="/register-sign-in.html") Sign in
+            .content.against-left 
+              a.button.black(href="/register-sign-in.html") LOG IN
+              .line-with
+                .text OR LOG IN WITH
+              .share-btn
+                a(href="#")
+                  +icon("twitter")
+                a(href="#")
+                  +icon("facebook")
+                a(href="#")
+                  +icon("weibo")
+        
+          .li.register.kiwi-hidden-m.kiwi-hidden-s
+            .title.text 
+              a(href="#") Register
+        .li.tab.wishlist
+          .title.img
+            a(href="./my-wishlist.html")
+              i.icon.icon-heart-base64
+
+          .content.against-right
+            p Sign in to see your Wish List
+            a.button.black Sign in
+        .li.tab.shopping-bag
+          .title.img
+            a(href="./shoppingbag-detail.html")
+              i.icon.icon-shoppingbag-white-base64
+
+          block shoppingBagDropDown
+            .content.against-right.empty 
+              p.strong Your bag is empty
+              p We currently offer the ability to Shop & Collect purchases in our Wine & Spirits.
+              a.button.action Shop Wines & Spirits
+        block sign-out
+        .li.tab.desktop-searchbox.kiwi-hidden-m.kiwi-hidden-s
+          span.placeholderWrap &nbsp Search
+          input(placeholder=" Search",type="search", name="search").search_text
+        .li.tab.desktop-search.kiwi-hidden-m.kiwi-hidden-s
+          .img
+            a(href="#")
+              i.icon.icon-search-base64
+        .li.tab.search
+          .title.img
+            a(href="#")
+              i.icon.icon-search-base64
+        .searchbox
+          span.placeholderWrap &nbsp Search
+          input(placeholder=" Search",type="search", name="search").search_text

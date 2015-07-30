@@ -1,0 +1,50 @@
+.main-header
+  background #000
+  rem-prop('font-size', 9px)
+  left 0
+  position fixed
+  top 0
+  width 100%
+  z-index 1010 //20000
+  
+  @require 'header/location'
+  @require 'header/register-menu'
+  @require 'header/mobile-menu'
+
+  // spacing the content (because of the position fixed of the header)
+  & + div
+    //margin-top 37px
+    margin-top 55px
+
+  @media mq-m
+    // height 47px // fix the height (even the icon are still not loaded) > no 'flash' bug
+    padding 8px 0
+    height 31px
+    
+    & + div
+      margin-top 56px
+
+  @media mq-min-l
+    height 40px
+    transition all 0.5s ease 0s
+
+.lte9
+  .locationPopup
+    &.desktop
+      border 1px solid #E5E3E3
+      filter unquote("progid:DXImageTransform.Microsoft.Shadow(color='#e5e3e3', Direction=145, Strength=4)")
+  .arrow
+    filter unquote("progid:DXImageTransform.Microsoft.Shadow(color='#e5e3e3', Direction=10, Strength=2)")
+
+// new
+@require 'header/header-logo'
+@require 'header/sticky-menu'
+
+.sticky-header.main-header
+  height 54px
+  
+  .location
+    display none
+
+  @media mq-m
+    height auto
