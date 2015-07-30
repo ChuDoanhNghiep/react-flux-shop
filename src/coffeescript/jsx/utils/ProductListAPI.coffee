@@ -1,4 +1,5 @@
 _sortByOrder = require "lodash/collection/sortByOrder"
+_find = require "lodash/collection/find"
 validator = require "./ObjValidator.coffee"
 
 sort = (data, filter) ->
@@ -53,3 +54,9 @@ module.exports =
 
     else
       return sort(data, filter)
+
+  getProductByID: (id) ->
+    data = @getAllProduct()
+    
+    _find data, (p) ->
+      p.id = id

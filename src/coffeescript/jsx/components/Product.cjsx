@@ -1,14 +1,15 @@
-# @cjsx React.DOM
-
 React = require "react"
+ReactRouter = require "react-router"
+Link = ReactRouter.Link
 
 Product = React.createClass
   
   render: ->
-    product = @.props.product
+    product = @props.product
+    url = "#/product/" + product.id
 
     return <div className="kiwi-col l-1-3 m-1-3 s-1-2">
-        <a href="product-detail.html" className="productLink">
+        <a href={url} className="productLink">
           <div className="product">
             <div className="picture">
               <img src={product.image} alt="nectar Imperial" />

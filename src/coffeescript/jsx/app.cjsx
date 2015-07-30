@@ -1,45 +1,21 @@
-# @cjsx React.DOM
-
 window.React = require "react"
 ProductListData = require "./ProductListData.coffee"
-ProductFilterSort = require "./components/ProductFilterSort.cjsx"
-ProductFilterRefine = require "./components/ProductFilterRefine.cjsx"
-ProductList = require "./components/ProductList.cjsx" 
+main = require "./components/Main.cjsx"
+brandCollection = require "./components/BrandCollection.cjsx"
+productDetails = require "./components/ProductDetails.cjsx"
+
+ReactRouter = require "react-router"
+Route = ReactRouter.Route
 
 ProductListData.init()
 
-App = React.createClass
-  
-  render: ->
-    return <div className="kiwi-grid">
-                  <div className="kiwi-col l-2-7 m-1">
-                    <div className="productsFilter expand-menu-adjust cfe-form">
-                      <div className="menuwrap">
-                        <ProductFilterSort selectedFilter="shop_recommended" />
-                        <ProductFilterRefine />
-                      </div>
-                    </div>
-                  </div>
+routes =
+  <Route handler={main}>
+    <Route name="brandCollection" path="/" handler={brandCollection} />
+    <Route name="productDetails" path="/product/:id" handler={productDetails} />
+  </Route>
 
-                  <div className="kiwi-col l-5-7 m-1">
-                    <div className="preorder-message">
-                      <div className="text">
-                        You can now shop items online from our wines and spirits
-                        <div data-tip="tooltip" data-tip-position="right" className="icon-tooltip icon-appendInline">
-                          <div className="tooltip">
-                            <p>Message tooltip</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <ProductList selectedFilter="shop_recommended" />
-                  </div>
-                </div>    
 
-ProductListApp = {}
+ReactRouter.run routes, ReactRouter.HashLocation, (Root) ->
+  React.render <Root/>, document.getElementById "app-container"
 
-ProductListApp.start = ->
-
-  React.render <App />, document.getElementById "product-listing"
-
-module.exports = ProductListApp.start()
