@@ -3,6 +3,7 @@ QuantityChoice = require "./QuantityChoice.cjsx"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 
 ProductDetailsStore = require "../stores/ProductDetailsStore.cjsx"
+ProductDetailsActions = require "../actions/ProductDetailsActions.cjsx"
 
 getSelectedQuantity = ->
   ProductDetailsStore.getSeletedQuantity()
@@ -11,7 +12,7 @@ ProductDetails = React.createClass
 
   getInitialState: ->
     product: ProductListAPI.getProductByID @props.params.id
-    selectedQuantity: 0
+    selectedQuantity: 1
 
   componentDidMount: ->
     ProductDetailsStore.addChangeListener @handleChange
@@ -20,9 +21,11 @@ ProductDetails = React.createClass
     ProductDetailsStore.removeChangeListener @handleChange
 
   handleChange: ->
-    # console.log "change"
     @setState 
       selectedQuantity: getSelectedQuantity()
+
+  shoppingbagClick: ->
+    ProductDetailsActions.addToShoppingbag @state.selectedQuantity
 
   render: ->
     return  <section id="tap-enlarge" className="product productDetails magnifier">
@@ -57,9 +60,13 @@ ProductDetails = React.createClass
                   <div className="actions">
                     <div className="kiwi-grid">
                       <div className="kiwi-col l-1-2 m-1">
-                        <div className="action addToShoppingbag"><a className="button action expand">
+                        <div className="action addToShoppingbag" onClick={this.shoppingbagClick}>
+                          <a className="button action expand">
                             <div className="icon-shoppingbag-white icon-prependInline">
-                            </div>Add to shopping bag</a></div>
+                            </div>
+                            Add to shopping bag
+                          </a>
+                        </div>
                       </div>
                       <div className="kiwi-col l-1-2 m-1">
                         <div className="action addToWishlist"><a data-tip="Save to Wish List to create your personal list of products and gifts" data-tip-position="top" className="button black expand">

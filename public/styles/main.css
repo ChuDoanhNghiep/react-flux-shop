@@ -4607,6 +4607,10 @@ input.placeholder {
 }
 .main-header .register-menu >.list >.li.shopping-bag >.title.img {
   padding: 6.5px 10px;
+  color: #fff;
+}
+.main-header .register-menu >.list >.li.shopping-bag >.title.img:hover {
+  color: #000;
 }
 @media screen and (max-width: 960px) {
   .main-header .register-menu >.list >.li.shopping-bag >.title.img {

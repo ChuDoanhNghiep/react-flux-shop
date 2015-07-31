@@ -1,6 +1,4 @@
 React = require "react"
-ReactRouter = require "react-router"
-Link = ReactRouter.Link
 
 Product = React.createClass
   

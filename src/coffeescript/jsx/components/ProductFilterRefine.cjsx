@@ -1,7 +1,6 @@
 React = require "react"
 RefineGroup = require "./RefineGroup.cjsx"
 RefinerList = require "./RefinerList.cjsx"
-# ProductFilterActions = require "../actions/ProductFilterActions.cjsx"
 
 ProductFilterStore = require "../stores/ProductFilterStore.cjsx"
 

@@ -17,4 +17,5 @@ require "./modules/popup.coffee"
 require "./pages/page.coffee"
 
 # Reactjs
-require "./jsx/app.cjsx"
+require "./jsx/MainApp.cjsx"
+require "./jsx/HeaderApp.cjsx"
