@@ -8,24 +8,9 @@ selectedRefiners = {}
 addRefiner = (itemID, itemLabel) ->
   selectedRefiners[itemID] = itemLabel
   console.log selectedRefiners
-   
-# addRefiner =(refiner) ->
-#   categoryArray = selectedRefiners[refiner.categoryID]
-#   if categoryArray and categoryArray.length
-#     categoryArray.push refiner.itemLabel
-#   else
-#     selectedRefiners[refiner.categoryID] = [].concat refiner.itemLabel
 
 removeRefiner = (itemID) ->
   delete selectedRefiners[itemID]
-
-# removeRefiner = (refiner) ->
-#   categoryArray = selectedRefiners[refiner.categoryID]
-
-#   idx = categoryArray.indexOf refiner.itemLabel
-#   console.log idx
-#   if idx > -1
-#     categoryArray.splice idx, 1
 
 removeAllRefiner = (empty) ->
   for key of selectedRefiners
@@ -52,11 +37,9 @@ AppDispatcher.register (payload) ->
 
     when ShopConstants.ADD_REFINER
       addRefiner(action.data.itemID, action.data.itemLabel)
-      # addRefiner action.data
 
     when ShopConstants.REMOVE_REFINER
       removeRefiner(action.data.itemID)
-      # removeRefiner action.data
 
     when ShopConstants.CLEAR_REFINER
       removeAllRefiner(action.data)

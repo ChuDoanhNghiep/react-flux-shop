@@ -41047,6 +41047,31 @@ module.exports = {
 
 
 },{}],302:[function(require,module,exports){
+var AppDispatcher, ProductDetailsActions, ShopConstants;
+
+AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
+
+ShopConstants = require("../constants/ShopConstants.cjsx");
+
+ProductDetailsActions = {
+  selectQuantity: function(data) {
+    return AppDispatcher.handleViewAction({
+      actionType: ShopConstants.SELECT_QUANTITY,
+      data: data
+    });
+  },
+  addToShoppingbag: function(data) {
+    return AppDispatcher.handleViewAction({
+      actionType: ShopConstants.ADD_TO_SHOPPINGBAG,
+      data: data
+    });
+  }
+};
+
+module.exports = ProductDetailsActions;
+
+
+},{"../constants/ShopConstants.cjsx":317,"../dispatcher/AppDispatcher.cjsx":318}],303:[function(require,module,exports){
 var AppDispatcher, ProductFilterActions, ShopConstants;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41083,7 +41108,7 @@ ProductFilterActions = {
 module.exports = ProductFilterActions;
 
 
-},{"../constants/ShopConstants.cjsx":316,"../dispatcher/AppDispatcher.cjsx":317}],303:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":317,"../dispatcher/AppDispatcher.cjsx":318}],304:[function(require,module,exports){
 var ProductListData, ReactRouter, Route, brandCollection, main, productDetails, routes;
 
 window.React = require("react");
@@ -41127,7 +41152,7 @@ ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
 });
 
 
-},{"./ProductListData.coffee":301,"./components/BrandCollection.cjsx":304,"./components/Main.cjsx":307,"./components/ProductDetails.cjsx":309,"react":300,"react-router":131}],304:[function(require,module,exports){
+},{"./ProductListData.coffee":301,"./components/BrandCollection.cjsx":305,"./components/Main.cjsx":308,"./components/ProductDetails.cjsx":310,"react":300,"react-router":131}],305:[function(require,module,exports){
 var BrandCollection, ProductFilterRefine, ProductFilterSort, ProductList, React;
 
 React = require("react");
@@ -41173,7 +41198,7 @@ BrandCollection = React.createClass({displayName: "BrandCollection",
 module.exports = BrandCollection;
 
 
-},{"./ProductFilterRefine.cjsx":310,"./ProductFilterSort.cjsx":311,"./ProductList.cjsx":312,"react":300}],305:[function(require,module,exports){
+},{"./ProductFilterRefine.cjsx":311,"./ProductFilterSort.cjsx":312,"./ProductList.cjsx":313,"react":300}],306:[function(require,module,exports){
 var BrandDetails, React;
 
 React = require("react");
@@ -41209,7 +41234,7 @@ BrandDetails = React.createClass({displayName: "BrandDetails",
 module.exports = BrandDetails;
 
 
-},{"react":300}],306:[function(require,module,exports){
+},{"react":300}],307:[function(require,module,exports){
 var Breadcrumb, React;
 
 React = require("react");
@@ -41235,7 +41260,7 @@ Breadcrumb = React.createClass({displayName: "Breadcrumb",
 module.exports = Breadcrumb;
 
 
-},{"react":300}],307:[function(require,module,exports){
+},{"react":300}],308:[function(require,module,exports){
 var BrandDetails, Breadcrumb, Main, React, ReactRouter, RouteHandler;
 
 React = require("react");
@@ -41271,7 +41296,7 @@ Main = React.createClass({displayName: "Main",
 module.exports = Main;
 
 
-},{"./BrandDetails.cjsx":305,"./Breadcrumb.cjsx":306,"react":300,"react-router":131}],308:[function(require,module,exports){
+},{"./BrandDetails.cjsx":306,"./Breadcrumb.cjsx":307,"react":300,"react-router":131}],309:[function(require,module,exports){
 var Link, Product, React, ReactRouter;
 
 React = require("react");
@@ -41324,8 +41349,8 @@ Product = React.createClass({displayName: "Product",
 module.exports = Product;
 
 
-},{"react":300,"react-router":131}],309:[function(require,module,exports){
-var ProductDetails, ProductListAPI, QuantityChoice, React;
+},{"react":300,"react-router":131}],310:[function(require,module,exports){
+var ProductDetails, ProductDetailsStore, ProductListAPI, QuantityChoice, React, getSelectedQuantity;
 
 React = require("react");
 
@@ -41333,11 +41358,29 @@ QuantityChoice = require("./QuantityChoice.cjsx");
 
 ProductListAPI = require("../utils/ProductListAPI.coffee");
 
+ProductDetailsStore = require("../stores/ProductDetailsStore.cjsx");
+
+getSelectedQuantity = function() {
+  return ProductDetailsStore.getSeletedQuantity();
+};
+
 ProductDetails = React.createClass({displayName: "ProductDetails",
   getInitialState: function() {
     return {
-      product: ProductListAPI.getProductByID(this.props.params.id)
+      product: ProductListAPI.getProductByID(this.props.params.id),
+      selectedQuantity: 0
     };
+  },
+  componentDidMount: function() {
+    return ProductDetailsStore.addChangeListener(this.handleChange);
+  },
+  componentWillUnmount: function() {
+    return ProductDetailsStore.removeChangeListener(this.handleChange);
+  },
+  handleChange: function() {
+    return this.setState({
+      selectedQuantity: getSelectedQuantity()
+    });
   },
   render: function() {
     return React.createElement("section", {
@@ -41378,7 +41421,8 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
     }, this.state.product.currency), React.createElement("span", {
       "className": "amount"
     }, this.state.product.price))), React.createElement("div", {
-      "className": "custom"
+      "className": "custom",
+      "data-quantity": this.state.selectedQuantity
     }, React.createElement(QuantityChoice, null)), React.createElement("div", {
       "className": "actions"
     }, React.createElement("div", {
@@ -41444,7 +41488,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
 module.exports = ProductDetails;
 
 
-},{"../utils/ProductListAPI.coffee":321,"./QuantityChoice.cjsx":313,"react":300}],310:[function(require,module,exports){
+},{"../stores/ProductDetailsStore.cjsx":319,"../utils/ProductListAPI.coffee":323,"./QuantityChoice.cjsx":314,"react":300}],311:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, React, RefineGroup, RefinerList, getRefinerList;
 
 React = require("react");
@@ -41539,7 +41583,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":318,"./RefineGroup.cjsx":314,"./RefinerList.cjsx":315,"react":300}],311:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":320,"./RefineGroup.cjsx":315,"./RefinerList.cjsx":316,"react":300}],312:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -41558,8 +41602,7 @@ ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
       selectedValue: selected.value,
       selectedLabel: selected.label
     });
-    ProductFilterActions.setProductListFilter(selected.value);
-    return console.log(selected.value);
+    return ProductFilterActions.setProductListFilter(selected.value);
   },
   render: function() {
     var buttons, config;
@@ -41629,7 +41672,7 @@ ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
 module.exports = ProductFilterSort;
 
 
-},{"../actions/ProductFilterActions.cjsx":302,"react":300}],312:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":303,"react":300}],313:[function(require,module,exports){
 /** @jsx React.DOM */;
 var Product, ProductList, ProductListAPI, ProductListStore, React;
 
@@ -41744,10 +41787,12 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":319,"../utils/ProductListAPI.coffee":321,"./Product.cjsx":308,"react":300}],313:[function(require,module,exports){
-var QuantityChoice, React;
+},{"../stores/ProductListStore.cjsx":321,"../utils/ProductListAPI.coffee":323,"./Product.cjsx":309,"react":300}],314:[function(require,module,exports){
+var ProductDetailsActions, QuantityChoice, React;
 
 React = require("react");
+
+ProductDetailsActions = require("../actions/ProductDetailsActions.cjsx");
 
 QuantityChoice = React.createClass({displayName: "QuantityChoice",
   getInitialState: function() {
@@ -41756,13 +41801,15 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
     };
   },
   handleMinus: function() {
-    if (this.state.quantity > 0) {
+    if (this.state.quantity > 1) {
+      ProductDetailsActions.selectQuantity(this.state.quantity - 1);
       return this.setState({
         quantity: this.state.quantity - 1
       });
     }
   },
   handlePlus: function() {
+    ProductDetailsActions.selectQuantity(this.state.quantity + 1);
     return this.setState({
       quantity: this.state.quantity + 1
     });
@@ -41787,7 +41834,7 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
 module.exports = QuantityChoice;
 
 
-},{"react":300}],314:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":302,"react":300}],315:[function(require,module,exports){
 var ProductFilterActions, React, RefineGroup;
 
 React = require("react");
@@ -41870,7 +41917,7 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
 module.exports = RefineGroup;
 
 
-},{"../actions/ProductFilterActions.cjsx":302,"react":300}],315:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":303,"react":300}],316:[function(require,module,exports){
 var ProductFilterActions, React, RefinerList;
 
 React = require("react");
@@ -41910,7 +41957,7 @@ RefinerList = React.createClass({displayName: "RefinerList",
 module.exports = RefinerList;
 
 
-},{"../actions/ProductFilterActions.cjsx":302,"react":300}],316:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":303,"react":300}],317:[function(require,module,exports){
 var keyMirror;
 
 keyMirror = require("react/lib/keyMirror");
@@ -41919,11 +41966,13 @@ module.exports = keyMirror({
   ADD_REFINER: "ADD_REFINER",
   REMOVE_REFINER: "REMOVE_REFINER",
   CLEAR_REFINER: "CLEAR_REFINER",
-  SET_FILTER: "SET_FILTER"
+  SET_FILTER: "SET_FILTER",
+  ADD_TO_SHOPPINGBAG: "ADD_TO_SHOPPINGBAG",
+  SELECT_QUANTITY: "SELECT_QUANTITY"
 });
 
 
-},{"react/lib/keyMirror":285}],317:[function(require,module,exports){
+},{"react/lib/keyMirror":285}],318:[function(require,module,exports){
 var AppDispatcher, Dispatcher;
 
 Dispatcher = require("flux").Dispatcher;
@@ -41940,7 +41989,56 @@ AppDispatcher.handleViewAction = function(action) {
 module.exports = AppDispatcher;
 
 
-},{"flux":45}],318:[function(require,module,exports){
+},{"flux":45}],319:[function(require,module,exports){
+var AppDispatcher, EventEmitter, ProductDetailsStore, ShopConstants, assign, selectedQuantity, updateQuantity;
+
+AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
+
+EventEmitter = require("events").EventEmitter;
+
+ShopConstants = require("../constants/ShopConstants.cjsx");
+
+assign = require("react/lib/Object.assign");
+
+selectedQuantity = 0;
+
+updateQuantity = function(n) {
+  return selectedQuantity = n;
+};
+
+ProductDetailsStore = assign({}, EventEmitter.prototype, {
+  getSeletedQuantity: function() {
+    return selectedQuantity;
+  },
+  emitChange: function() {
+    return this.emit("change");
+  },
+  addChangeListener: function(callback) {
+    return this.on("change", callback);
+  },
+  removeChangeListener: function(callback) {
+    return this.removeListener("change", callback);
+  }
+});
+
+AppDispatcher.register(function(payload) {
+  var action;
+  action = payload.action;
+  switch (action.actionType) {
+    case ShopConstants.SELECT_QUANTITY:
+      updateQuantity(action.data);
+      break;
+    default:
+      return true;
+  }
+  ProductDetailsStore.emitChange();
+  return true;
+});
+
+module.exports = ProductDetailsStore;
+
+
+},{"../constants/ShopConstants.cjsx":317,"../dispatcher/AppDispatcher.cjsx":318,"events":1,"react/lib/Object.assign":171}],320:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -42009,7 +42107,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":316,"../dispatcher/AppDispatcher.cjsx":317,"events":1,"react/lib/Object.assign":171}],319:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":317,"../dispatcher/AppDispatcher.cjsx":318,"events":1,"react/lib/Object.assign":171}],321:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductListStore, ShopConstants, addProductRefiner, assign, removeAllProductRefiner, removeProductRefiner, selectedFilter, selectedRefiners, setProductListFilter;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -42096,7 +42194,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":316,"../dispatcher/AppDispatcher.cjsx":317,"events":1,"react/lib/Object.assign":171}],320:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":317,"../dispatcher/AppDispatcher.cjsx":318,"events":1,"react/lib/Object.assign":171}],322:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -42121,7 +42219,7 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":96}],321:[function(require,module,exports){
+},{"lodash/lang/isArray":96}],323:[function(require,module,exports){
 var _find, _sortByOrder, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
@@ -42188,7 +42286,7 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":320,"lodash/collection/find":50,"lodash/collection/sortByOrder":51}],322:[function(require,module,exports){
+},{"./ObjValidator.coffee":322,"lodash/collection/find":50,"lodash/collection/sortByOrder":51}],324:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -42218,7 +42316,7 @@ require("./pages/page.coffee");
 require("./jsx/app.cjsx");
 
 
-},{"./jsx/app.cjsx":303,"./modules/expandable-menu.coffee":323,"./modules/menu-dropdown.coffee":324,"./modules/menu-tabs.coffee":325,"./modules/mobile-menu.coffee":326,"./modules/popup.coffee":327,"./modules/product.coffee":328,"./modules/products-list.coffee":329,"./modules/refine-menu.coffee":330,"./modules/sticky-menu.coffee":331,"./modules/tooltip.coffee":332,"./pages/page.coffee":333,"jquery":48,"magnific-popup":106}],323:[function(require,module,exports){
+},{"./jsx/app.cjsx":304,"./modules/expandable-menu.coffee":325,"./modules/menu-dropdown.coffee":326,"./modules/menu-tabs.coffee":327,"./modules/mobile-menu.coffee":328,"./modules/popup.coffee":329,"./modules/product.coffee":330,"./modules/products-list.coffee":331,"./modules/refine-menu.coffee":332,"./modules/sticky-menu.coffee":333,"./modules/tooltip.coffee":334,"./pages/page.coffee":335,"jquery":48,"magnific-popup":106}],325:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42334,7 +42432,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],324:[function(require,module,exports){
+},{}],326:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -42495,7 +42593,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],325:[function(require,module,exports){
+},{}],327:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42632,7 +42730,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],326:[function(require,module,exports){
+},{}],328:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42701,7 +42799,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],327:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42770,7 +42868,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],328:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -43247,7 +43345,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],329:[function(require,module,exports){
+},{}],331:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -43266,7 +43364,7 @@ $(function() {
 });
 
 
-},{}],330:[function(require,module,exports){
+},{}],332:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43420,7 +43518,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],331:[function(require,module,exports){
+},{}],333:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43494,7 +43592,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],332:[function(require,module,exports){
+},{}],334:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43753,7 +43851,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":3,"component-tip":9}],333:[function(require,module,exports){
+},{"component-events":3,"component-tip":9}],335:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -44057,4 +44155,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[322]);
+},{}]},{},[324]);

@@ -1,4 +1,5 @@
 React = require "react"
+ProductDetailsActions = require "../actions/ProductDetailsActions.cjsx"
 
 QuantityChoice = React.createClass
 
@@ -6,11 +7,14 @@ QuantityChoice = React.createClass
     quantity: 1
 
   handleMinus: ->
-    if @state.quantity > 0
+    if @state.quantity > 1
+      ProductDetailsActions.selectQuantity @state.quantity - 1
+
       @setState
         quantity: @state.quantity - 1
 
   handlePlus: ->
+    ProductDetailsActions.selectQuantity @state.quantity + 1
     @setState
       quantity: @state.quantity + 1
 

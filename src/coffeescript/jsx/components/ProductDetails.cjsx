@@ -2,14 +2,27 @@ React = require "react"
 QuantityChoice = require "./QuantityChoice.cjsx"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 
+ProductDetailsStore = require "../stores/ProductDetailsStore.cjsx"
+
+getSelectedQuantity = ->
+  ProductDetailsStore.getSeletedQuantity()
+
 ProductDetails = React.createClass
 
   getInitialState: ->
     product: ProductListAPI.getProductByID @props.params.id
+    selectedQuantity: 0
 
-  # componentDidMount: ->
-  #   id = @props.params.id
-  #   @setState {product: ProductListAPI.getProductByID(id)}
+  componentDidMount: ->
+    ProductDetailsStore.addChangeListener @handleChange
+
+  componentWillUnmount: ->
+    ProductDetailsStore.removeChangeListener @handleChange
+
+  handleChange: ->
+    # console.log "change"
+    @setState 
+      selectedQuantity: getSelectedQuantity()
 
   render: ->
     return  <section id="tap-enlarge" className="product productDetails magnifier">
@@ -38,7 +51,7 @@ ProductDetails = React.createClass
                       <span className="amount">{this.state.product.price}</span>
                     </span>
                   </div>
-                  <div className="custom">
+                  <div className="custom" data-quantity={this.state.selectedQuantity}>
                     <QuantityChoice />
                   </div>
                   <div className="actions">

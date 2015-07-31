@@ -1,6 +1,5 @@
 React = require "react"
 ProductFilterActions = require "../actions/ProductFilterActions.cjsx"
-# ProductListActions = require "../actions/ProductListActions.cjsx"
 
 ProductFilterSort = React.createClass
 
@@ -10,8 +9,7 @@ ProductFilterSort = React.createClass
   handleChange: (selected) ->
     @setState {selectedValue: selected.value, selectedLabel: selected.label}
     ProductFilterActions.setProductListFilter selected.value
-    console.log selected.value
-    # console.log @state.selectedValue
+    # console.log selected.value
   
   render: ->
 
