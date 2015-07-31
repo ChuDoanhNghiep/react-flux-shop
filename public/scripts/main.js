@@ -40906,7 +40906,7 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Babich Wines Ltd",
-        price: "$ 200",
+        price: "200",
         country: "Argentina",
         grape_varietal: "Sangiovese",
         region: "Burgundy",
@@ -41083,7 +41083,7 @@ ProductFilterActions = {
 module.exports = ProductFilterActions;
 
 
-},{"../constants/ShopConstants.cjsx":315,"../dispatcher/AppDispatcher.cjsx":316}],303:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":316,"../dispatcher/AppDispatcher.cjsx":317}],303:[function(require,module,exports){
 var ProductListData, ReactRouter, Route, brandCollection, main, productDetails, routes;
 
 window.React = require("react");
@@ -41114,8 +41114,16 @@ routes = React.createElement(Route, {
   "handler": productDetails
 }));
 
-ReactRouter.run(routes, ReactRouter.HashLocation, function(Root) {
-  return React.render(React.createElement(Root, null), document.getElementById("app-container"));
+ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
+  var defaultID, name;
+  name = state.pathname;
+  defaultID = "brand-collection";
+  if (name.indexOf("/product") === 0) {
+    defaultID = "product-details";
+  }
+  return React.render(React.createElement(Root, {
+    "pageID": defaultID
+  }), document.getElementById("app-container"));
 });
 
 
@@ -41317,9 +41325,11 @@ module.exports = Product;
 
 
 },{"react":300,"react-router":131}],309:[function(require,module,exports){
-var ProductDetails, ProductListAPI, React;
+var ProductDetails, ProductListAPI, QuantityChoice, React;
 
 React = require("react");
+
+QuantityChoice = require("./QuantityChoice.cjsx");
 
 ProductListAPI = require("../utils/ProductListAPI.coffee");
 
@@ -41329,22 +41339,112 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
       product: ProductListAPI.getProductByID(this.props.params.id)
     };
   },
-  componentDidMount: function() {
-    var id;
-    id = this.props.params.id;
-    return this.setState({
-      product: ProductListAPI.getProductByID(id)
-    });
-  },
   render: function() {
-    return React.createElement("div", null, this.state.product.id);
+    return React.createElement("section", {
+      "id": "tap-enlarge",
+      "className": "product productDetails magnifier"
+    }, React.createElement("div", {
+      "className": "kiwi-grid"
+    }, React.createElement("div", {
+      "className": "kiwi-col l-1-2 m-1"
+    }, React.createElement("div", {
+      "className": "preorder-product-message"
+    }, React.createElement("div", {
+      "className": "text"
+    }, "This item is available for Shop \& Collect upon your return to Singapore Airport", React.createElement("div", {
+      "className": "icon-tooltip icon-appendInline"
+    }))), React.createElement("div", {
+      "className": "images"
+    }, React.createElement("img", {
+      "src": this.state.product.image
+    }))), React.createElement("div", {
+      "className": "kiwi-col l-1-2 m-1"
+    }, React.createElement("div", {
+      "className": "details"
+    }, React.createElement("div", {
+      "className": "reference"
+    }, React.createElement("div", {
+      "className": "brand"
+    }, this.state.product.brand), React.createElement("div", {
+      "className": "name"
+    }, this.state.product.name), React.createElement("div", {
+      "className": "code"
+    }, "#", this.state.product.sku)), React.createElement("div", {
+      "className": "price no-discount"
+    }, React.createElement("span", {
+      "className": "currency"
+    }, React.createElement("span", {
+      "className": "underline"
+    }, this.state.product.currency), React.createElement("span", {
+      "className": "amount"
+    }, this.state.product.price))), React.createElement("div", {
+      "className": "custom"
+    }, React.createElement(QuantityChoice, null)), React.createElement("div", {
+      "className": "actions"
+    }, React.createElement("div", {
+      "className": "kiwi-grid"
+    }, React.createElement("div", {
+      "className": "kiwi-col l-1-2 m-1"
+    }, React.createElement("div", {
+      "className": "action addToShoppingbag"
+    }, React.createElement("a", {
+      "className": "button action expand"
+    }, React.createElement("div", {
+      "className": "icon-shoppingbag-white icon-prependInline"
+    }), "Add to shopping bag"))), React.createElement("div", {
+      "className": "kiwi-col l-1-2 m-1"
+    }, React.createElement("div", {
+      "className": "action addToWishlist"
+    }, React.createElement("a", {
+      "data-tip": "Save to Wish List to create your personal list of products and gifts",
+      "data-tip-position": "top",
+      "className": "button black expand"
+    }, React.createElement("div", {
+      "className": "icon-heart-base64 icon icon-prependInline"
+    }), "Add to wish list"))))), React.createElement("div", {
+      "className": "extra primary"
+    }, React.createElement("div", {
+      "className": "icon-pricetag icon-prependInline"
+    }), "Buy 2, get 1 free"), React.createElement("div", {
+      "className": "availability"
+    }, React.createElement("div", {
+      "className": "icon-pin-gray icon-inline"
+    }), "This product is currently available at a DEMO store. ", React.createElement("a", {
+      "href": "#",
+      "className": "underline"
+    }, "Find it now")), React.createElement("div", {
+      "className": "description accordion-menu"
+    }, React.createElement("div", {
+      "className": "list expandable expanded"
+    }, React.createElement("div", {
+      "className": "title"
+    }, "Details"), React.createElement("div", {
+      "className": "content"
+    }, this.state.product.description))), React.createElement("div", {
+      "className": "share"
+    }, React.createElement("div", {
+      "className": "kiwi-grid"
+    }, React.createElement("div", {
+      "className": "kiwi-col l-1-2 m-1"
+    }, React.createElement("div", {
+      "className": "asking"
+    }, "Have a question? ", React.createElement("a", {
+      "href": "#",
+      "className": "underline"
+    }, "Email us"))), React.createElement("div", {
+      "className": "kiwi-col l-1-2 m-1"
+    }, React.createElement("div", {
+      "className": "share-button"
+    }, "share:", React.createElement("a", {
+      "href": "#"
+    }, "facebook")))))))));
   }
 });
 
 module.exports = ProductDetails;
 
 
-},{"../utils/ProductListAPI.coffee":320,"react":300}],310:[function(require,module,exports){
+},{"../utils/ProductListAPI.coffee":321,"./QuantityChoice.cjsx":313,"react":300}],310:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, React, RefineGroup, RefinerList, getRefinerList;
 
 React = require("react");
@@ -41439,7 +41539,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":317,"./RefineGroup.cjsx":313,"./RefinerList.cjsx":314,"react":300}],311:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":318,"./RefineGroup.cjsx":314,"./RefinerList.cjsx":315,"react":300}],311:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -41644,7 +41744,50 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":318,"../utils/ProductListAPI.coffee":320,"./Product.cjsx":308,"react":300}],313:[function(require,module,exports){
+},{"../stores/ProductListStore.cjsx":319,"../utils/ProductListAPI.coffee":321,"./Product.cjsx":308,"react":300}],313:[function(require,module,exports){
+var QuantityChoice, React;
+
+React = require("react");
+
+QuantityChoice = React.createClass({displayName: "QuantityChoice",
+  getInitialState: function() {
+    return {
+      quantity: 1
+    };
+  },
+  handleMinus: function() {
+    if (this.state.quantity > 0) {
+      return this.setState({
+        quantity: this.state.quantity - 1
+      });
+    }
+  },
+  handlePlus: function() {
+    return this.setState({
+      quantity: this.state.quantity + 1
+    });
+  },
+  render: function() {
+    return React.createElement("div", {
+      "className": "quantity"
+    }, React.createElement("span", {
+      "className": "label"
+    }, "Quantity"), React.createElement("span", {
+      "className": "qt-choice minus",
+      "onClick": this.handleMinus
+    }, "-"), React.createElement("span", {
+      "className": "qt-choice qt-value"
+    }, " ", this.state.quantity), React.createElement("span", {
+      "className": "qt-choice plus",
+      "onClick": this.handlePlus
+    }, "+"));
+  }
+});
+
+module.exports = QuantityChoice;
+
+
+},{"react":300}],314:[function(require,module,exports){
 var ProductFilterActions, React, RefineGroup;
 
 React = require("react");
@@ -41727,7 +41870,7 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
 module.exports = RefineGroup;
 
 
-},{"../actions/ProductFilterActions.cjsx":302,"react":300}],314:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":302,"react":300}],315:[function(require,module,exports){
 var ProductFilterActions, React, RefinerList;
 
 React = require("react");
@@ -41767,7 +41910,7 @@ RefinerList = React.createClass({displayName: "RefinerList",
 module.exports = RefinerList;
 
 
-},{"../actions/ProductFilterActions.cjsx":302,"react":300}],315:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":302,"react":300}],316:[function(require,module,exports){
 var keyMirror;
 
 keyMirror = require("react/lib/keyMirror");
@@ -41780,7 +41923,7 @@ module.exports = keyMirror({
 });
 
 
-},{"react/lib/keyMirror":285}],316:[function(require,module,exports){
+},{"react/lib/keyMirror":285}],317:[function(require,module,exports){
 var AppDispatcher, Dispatcher;
 
 Dispatcher = require("flux").Dispatcher;
@@ -41797,7 +41940,7 @@ AppDispatcher.handleViewAction = function(action) {
 module.exports = AppDispatcher;
 
 
-},{"flux":45}],317:[function(require,module,exports){
+},{"flux":45}],318:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41866,7 +42009,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":315,"../dispatcher/AppDispatcher.cjsx":316,"events":1,"react/lib/Object.assign":171}],318:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":316,"../dispatcher/AppDispatcher.cjsx":317,"events":1,"react/lib/Object.assign":171}],319:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductListStore, ShopConstants, addProductRefiner, assign, removeAllProductRefiner, removeProductRefiner, selectedFilter, selectedRefiners, setProductListFilter;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41953,7 +42096,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":315,"../dispatcher/AppDispatcher.cjsx":316,"events":1,"react/lib/Object.assign":171}],319:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":316,"../dispatcher/AppDispatcher.cjsx":317,"events":1,"react/lib/Object.assign":171}],320:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -41978,7 +42121,7 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":96}],320:[function(require,module,exports){
+},{"lodash/lang/isArray":96}],321:[function(require,module,exports){
 var _find, _sortByOrder, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
@@ -42045,7 +42188,7 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":319,"lodash/collection/find":50,"lodash/collection/sortByOrder":51}],321:[function(require,module,exports){
+},{"./ObjValidator.coffee":320,"lodash/collection/find":50,"lodash/collection/sortByOrder":51}],322:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -42075,7 +42218,7 @@ require("./pages/page.coffee");
 require("./jsx/app.cjsx");
 
 
-},{"./jsx/app.cjsx":303,"./modules/expandable-menu.coffee":322,"./modules/menu-dropdown.coffee":323,"./modules/menu-tabs.coffee":324,"./modules/mobile-menu.coffee":325,"./modules/popup.coffee":326,"./modules/product.coffee":327,"./modules/products-list.coffee":328,"./modules/refine-menu.coffee":329,"./modules/sticky-menu.coffee":330,"./modules/tooltip.coffee":331,"./pages/page.coffee":332,"jquery":48,"magnific-popup":106}],322:[function(require,module,exports){
+},{"./jsx/app.cjsx":303,"./modules/expandable-menu.coffee":323,"./modules/menu-dropdown.coffee":324,"./modules/menu-tabs.coffee":325,"./modules/mobile-menu.coffee":326,"./modules/popup.coffee":327,"./modules/product.coffee":328,"./modules/products-list.coffee":329,"./modules/refine-menu.coffee":330,"./modules/sticky-menu.coffee":331,"./modules/tooltip.coffee":332,"./pages/page.coffee":333,"jquery":48,"magnific-popup":106}],323:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42191,7 +42334,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],323:[function(require,module,exports){
+},{}],324:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -42352,7 +42495,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],324:[function(require,module,exports){
+},{}],325:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42489,7 +42632,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],325:[function(require,module,exports){
+},{}],326:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42558,7 +42701,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],326:[function(require,module,exports){
+},{}],327:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42627,7 +42770,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],327:[function(require,module,exports){
+},{}],328:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -43104,7 +43247,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],328:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -43123,7 +43266,7 @@ $(function() {
 });
 
 
-},{}],329:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43277,7 +43420,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],330:[function(require,module,exports){
+},{}],331:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43351,7 +43494,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],331:[function(require,module,exports){
+},{}],332:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43610,7 +43753,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":3,"component-tip":9}],332:[function(require,module,exports){
+},{"component-events":3,"component-tip":9}],333:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -43914,4 +44057,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[321]);
+},{}]},{},[322]);

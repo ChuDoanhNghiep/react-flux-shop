@@ -10,6 +10,8 @@ Main = React.createClass
   getDefaultProps: ->
     pageID: "brand-collection"
 
+
+
   render: -> 
     return  <div className="page" id={this.props.pageID}>
               <div className="area-container">

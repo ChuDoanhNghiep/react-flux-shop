@@ -23,7 +23,7 @@ module.exports =
 				image: "http://placehold.it/200"
 				category: "wine"
 				brand: "Babich Wines Ltd"
-				price: "$ 200"
+				price: "200"
 				country: "Argentina"
 				grape_varietal: "Sangiovese"
 				region: "Burgundy"

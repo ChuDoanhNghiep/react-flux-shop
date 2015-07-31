@@ -16,6 +16,11 @@ routes =
   </Route>
 
 
-ReactRouter.run routes, ReactRouter.HashLocation, (Root) ->
-  React.render <Root/>, document.getElementById "app-container"
+ReactRouter.run routes, ReactRouter.HashLocation, (Root, state) ->
+  name = state.pathname
+  defaultID = "brand-collection"
+  if name.indexOf("/product") is 0
+    defaultID = "product-details"
+  
+  React.render <Root pageID={defaultID} />, document.getElementById "app-container"
 
