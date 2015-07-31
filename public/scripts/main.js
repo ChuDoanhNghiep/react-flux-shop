@@ -41094,6 +41094,21 @@ module.exports = {
         currency: "S$",
         inventory: 12,
         description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000012",
+        sku: "1938374638",
+        name: "Moet & Chandon Grand Vintage 2003",
+        image: "http://placehold.it/200",
+        category: "wine",
+        brand: "Moet & Chandon",
+        price: "123.45",
+        country: "united states",
+        grape_varietal: "Sauvignon Blanc",
+        region: "Pessac Leognan",
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
       }
     ]));
   }
@@ -42343,9 +42358,9 @@ sort = function(data, filter) {
         return elem[filter];
       });
     case "price_ascending":
-      return _sortByOrder(data, ["price"], ["desc"]);
-    case "price_descending":
       return _sortByOrder(data, ["price"], ["asc"]);
+    case "price_descending":
+      return _sortByOrder(data, ["price"], ["desc"]);
     case "A_to_Z":
       return _sortByOrder(data, ["name"], ["asc"]);
     case "Z_to_A":
@@ -42388,7 +42403,7 @@ module.exports = {
     var data;
     data = this.getAllProduct();
     return _find(data, function(p) {
-      return p.id = id;
+      return p.id === id;
     });
   }
 };

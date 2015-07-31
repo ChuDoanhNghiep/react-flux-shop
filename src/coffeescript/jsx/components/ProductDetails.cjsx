@@ -15,6 +15,7 @@ ProductDetails = React.createClass
     selectedQuantity: 1
 
   componentDidMount: ->
+
     ProductDetailsStore.addChangeListener @handleChange
 
   componentWillUnmount: ->

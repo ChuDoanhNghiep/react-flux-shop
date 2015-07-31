@@ -10,10 +10,10 @@ sort = (data, filter) ->
         elem[filter]
 
     when "price_ascending"
-      _sortByOrder data, ["price"], ["desc"]
+      _sortByOrder data, ["price"], ["asc"]
 
     when "price_descending"
-      _sortByOrder data, ["price"], ["asc"]
+      _sortByOrder data, ["price"], ["desc"]
 
     when "A_to_Z"
       _sortByOrder data, ["name"], ["asc"]
@@ -59,4 +59,4 @@ module.exports =
     data = @getAllProduct()
     
     _find data, (p) ->
-      p.id = id
+      p.id is id
