@@ -1,5 +1,6 @@
 _sortByOrder = require "lodash/collection/sortByOrder"
 _find = require "lodash/collection/find"
+_findIndex = require "lodash/array/findIndex"
 validator = require "./ObjValidator.coffee"
 
 sort = (data, filter) ->
@@ -60,3 +61,9 @@ module.exports =
     
     _find data, (p) ->
       p.id is id
+
+  updateProductInventory: (id, num) ->
+    data = @getAllProduct()
+    idx = _findIndex data, (p) ->
+      p.id is id
+    data[idx].inventory = num    

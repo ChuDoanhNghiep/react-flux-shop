@@ -8,6 +8,9 @@ ProductDetailsActions = require "../actions/ProductDetailsActions.cjsx"
 getSelectedQuantity = ->
   ProductDetailsStore.getSeletedQuantity()
 
+updateInventory = (id, num) ->
+  ProductListAPI.updateProductInventory id, num
+
 ProductDetails = React.createClass
 
   getInitialState: ->
@@ -16,17 +19,26 @@ ProductDetails = React.createClass
 
   componentDidMount: ->
 
-    ProductDetailsStore.addChangeListener @handleChange
+    ProductDetailsStore.addChangeListener @handleQuantityChange
 
   componentWillUnmount: ->
-    ProductDetailsStore.removeChangeListener @handleChange
+    ProductDetailsStore.removeChangeListener @handleQuantityChange
 
-  handleChange: ->
+  handleQuantityChange: ->
     @setState 
       selectedQuantity: getSelectedQuantity()
 
   shoppingbagClick: ->
-    ProductDetailsActions.addToShoppingbag @state.selectedQuantity
+    @setState
+      product: ProductListAPI.getProductByID @props.params.id
+
+    num = @state.product.inventory - @state.selectedQuantity
+    if num >= 0
+      ProductDetailsActions.addToShoppingbag @state.selectedQuantity
+      updateInventory(product.id, num)
+    else
+
+
 
   render: ->
     return  <section id="tap-enlarge" className="product productDetails magnifier">

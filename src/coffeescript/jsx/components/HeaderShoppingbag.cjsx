@@ -3,7 +3,6 @@ React = require "react"
 HeaderShoppingbagStore = require "../stores/HeaderShoppingbagStore.cjsx"
 
 getProductCount = ->
-  console.log HeaderShoppingbagStore.getProductCount()
   productCount: HeaderShoppingbagStore.getProductCount()
 
 HeaderShoppingbag = React.createClass
