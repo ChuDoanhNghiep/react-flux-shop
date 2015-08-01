@@ -1,0 +1,25 @@
+.breadcrumb
+  border-bottom border-default
+  rem-prop('font-size', 12px) 
+  margin-bottom 10px
+  padding-bottom 10px
+  text-transform capitalize
+
+
+  .list
+    list-style none
+
+  .element
+    display inline-block
+    margin 0 10px
+    &.divider
+      border none
+      &:before
+      // &::before
+        content '›'
+        left -10px
+        position relative
+        zoom 1
+
+  @media mq-m
+    display none

@@ -1,0 +1,401 @@
+.global-wrap
+  footer
+    // margin-bottom 44px
+
+.footer
+  border-top divider-dark
+  //padding-bottom 10px
+  padding-top 18px
+  @media mq-s
+    border-top none
+
+
+  a
+    text-transform capitalize
+  
+  .button
+    margin-top 5px
+
+  .follow-us
+
+  .keep-in-touch
+    line-height 1.4em
+      
+    section
+      margin-bottom 1em
+      @media mq-s
+        margin-bottom 22px
+
+    .title
+      // border-bottom border-normal
+      color #7a7a7a
+      font-size 14px
+      font-weight bold
+      //padding-bottom .5em
+      margin-bottom 22px
+      text-transform uppercase
+
+    p
+      color #999
+      margin-bottom 1em
+
+    .follow-us
+      a
+        margin-right 15px
+
+// DESKTOP / TABLET VERSION
+.main-footer
+  letter-spacing -.03em
+  line-height 2em
+  rem-prop('font-size',10px)
+  font-size 11px
+
+  .list
+    @media mq-m
+      margin-bottom .8em
+      margin-left 1.2em
+
+  .title
+    margin-bottom 5px
+    text-transform uppercase
+
+  .main-col:first-child
+    .kiwi-grid
+      >div:first-child
+        .list
+          @media mq-m
+            margin-left 0
+
+  @media mq-min-m
+    .content
+      // display block !important
+      // overflow visible !important
+      // height auto !important
+
+  @media mq-m
+    .main-col
+      .kiwi-grid
+        >div:first-child
+          .list
+            margin-left 0
+
+  @media mq-m
+    line-height 1em
+
+    .list
+      border-left border-default
+      border-right border-default
+      border border-default
+      margin 0
+      margin-top -1px
+      &.expanded
+        .title
+          &:after
+          // &::after
+            content '-'
+
+        .content
+          display initial // not supported by IE 8 
+
+
+    .title
+      cursor pointer
+      font-weight normal
+      margin 0
+      padding 15.5px 17px
+      position relative
+      rem-prop('font-size', 13px)
+      &:after
+      // &::after
+        content '+'
+        position absolute
+        right 1em
+
+    .content
+      overflow hidden
+      display none
+      // transition all .4s
+      > *
+        display block
+        padding 10px 17px
+        rem-prop('font-size', 12px)
+        color color-secondary
+
+        &:last-child
+          padding-bottom 12px
+
+
+
+
+    // .main-col:last-child
+    //   .kiwi-grid
+    //     > :not(.kiwi-hidden-s):last-child
+    //       .list
+    //         // margin-left 0
+    //         border-bottom border-default
+
+
+// MOBILE VERSION
+// .mobile-footer
+//   .section
+//     margin-bottom 30px
+
+//   .title
+//     border-bottom divider-default
+//     margin-bottom 10px
+//     padding-left 5px
+//     padding-bottom 10px
+//     rem-prop('font-size', 16px)
+//     text-transform uppercase
+
+//   .follow-us
+//     text-align center
+
+.footer
+  .footer-heading
+    margin-bottom 18px
+    
+    .footer-left
+      section
+        cursor pointer
+
+    .footer-right
+      .title
+      .arrowWrap
+        cursor pointer
+
+    section
+      position relative
+
+      >div
+        display inline
+
+    .title
+      font-weight 700
+
+    .arrowWrap
+      position absolute
+      top 7px
+      margin-left 11px
+
+    .relative
+      position relative
+      margin-right 36px
+      >div
+        display inline
+      >.arrowWrap
+        right -11px
+      
+      
+  // .icon-arrow-down
+  //   background-position -207px -189px
+  //   margin-top 2px
+  //   margin-left 5px
+
+  .icon-globe
+    vertical-align middle
+    margin-right 8px
+  
+  .title > i.icon
+    vertical-align middle
+
+  .footer-content
+    &.closed
+      display none
+      
+    .content
+      line-height 20px      
+      &.language
+        line-height 24px
+        a
+          padding 0 20px
+          width 30%
+
+          &.site-language
+            background-color #f4f4f4
+
+.area-copyright
+  color rgba(51, 51, 51, 0.5)
+  padding-left 8px
+  .terms-privacy
+    margin-bottom 24px
+    line-height 11px
+  .copyright
+    margin-bottom 33px
+    line-height 11px
+
+.text-divider
+  margin 0 10px
+
+.footer-left
+  width 54%
+  font-size 12px
+  >.kiwi-grid
+    >div:first-child
+      >section
+        padding-left 8px
+
+.footer-right
+  width 46%
+
+  .subscribe
+    background-color #fbfbfb
+    border 1px solid #bebebe
+    height 120px
+    margin-bottom -10px
+    padding 27px 33px
+
+    section
+      color #797878
+      height 100%
+      margin auto
+      text-align center
+
+      .title
+        font-family "times new roman", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W6"
+        font-size 22px
+        font-weight 400
+        text-transform none
+        margin-bottom 16px
+
+      >p
+        font-size 12px
+        line-height 15px
+        margin 0 4px
+        
+      .button.grey
+        background none repeat scroll 0 0 #555354
+        color #fff
+        font-weight 700
+        height 34px
+        letter-spacing 0.01em
+        line-height 34px
+        margin-top 22px
+        width 102px
+
+        &:hover
+          color #999
+
+
+
+.follow-us
+  .i-gray-sina
+  .i-gray-instagram
+  .i-gray-youtube
+  .i-gray-youku
+  .i-dark-sina
+  .i-dark-instagram
+  .i-dark-youtube
+  .i-dark-youku
+    @media screen and (min-width:1021px)
+      margin-right 16px
+    @media screen and (min-width:961px) and (max-width:1020px)
+      margin-right 8px
+
+  .i-dark-facebook
+  .i-gray-facebook
+    @media screen and (min-width:1021px)
+      margin-right 21px    
+    @media screen and (min-width:961px) and (max-width:1020px)
+      margin-right 11px
+
+.follow-us
+.stay-touch
+  a
+    .hover
+      display none
+
+    &:hover
+      .noHover
+        display none
+      .hover
+        display block
+
+
+.keep-in-touch
+  .button
+    img
+      margin-right 5px
+      margin-bottom 2px
+      vertical-align middle
+
+.stay-touch
+  a
+    text-align center
+
+  .i-dark-facebook
+  .i-gray-facebook
+    margin-left 3px
+    margin-right 27px
+
+  .i-dark-instagram
+  .i-gray-instagram
+    margin-right 23px
+
+  .i-dark-sina
+  .i-gray-sina
+    margin-right 19px
+    
+  .i-dark-youtube
+  .i-gray-youtube
+    margin-right 21px
+
+.line-divider
+  height 2px
+  background-color #e5e3e3
+  margin 0 -20px
+  margin-bottom 2em
+
+.arrow-down-footer
+  position relative
+  background-color #fff
+  width 7px
+  height 0
+  border-bottom 2px solid #000
+  display inline
+
+.arrow-down-footer:after
+.arrow-down-footer:before
+  border solid transparent
+  content " "
+  height 0
+  width 0
+  top 100%
+  left 50%
+  position absolute
+
+.arrow-down-footer:after
+  border-color rgba(255,255,255, 0)
+  border-top-color #fff
+  border-width 3px
+  margin-left -3px
+
+.arrow-down-footer:before
+  border-color rgba(0,0,0, 0)
+  border-top-color #000
+  border-width 6px
+  margin-left -6px
+
+// .area-copyright
+.mobile-copyright
+  //border-top divider-default
+  color color-secondary
+  //margin-top 10px
+  padding 22px 0
+  rem-prop('font-size',10px)
+  // text-align center
+
+  .terms-privacy
+  .description
+    margin-bottom 22px
+
+  // .divider
+  //   margin 0 1.3em
+
+  .languages
+  .terms-privacy
+    a
+      display block
+      padding 0.8em 0
+
+

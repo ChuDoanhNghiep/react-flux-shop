@@ -1,0 +1,130 @@
+/*
+**  http://tuxlinuxien.github.io/kiwi/
+**  Yoann Cerda
+*/
+
+$XLARGE_VIEW = 1900px
+$MEDIUM_VIEW = 960px
+$SMALL_VIEW = 767px
+
+media(args...)
+  output = null
+  for arg in args
+    push(output,unquote("(%s: %s)" % (arg[0] arg[1])))
+  unquote(s("%s",output))
+
+$MEDIA_XLARGE = media((min-width $XLARGE_VIEW))
+$MEDIA_MEDIUM = media((max-width $MEDIUM_VIEW))
+$MEDIA_SMALL = media((max-width $SMALL_VIEW))
+
+BUILDELEM(t, e, s)
+  .{t}-{e}-{s}
+    width (100/ s ) * e * 1%
+
+BUILDGRID(t)
+
+  .{t}-{"1"}
+    width 100%
+
+  BUILDELEM(t, 1, 2)
+
+  for i in 1 2 3
+    BUILDELEM(t, i, 3)
+
+  for i in 1 3
+    BUILDELEM(t, i, 4)
+
+  for i in 1 2 3 4
+    BUILDELEM(t, i, 5)
+
+  for i in 1 5
+    BUILDELEM(t, i, 6)
+
+  for i in 1 2 3 4 5 6
+    BUILDELEM(t, i, 7)
+
+  for i in 1 3 5 7
+    BUILDELEM(t, i, 8)
+
+  for i in 1 5 7 11
+    BUILDELEM(t, i, 12)
+
+  for i in 1 3 5 7 9 11 13 15
+    BUILDELEM(t, i, 16)
+
+
+.kiwi-grid
+  clearfix()
+  display block
+  width 100%
+
+  &:before
+    content: " ";
+    display: table;
+
+  &:after
+    content: " ";
+    display: table;
+    clear :both
+
+  .kiwi-col
+    float left
+    display inline
+    min-height 1px
+
+  .centered  
+    margin 0 auto
+    display block
+    float none
+    
+  .end
+    float right
+    
+
+
+/*
+**  Responsive grids
+*/
+BUILDGRID("l")
+
+.kiwi-visible-xl,
+.kiwi-hidden-l,
+.kiwi-visible-s,
+.kiwi-visible-m
+  display none
+.kiwi-visible-l
+  display block
+
+@media $MEDIA_XLARGE
+  BUILDGRID("xl")
+
+  .kiwi-hidden-xl,
+  .kiwi-visible-l,
+  .kiwi-visible-m,
+  .kiwi-visible-s
+    display none
+  .kiwi-visible-xl
+    display block
+
+
+@media $MEDIA_MEDIUM
+  BUILDGRID("m")
+
+  .kiwi-hidden-m,
+  .kiwi-visible-s,
+  .kiwi-visible-l,
+  .kiwi-visible-xl
+    display none
+  .kiwi-visible-m
+    display block
+
+@media $MEDIA_SMALL
+  BUILDGRID("s")
+
+  .kiwi-hidden-s,
+  .kiwi-visible-l,
+  .kiwi-visible-m,
+  .kiwi-visible-xl
+    display none
+  .kiwi-visible-s
+    display: block

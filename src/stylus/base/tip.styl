@@ -1,0 +1,109 @@
+tip-arrow(size, borderColor, bgColor, paddingTip = 5px)
+  $tip-horizontal
+    top 50%
+    margin-top -5px
+  $tip-vertical
+    left 50%
+    margin-left -5px
+
+  .tip-arrow
+    border size solid transparent
+    position absolute
+    height 0
+    &:after
+      border size solid transparent
+      content ''
+      height 0
+      position absolute
+      width 0
+      
+  &.tip-right
+    .tip-arrow
+      @extend .tip $tip-horizontal
+      border-right-color borderColor
+      left - (2* size)+ paddingTip
+      &:after
+        border-right-color bgColor
+        left - (size - 1)
+        top - size
+
+
+  &.tip-left
+    .tip-arrow
+      @extend .tip $tip-horizontal
+      border-left-color borderColor
+      right - (2* size)+ paddingTip
+      &:after
+        border-left-color bgColor
+        left - (size + 1)
+        top - size
+
+  
+  &.tip-top
+    .tip-arrow
+      @extend .tip $tip-vertical
+      border-top-color borderColor
+      bottom - (2 * size) + paddingTip
+      &:after
+        border-top-color bgColor
+        left - size
+        top - (size + 1)
+
+
+  &.tip-bottom
+    .tip-arrow
+      @extend .tip $tip-vertical
+      border-bottom-color borderColor
+      top - (2 * size) + paddingTip
+      &:after
+        border-bottom-color bgColor
+        left - size
+        top - (size - 1)
+        
+  &.tip-bottom-right
+    .tip-arrow
+      @extend .tip $tip-vertical
+      border-bottom-color borderColor
+      top - (2 * size) + paddingTip
+      &:after
+        border-bottom-color bgColor
+        left - size
+        top - (size - 1)
+
+.tip
+  z-index 10002
+  
+  
+  $arrowSize = 5px
+  $color-border-tip = color-primary
+  $color-bg-tip = #fff
+
+  .tip-inner
+    background-color $color-bg-tip
+    border 1px solid $color-border-tip
+    box-shadow 0 1px 2px 0 #aaa
+    color #000
+    font-style normal
+    padding 8px 10px 7px 10px
+    text-align left
+    width 180px
+
+  
+  tip-arrow($arrowSize, $color-border-tip, $color-bg-tip)
+
+[data-tip]
+  cursor pointer
+  
+.loc-tooltip
+  margin-left -10px
+  @media mq-s
+    margin-left 6px
+    
+
+.currency-tip
+  &.tip-bottom-right
+    .tip-arrow
+      left 10%
+
+.tooltip 
+  display none        

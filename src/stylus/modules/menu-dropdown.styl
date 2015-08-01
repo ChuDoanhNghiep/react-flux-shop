@@ -1,0 +1,70 @@
+.menu-dropdown
+.custom-select
+  width 150px
+  font-size 10px
+  text-align left
+  position relative
+  background #fff
+  @media mq-m
+    width 200px
+
+  .dropdown-text
+    border 1px solid color-mercury
+    padding-left 5px
+    padding-right 22px
+    height 22px
+    line-height 22px
+    box-sizing border-box
+    background url('../img/form/selector.png') no-repeat 96% center
+    cursor pointer
+
+  .dropdown-list
+    width 100%
+    padding 5px
+    box-sizing border-box
+    position absolute
+    border 1px solid color-mercury
+    border-top none
+    background #fff
+    display none
+    left 0px
+    top 22px
+    z-index 2
+
+    .item
+      a
+        display block
+        padding 5px
+        color #333
+        &:hover
+          color #999
+    .active
+      a
+        color #999
+
+    .field
+      margin 5px 0
+
+    .kiwi-col.l-1-2
+      .field
+        margin 0 2px
+
+    .button
+      border 1px solid color-concrete
+      line-height 1em
+      padding 6px 0
+
+.custom-select
+  .dropdown-list
+    height 100px
+    overflow auto
+
+@media mq-m
+  .menu-dropdown
+  .custom-select
+    font-size 12px
+    .dropdown-text
+      height 33px
+      line-height 33px
+    .dropdown-list
+      top 32px

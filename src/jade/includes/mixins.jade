@@ -1,0 +1,1637 @@
+mixin icon(value)
+  - var style = attributes.style ? attributes.style : ''
+  div(class="icon-"+value, style!=style)
+    //- img(src="http://placehold.it/16x15")
+
+mixin socialIcon(value)
+  //- span(class="icon icon-"+value)
+  img(class="i-dark-"+value+" noHover", src="./images/icons/"+value+"_black_2x.png", style="height:20px")
+  img(class="i-gray-"+value+" hover", src="./images/icons/"+value+"_gray_2x.png", style="height:20px")
+
+mixin flag(value)
+  - var classes = attributes.class ? attributes.class : ''
+  //- div(class="icon-flag-"+value)
+  img(class!=classes, src="./images/flags/flag-"+value+".png", alt!=value, width="22px", height="14px")
+
+mixin breadcrumb(links)
+  <!-- breadcrumb -->
+  nav.breadcrumb
+    ul.list
+      - each value, index in links
+        if index == 0
+          li.element
+            a(href="#")=value
+        else
+          li.element.divider
+            a(href="#")=value
+  <!-- END breadcrumb -->
+
+mixin input(type,name,text, id,checked)
+  label.cfe(for=id? id : name) 
+    if (checked)
+      input.cfe-styled(type=type, name=name, id=id? id : name, value= type == 'radio'? id : '', checked)
+    else  
+      input.cfe-styled(type=type, name=name, id=id? id : name, value= type == 'radio'? id : '')
+    !=text
+
+mixin category(category)
+  .list.expandable
+    .title=category.name
+    .content.submenu
+      - for elem in category.subcategory
+          a.title(href='#')=elem
+
+mixin slider(nb, image, id)
+  <!-- slider -->
+  .slider.swipe(id=id ? id : '')
+    .swipe-wrap
+      if block
+        block
+      else
+        - for(var i=0;i<nb;i++)
+          .slide
+            img(src='./static/img/promotions/slider-'+i+'.jpg', alt="slide "+i)
+    .swipe-controls.bullets.kiwi-hidden-s
+        div
+          - for(var i=0;i<nb;i++)
+            a.bullet(href="#" index=i, class=i==0? 'active' : '')
+    .swipe-controls
+      .prev
+        i.icon-arrow-left
+      .next
+        i.icon-arrow-right
+
+  <!-- END slider -->
+
+
+mixin customSelect(select)
+  .custom-select
+    .dropdown-text
+      span=select.options[select.current].name
+    .dropdown-list
+      - each opt, index in select.options
+        .item(class=(index == select.current)? 'active' : '')
+          a(href="#", data-value=opt.value)=opt.name
+    input(type="hidden", value=select.options[select.current].value)
+
+mixin customSelectLabel(select)
+  .custom-select
+    .dropdown-text
+      span=select.label
+    .dropdown-list
+      - each opt, index in select.options
+        .item(class=(index == select.current)? 'active' : '')
+          a(href="#", data-value=opt.value)=opt.name
+    input(type="hidden")
+
+mixin customLinkSelect(select)
+  .custom-Link-select.custom-select
+    .dropdown-text=select.name
+    .dropdown-list
+      - each opt in select.options
+        .item
+          a(href="#")=opt
+
+
+mixin myTabs(tabs, border)
+  .tabs-title.kiwi-hidden-s
+    each val in tabs 
+      a(href="#",class!=val.active? 'active':'').title-item=val.title
+
+  if border
+    .border-cover.kiwi-hidden-s
+
+mixin myNavTabs(tabs)
+  .tabs-title.kiwi-visible-s
+    each val, idx in tabs
+      if idx == 0
+        a(href="#",class="tab"+idx).title-item.active=val
+      else
+        a(href="#",class="tab"+idx).title-item=val
+  .border-cover.kiwi-visible-s
+
+mixin wildcard(color)
+  span(style='color:'+color) *
+
+mixin toggleButton(cked)
+  .togglebox
+    if cked
+      input(type="checkbox", name="iosbutton", id="iosbutton", checked="true")
+    else
+      input(type="checkbox", name="iosbutton", id="iosbutton")
+    
+    label(for="iosbutton")
+
+mixin Menu(type, current)
+  if type == 'mobile'
+    +menu-mobile(current)
+  else if type == 'mobile-loggedin' 
+    +menu-mobile-login(current)
+  else if type == 'mobile-shop'
+    +menu-mobile-shop(current)
+  else
+    +menu-desktop(current)
+  
+mixin menu-mobile(current)
+  <!-- mobile menu -->
+  #mobile-menu.mobile-left-menu.expand-menu
+    .menuwrap
+      //- LANGUAGES
+      .list.sign-in
+        .title
+          a(href="#") SIGN IN
+          span.divider |
+          a(href="#") REGISTER
+
+      //- LOCATIONS
+      .list.select-location-mobile
+        .title
+          +flag('hongkong') //- (class='icon-prependInline')
+          a.selected-location(href="./landing.html") 
+            | You are visiting our
+            br
+            strong DEMO Airport San Francisco Store >
+
+      //- OUR STORES
+      .list.expandable
+        .title
+          +icon('ourstores icon-prependInline')
+          //- .icon-women.icon-prependInline
+          | OUR STORES
+        .content
+          .submenu
+            a.title(href="#") Bali Airport Store
+            a.title(href="#") Events and Promotions
+            a.title(href="#") Stores Around the World
+            a.title(href="#") Our Global Store Services
+            a.title(href="#") Contact US
+
+      //- OUR BRANDS
+      .list.expandable
+        .title
+          //- .icon-featuredc
+          +icon('featured icon-prependInline')
+          | OUR BRANDS
+        .content
+          .submenu
+            a.title(href="#") FEATURED BRANDS HOME
+            a.title(href="#") Miu Miu
+            a.title(href="#") Gucci
+            a.title(href="#") Burberry
+            a.title(href="#") Prada
+            a.title(href="#") Louis Vuitton
+            a.title(href="#") Chanel
+            a.title(href="#") View More...
+      
+      //- WOMEN
+      .list.expandable
+        .title
+          +icon('women icon-prependInline')
+          //- .icon-women.icon-prependInline
+          | WOMEN
+        .content
+          .submenu
+            a.title(href="#") Women Home
+            a.title(href="#") Featured Brands
+
+          //- FASHION
+          .list.submenu.expandable
+            .title FASHION
+            .content
+              .list.submenu.expandable
+                .title Bags
+                .content
+                  .submenu
+                    a.title(href="#") Shoulder Bags
+                    a.title(href="#") Totes
+                    a.title(href="#") Clutches
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Wallets
+                .content
+                  .submenu
+                    a.title(href="#") Wallets
+                    a.title(href="#") Wristlets
+              .list.submenu.expandable
+                .title Accessories
+                .content
+                  .submenu
+                    a.title(href="#") Sunglasses
+                    a.title(href="#") Belts
+                    a.title(href="#") Scarves
+                    a.title(href="#") Key Rings
+                    a.title(href="#") Wrinting Instruments
+              .list.submenu.expandable
+                .title Luggage
+                .content
+                  .submenu
+                    a.title(href="#") Suitcases
+              .list.submenu
+                .title Sale
+          
+          //- WATCHES & JEWELRY
+          .list.submenu.expandable
+            .title WATCHES & JEWELRY
+            .content
+              .list.submenu.expandable
+                .title Watches
+                .content
+                  .submenu
+                    a.title(href="#") Automatic
+                    a.title(href="#") Quartz
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Jewelry
+                .content
+                  .submenu
+                    a.title(href="#") Rings
+                    a.title(href="#") Earrings
+                    a.title(href="#") Necklaces
+                    a.title(href="#") Bracelets
+                    a.title(href="#") Other
+      
+      //- MEN
+      .list.expandable
+        .title 
+          +icon('men icon-prependInline')
+          //- .icon-men.icon-prependInline
+          | MEN
+        .content
+          .submenu
+            a.title(href="#") men Home
+            a.title(href="#") Featured Brands
+
+          //- FASHION
+          .list.submenu.expandable
+            .title FASHION
+            .content
+              .list.submenu.expandable
+                .title Bags & Briefcases
+                .content
+                  .submenu
+                    a.title(href="#") Messenger Bags
+                    a.title(href="#") Totes
+                    a.title(href="#") Brief Cases
+                    a.title(href="#") Other
+              .list.submenu
+                .title Belts
+              .list.submenu
+                .title Wallets
+              .list.submenu.expandable
+                .title Accessories
+                .content
+                  .submenu
+                    a.title(href="#") Sunglasses
+                    a.title(href="#") Ties
+                    a.title(href="#") Cufflinks
+                    a.title(href="#") Key Rings
+                    a.title(href="#") Wrinting Instruments
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Luggage
+                .content
+                  .submenu
+                    a.title(href="#") Suitcases
+              .list.submenu
+                .title Sale
+          
+          //- WATCHES & JEWELRY
+          .list.submenu.expandable
+            .title WATCHES & JEWELRY
+            .content
+              .list.submenu.expandable
+                .title Watches
+                .content
+                  .submenu
+                    a.title(href="#") Automatic
+                    a.title(href="#") Quartz
+                    a.title(href="#") Other
+
+      //- BEAUTY
+      .list.expandable
+        .title 
+          +icon('beauty icon-prependInline')
+          //- .icon-beauty.icon-prependInline
+          | BEAUTY
+        .content
+          .submenu
+            a.title(href="#") Featured Brands
+
+          //- FOR HER
+          .list.submenu.expandable
+            .title FOR HER
+            .content
+              .list.submenu.expandable
+                .title Skincare
+                .content
+                  .submenu
+                    a.title(href="#") Moisturizer
+                    a.title(href="#") Cleanser
+                    a.title(href="#") Toner
+                    a.title(href="#") Eye Care
+                    a.title(href="#") Lip Care
+                    a.title(href="#") Whitening
+                    a.title(href="#") Anti-aging
+                    a.title(href="#") Sun Protection
+                    a.title(href="#") Body Products
+                    a.title(href="#") Hair Products
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Makeup
+                .content
+                  .submenu
+                    a.title(href="#") Foundation
+                    a.title(href="#") Blusher
+                    a.title(href="#") Powder
+                    a.title(href="#") Eye Colour
+                    a.title(href="#") Mascara
+                    a.title(href="#") Lipstick
+                    a.title(href="#") Nails
+                    a.title(href="#") Other
+              .list.submenu
+                .title Fragrance
+          
+          //- FOR HIM
+          .list.submenu.expandable
+            .title FOR HIM
+            .content
+              .list.submenu.expandable
+                .title Skincare
+                .content
+                  .submenu
+                    a.title(href="#") Moisturizer
+                    a.title(href="#") Cleanser
+                    a.title(href="#") Eye Treatment
+                    a.title(href="#") Other
+              .list.submenu
+                .title Fragrance
+
+      //- WINE & SPIRITS
+      .list.expandable
+        .title 
+          +icon('wine icon-prependInline')
+          //- .icon-wine.icon-prependInline
+          | WINE & SPIRITS
+        .content
+          .submenu
+            a.title(href="#") Featured Brands
+
+          //- WINE
+          .list.submenu.expandable
+            .title 
+              a(href="/subcategory.html", onclick="window.open('/subcategory.html','_blank')") WINE
+            .content
+              .submenu
+                a.title(href="#") Red
+                a.title(href="#") White
+                a.title(href="#") Dessert
+                a.title(href="#") Champagne / Sparkling
+                a.title(href="#") Rose
+                a.title(href="#") Other Wines
+           //- BEER
+          .list.submenu
+            .title BEER
+          //- SPIRITS
+          .list.submenu.expandable
+            .title SPIRITS
+            .content
+              .submenu
+                a.title(href="#") Cognac
+                a.title(href="#") Whiskey
+                a.title(href="#") Vodka
+                a.title(href="#") Baijiu
+                a.title(href="#") Rum
+                a.title(href="#") Gin
+                a.title(href="#") Beer
+                a.title(href="#") Tequila
+                a.title(href="#") Other Spirits
+
+      //- TRAVEL GUIDES
+      .list.expandable
+        .title 
+          +icon('travelguides icon-prependInline')
+          //- .icon-travelguides.icon-prependInline
+          | TRAVEL GUIDES
+        .content
+          .submenu
+            a.title(href="#") GUAM
+            a.title(href="#") HONG KONG
+            a.title(href="#") MACAU
+            a.title(href="#") NEW YORK
+            a.title(href="#") OKINAWA
+            a.title(href="#") SINGAPORE
+            a.title(href="#") HAWAI
+
+      //- T JOURNAL
+      .list
+        .title 
+          +icon('tjournal icon-prependInline')
+          //- .icon-tjournal.icon-prependInline
+          strong T
+          |  JOURNAL
+
+      //- OUR STORES
+      .list.expandable
+        .title 
+          +icon('ourstores icon-prependInline')
+          //- .icon-ourstores.icon-prependInline
+          | OUR STORES
+        .content
+          .submenu
+            a.title(href="#") SINGAPORE AIRPORT STORE
+            a.title(href="#") EVENTS AND PROMOTIONS
+            a.title(href="#") STORES AROUND THE WORLD
+            a.title(href="#") OUR GLOBAL STORE SERVICES
+            a.title(href="#") CONTACT US
+
+      //- LANGUAGES
+      .list.secondary-menu
+        .title.selected-language
+          +icon('languages icon-prependInline')
+          //- .icon-languages.icon-prependInline
+          a(href="#") ENGLISH
+          //- span.divider |
+          //- a(href="#") 中文
+          //- span.divider |
+          //- a(href="#") 日本語
+          .content.language-list
+            a.title(href="#") 简体中文
+            a.title(href="#") 日本語
+
+  <!-- END mobile menu -->
+
+mixin menu-mobile-login(current)
+  <!-- mobile-loggedin menu -->
+  #mobile-menu.mobile-left-menu.expand-menu.loggedin-menu
+    .menuwrap
+      //- LOCATIONS
+      .list.select-location-mobile
+        .title
+          +flag('hongkong') //- (class='icon-prependInline')
+          a.selected-location(href="./landing.html") 
+            | You are visiting our
+            br
+            strong DEMO Airport San Francisco Store >
+
+      //- OUR STORES
+      .list.expandable
+        .title
+          +icon('ourstores icon-prependInline')
+          //- .icon-women.icon-prependInline
+          | OUR STORES
+        .content
+          .submenu
+            a.title(href="#") Bali Airport Store
+            a.title(href="#") Events and Promotions
+            a.title(href="#") Stores Around the World
+            a.title(href="#") Our Global Store Services
+            a.title(href="#") Contact US
+
+      //- OUR BRANDS
+      .list.expandable
+        .title
+          //- .icon-featuredc
+          +icon('featured icon-prependInline')
+          | OUR BRANDS
+        .content
+          .submenu
+            a.title(href="#") FEATURED BRANDS HOME
+            a.title(href="#") Miu Miu
+            a.title(href="#") Gucci
+            a.title(href="#") Burberry
+            a.title(href="#") Prada
+            a.title(href="#") Louis Vuitton
+            a.title(href="#") Chanel
+            a.title(href="#") View More...
+      
+      //- WOMEN
+      .list.expandable
+        .title
+          +icon('women icon-prependInline')
+          //- .icon-women.icon-prependInline
+          | WOMEN
+        .content
+          .submenu
+            a.title(href="#") Women Home
+            a.title(href="#") Featured Brands
+
+          //- FASHION
+          .list.submenu.expandable
+            .title FASHION
+            .content
+              .list.submenu.expandable
+                .title Bags
+                .content
+                  .submenu
+                    a.title(href="#") Shoulder Bags
+                    a.title(href="#") Totes
+                    a.title(href="#") Clutches
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Wallets
+                .content
+                  .submenu
+                    a.title(href="#") Wallets
+                    a.title(href="#") Wristlets
+              .list.submenu.expandable
+                .title Accessories
+                .content
+                  .submenu
+                    a.title(href="#") Sunglasses
+                    a.title(href="#") Belts
+                    a.title(href="#") Scarves
+                    a.title(href="#") Key Rings
+                    a.title(href="#") Wrinting Instruments
+              .list.submenu.expandable
+                .title Luggage
+                .content
+                  .submenu
+                    a.title(href="#") Suitcases
+              .list.submenu
+                .title Sale
+          
+          //- WATCHES & JEWELRY
+          .list.submenu.expandable
+            .title WATCHES & JEWELRY
+            .content
+              .list.submenu.expandable
+                .title Watches
+                .content
+                  .submenu
+                    a.title(href="#") Automatic
+                    a.title(href="#") Quartz
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Jewelry
+                .content
+                  .submenu
+                    a.title(href="#") Rings
+                    a.title(href="#") Earrings
+                    a.title(href="#") Necklaces
+                    a.title(href="#") Bracelets
+                    a.title(href="#") Other
+      
+      //- MEN
+      .list.expandable
+        .title 
+          +icon('men icon-prependInline')
+          //- .icon-men.icon-prependInline
+          | MEN
+        .content
+          .submenu
+            a.title(href="#") men Home
+            a.title(href="#") Featured Brands
+
+          //- FASHION
+          .list.submenu.expandable
+            .title FASHION
+            .content
+              .list.submenu.expandable
+                .title Bags & Briefcases
+                .content
+                  .submenu
+                    a.title(href="#") Messenger Bags
+                    a.title(href="#") Totes
+                    a.title(href="#") Brief Cases
+                    a.title(href="#") Other
+              .list.submenu
+                .title Belts
+              .list.submenu
+                .title Wallets
+              .list.submenu.expandable
+                .title Accessories
+                .content
+                  .submenu
+                    a.title(href="#") Sunglasses
+                    a.title(href="#") Ties
+                    a.title(href="#") Cufflinks
+                    a.title(href="#") Key Rings
+                    a.title(href="#") Wrinting Instruments
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Luggage
+                .content
+                  .submenu
+                    a.title(href="#") Suitcases
+              .list.submenu
+                .title Sale
+          
+          //- WATCHES & JEWELRY
+          .list.submenu.expandable
+            .title WATCHES & JEWELRY
+            .content
+              .list.submenu.expandable
+                .title Watches
+                .content
+                  .submenu
+                    a.title(href="#") Automatic
+                    a.title(href="#") Quartz
+                    a.title(href="#") Other
+
+      //- BEAUTY
+      .list.expandable
+        .title 
+          +icon('beauty icon-prependInline')
+          //- .icon-beauty.icon-prependInline
+          | BEAUTY
+        .content
+          .submenu
+            a.title(href="#") Featured Brands
+
+          //- FOR HER
+          .list.submenu.expandable
+            .title FOR HER
+            .content
+              .list.submenu.expandable
+                .title Skincare
+                .content
+                  .submenu
+                    a.title(href="#") Moisturizer
+                    a.title(href="#") Cleanser
+                    a.title(href="#") Toner
+                    a.title(href="#") Eye Care
+                    a.title(href="#") Lip Care
+                    a.title(href="#") Whitening
+                    a.title(href="#") Anti-aging
+                    a.title(href="#") Sun Protection
+                    a.title(href="#") Body Products
+                    a.title(href="#") Hair Products
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Makeup
+                .content
+                  .submenu
+                    a.title(href="#") Foundation
+                    a.title(href="#") Blusher
+                    a.title(href="#") Powder
+                    a.title(href="#") Eye Colour
+                    a.title(href="#") Mascara
+                    a.title(href="#") Lipstick
+                    a.title(href="#") Nails
+                    a.title(href="#") Other
+              .list.submenu
+                .title Fragrance
+          
+          //- FOR HIM
+          .list.submenu.expandable
+            .title FOR HIM
+            .content
+              .list.submenu.expandable
+                .title Skincare
+                .content
+                  .submenu
+                    a.title(href="#") Moisturizer
+                    a.title(href="#") Cleanser
+                    a.title(href="#") Eye Treatment
+                    a.title(href="#") Other
+              .list.submenu
+                .title Fragrance
+
+      //- WINE & SPIRITS
+      .list.expandable
+        .title 
+          +icon('wine icon-prependInline')
+          //- .icon-wine.icon-prependInline
+          | WINE & SPIRITS
+        .content
+          .submenu
+            a.title(href="#") Featured Brands
+
+          //- WINE
+          .list.submenu.expandable
+            .title 
+              a(href="/subcategory.html", onclick="window.open('/subcategory.html','_blank')") WINE
+            .content
+              .submenu
+                a.title(href="#") Red
+                a.title(href="#") White
+                a.title(href="#") Dessert
+                a.title(href="#") Champagne / Sparkling
+                a.title(href="#") Rose
+                a.title(href="#") Other Wines
+           //- BEER
+          .list.submenu
+            .title BEER
+          //- SPIRITS
+          .list.submenu.expandable
+            .title SPIRITS
+            .content
+              .submenu
+                a.title(href="#") Cognac
+                a.title(href="#") Whiskey
+                a.title(href="#") Vodka
+                a.title(href="#") Baijiu
+                a.title(href="#") Rum
+                a.title(href="#") Gin
+                a.title(href="#") Beer
+                a.title(href="#") Tequila
+                a.title(href="#") Other Spirits
+
+      //- TRAVEL GUIDES
+      .list.expandable
+        .title 
+          +icon('travelguides icon-prependInline')
+          //- .icon-travelguides.icon-prependInline
+          | TRAVEL GUIDES
+        .content
+          .submenu
+            a.title(href="#") GUAM
+            a.title(href="#") HONG KONG
+            a.title(href="#") MACAU
+            a.title(href="#") NEW YORK
+            a.title(href="#") OKINAWA
+            a.title(href="#") SINGAPORE
+            a.title(href="#") HAWAI
+
+      //- T JOURNAL
+      .list
+        .title 
+          +icon('tjournal icon-prependInline')
+          //- .icon-tjournal.icon-prependInline
+          strong T
+          |  JOURNAL
+
+      //- OUR STORES
+      .list.expandable
+        .title 
+          +icon('ourstores icon-prependInline')
+          //- .icon-ourstores.icon-prependInline
+          | OUR STORES
+        .content
+          .submenu
+            a.title(href="#") SINGAPORE AIRPORT STORE
+            a.title(href="#") EVENTS AND PROMOTIONS
+            a.title(href="#") STORES AROUND THE WORLD
+            a.title(href="#") OUR GLOBAL STORE SERVICES
+            a.title(href="#") CONTACT US
+
+      //- MY DFS
+      .list.secondary-menu.expandable
+        .title 
+          +icon('mydfs icon-prependInline')
+          //- .icon-mydfs.icon-prependInline
+          | MY MENU
+        .content 
+          .submenu
+            a.title(href="#") Wishlist
+            a.title(href="#") Shopping Bag
+            a.title(href="#") Order History
+            a.title(href="#") My Account
+            a.title(href="#") Loyal T Membership
+            a.title(href="#") Sign Out
+
+      //- LANGUAGES
+      .list.secondary-menu
+        .title.selected-language
+          +icon('languages icon-prependInline')
+          //- .icon-languages.icon-prependInline
+          a(href="#") ENGLISH
+          .content.language-list
+            a.title(href="#") 简体中文
+            a.title(href="#") 日本語
+  <!-- END mobile-loggedin menu -->
+
+mixin menu-mobile-shop(current)
+  <!-- mobile-shop menu -->
+  #mobile-menu.mobile-left-menu.expand-menu.shopping-menu
+    .menuwrap
+      //- LOCATIONS
+      .list.select-location-mobile
+        .title 
+          +flag('hongkong') //- (class='icon-prependInline')
+          a.selected-location(href="./landing.html")
+            | You are visiting our
+            br
+            strong DEMO Airport San Francisco Store >
+
+      //- SHOP
+      .list.red-menu
+        .title.shop
+          +icon('shoppingbag-white icon-prependInline')
+          | SHOP:
+
+
+      //- WINE & SPIRITS
+      .list.expandable.current
+        .title
+          .arrow-down-white
+          .arrow-down-red 
+          +icon('wine icon-prependInline')
+          //- .icon-wine.icon-prependInline
+          | WINE & SPIRITS
+        .content
+          .submenu
+            a.title(href="#") Featured Brands
+
+          //- WINE
+          .list.submenu.expandable
+            .title 
+              a(href="/subcategory.html", onclick="window.open('/subcategory.html','_blank')") WINE
+            .content
+              .submenu
+                a.title(href="#") Red
+                a.title(href="#") White
+                a.title(href="#") Dessert
+                a.title(href="#") Champagne / Sparkling
+                a.title(href="#") Rose
+                a.title(href="#") Other Wines
+           //- BEER
+          .list.submenu
+            .title BEER
+          //- SPIRITS
+          .list.submenu.expandable
+            .title SPIRITS
+            .content
+              .submenu
+                a.title(href="#") Cognac
+                a.title(href="#") Whiskey
+                a.title(href="#") Vodka
+                a.title(href="#") Baijiu
+                a.title(href="#") Rum
+                a.title(href="#") Gin
+                a.title(href="#") Beer
+                a.title(href="#") Tequila
+                a.title(href="#") Other Spirits
+
+      //- OUR STORES
+      .list.expandable
+        .title
+          +icon('ourstores icon-prependInline')
+          //- .icon-women.icon-prependInline
+          | OUR STORES
+        .content
+          .submenu
+            a.title(href="#") Bali Airport Store
+            a.title(href="#") Events and Promotions
+            a.title(href="#") Stores Around the World
+            a.title(href="#") Our Global Store Services
+            a.title(href="#") Contact US
+
+      //- OUR BRANDS
+      .list.expandable
+        .title
+          //- .icon-featuredc
+          +icon('featured icon-prependInline')
+          | OUR BRANDS
+        .content
+          .submenu
+            a.title(href="#") FEATURED BRANDS HOME
+            a.title(href="#") Miu Miu
+            a.title(href="#") Gucci
+            a.title(href="#") Burberry
+            a.title(href="#") Prada
+            a.title(href="#") Louis Vuitton
+            a.title(href="#") Chanel
+            a.title(href="#") View More...
+      
+      //- WOMEN
+      .list.expandable
+        .title
+          +icon('women icon-prependInline')
+          //- .icon-women.icon-prependInline
+          | WOMEN
+        .content
+          .submenu
+            a.title(href="#") Women Home
+            a.title(href="#") Featured Brands
+
+          //- FASHION
+          .list.submenu.expandable
+            .title FASHION
+            .content
+              .list.submenu.expandable
+                .title Bags
+                .content
+                  .submenu
+                    a.title(href="#") Shoulder Bags
+                    a.title(href="#") Totes
+                    a.title(href="#") Clutches
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Wallets
+                .content
+                  .submenu
+                    a.title(href="#") Wallets
+                    a.title(href="#") Wristlets
+              .list.submenu.expandable
+                .title Accessories
+                .content
+                  .submenu
+                    a.title(href="#") Sunglasses
+                    a.title(href="#") Belts
+                    a.title(href="#") Scarves
+                    a.title(href="#") Key Rings
+                    a.title(href="#") Wrinting Instruments
+              .list.submenu.expandable
+                .title Luggage
+                .content
+                  .submenu
+                    a.title(href="#") Suitcases
+              .list.submenu
+                .title Sale
+          
+          //- WATCHES & JEWELRY
+          .list.submenu.expandable
+            .title WATCHES & JEWELRY
+            .content
+              .list.submenu.expandable
+                .title Watches
+                .content
+                  .submenu
+                    a.title(href="#") Automatic
+                    a.title(href="#") Quartz
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Jewelry
+                .content
+                  .submenu
+                    a.title(href="#") Rings
+                    a.title(href="#") Earrings
+                    a.title(href="#") Necklaces
+                    a.title(href="#") Bracelets
+                    a.title(href="#") Other
+      
+      //- MEN
+      .list.expandable
+        .title 
+          +icon('men icon-prependInline')
+          //- .icon-men.icon-prependInline
+          | MEN
+        .content
+          .submenu
+            a.title(href="#") men Home
+            a.title(href="#") Featured Brands
+
+          //- FASHION
+          .list.submenu.expandable
+            .title FASHION
+            .content
+              .list.submenu.expandable
+                .title Bags & Briefcases
+                .content
+                  .submenu
+                    a.title(href="#") Messenger Bags
+                    a.title(href="#") Totes
+                    a.title(href="#") Brief Cases
+                    a.title(href="#") Other
+              .list.submenu
+                .title Belts
+              .list.submenu
+                .title Wallets
+              .list.submenu.expandable
+                .title Accessories
+                .content
+                  .submenu
+                    a.title(href="#") Sunglasses
+                    a.title(href="#") Ties
+                    a.title(href="#") Cufflinks
+                    a.title(href="#") Key Rings
+                    a.title(href="#") Wrinting Instruments
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Luggage
+                .content
+                  .submenu
+                    a.title(href="#") Suitcases
+              .list.submenu
+                .title Sale
+          
+          //- WATCHES & JEWELRY
+          .list.submenu.expandable
+            .title WATCHES & JEWELRY
+            .content
+              .list.submenu.expandable
+                .title Watches
+                .content
+                  .submenu
+                    a.title(href="#") Automatic
+                    a.title(href="#") Quartz
+                    a.title(href="#") Other
+
+      //- BEAUTY
+      .list.expandable
+        .title 
+          +icon('beauty icon-prependInline')
+          //- .icon-beauty.icon-prependInline
+          | BEAUTY
+        .content
+          .submenu
+            a.title(href="#") Featured Brands
+
+          //- FOR HER
+          .list.submenu.expandable
+            .title FOR HER
+            .content
+              .list.submenu.expandable
+                .title Skincare
+                .content
+                  .submenu
+                    a.title(href="#") Moisturizer
+                    a.title(href="#") Cleanser
+                    a.title(href="#") Toner
+                    a.title(href="#") Eye Care
+                    a.title(href="#") Lip Care
+                    a.title(href="#") Whitening
+                    a.title(href="#") Anti-aging
+                    a.title(href="#") Sun Protection
+                    a.title(href="#") Body Products
+                    a.title(href="#") Hair Products
+                    a.title(href="#") Other
+              .list.submenu.expandable
+                .title Makeup
+                .content
+                  .submenu
+                    a.title(href="#") Foundation
+                    a.title(href="#") Blusher
+                    a.title(href="#") Powder
+                    a.title(href="#") Eye Colour
+                    a.title(href="#") Mascara
+                    a.title(href="#") Lipstick
+                    a.title(href="#") Nails
+                    a.title(href="#") Other
+              .list.submenu
+                .title Fragrance
+          
+          //- FOR HIM
+          .list.submenu.expandable
+            .title FOR HIM
+            .content
+              .list.submenu.expandable
+                .title Skincare
+                .content
+                  .submenu
+                    a.title(href="#") Moisturizer
+                    a.title(href="#") Cleanser
+                    a.title(href="#") Eye Treatment
+                    a.title(href="#") Other
+              .list.submenu
+                .title Fragrance
+
+      //- TRAVEL GUIDES
+      .list.expandable
+        .title 
+          +icon('travelguides icon-prependInline')
+          //- .icon-travelguides.icon-prependInline
+          | TRAVEL GUIDES
+        .content
+          .submenu
+            a.title(href="#") GUAM
+            a.title(href="#") HONG KONG
+            a.title(href="#") MACAU
+            a.title(href="#") NEW YORK
+            a.title(href="#") OKINAWA
+            a.title(href="#") SINGAPORE
+            a.title(href="#") HAWAI
+
+      //- T JOURNAL
+      .list
+        .title 
+          +icon('tjournal icon-prependInline')
+          //- .icon-tjournal.icon-prependInline
+          strong T
+          |  JOURNAL
+
+      //- OUR STORES
+      .list.expandable
+        .title 
+          +icon('ourstores icon-prependInline')
+          //- .icon-ourstores.icon-prependInline
+          | OUR STORES
+        .content
+          .submenu
+            a.title(href="#") SINGAPORE AIRPORT STORE
+            a.title(href="#") EVENTS AND PROMOTIONS
+            a.title(href="#") STORES AROUND THE WORLD
+            a.title(href="#") OUR GLOBAL STORE SERVICES
+            a.title(href="#") CONTACT US
+
+      //- MY DFS
+      .list.secondary-menu.expandable
+        .title 
+          +icon('mydfs icon-prependInline')
+          //- .icon-mydfs.icon-prependInline
+          | MY DEMO
+        .content 
+          .submenu
+            a.title(href="#") Wishlist
+            a.title(href="#") Shopping Bag
+            a.title(href="#") Order History
+            a.title(href="#") My Account
+            a.title(href="#") Loyal T Membership
+            a.title(href="#") Sign Out
+
+      //- LANGUAGES
+      .list.secondary-menu
+        .title.selected-language
+          +icon('languages icon-prependInline')
+          //- .icon-languages.icon-prependInline
+          a(href="#") ENGLISH
+          .content.language-list
+            a.title(href="#") 简体中文
+            a.title(href="#") 日本語
+  <!-- END mobile-shop menu -->
+
+mixin menu-desktop(current)
+  <!-- desktop menu -->
+  #desktop-menu.desktop.kiwi-hidden-m.kiwi-hidden-s
+    .menuwrap
+      .fashion.menu-tabs
+        .navs.tabs.list
+          //- preorder tabs
+          .li.tab.preorder-tabs
+            .li.tab.label(data-tip, data-tip-position="top")
+              +icon('shoppingbag-white icon-prependInline')
+              | Shop:
+              .tooltip You can now shop items from our wines and spirits online and pick them upon your arrival to Singapore Airport
+            .li.tab.nav(class= current == 'wine-and-spirits' ? " current" : "")
+              a.title.uppercase(href="#") WINE & SPIRITS
+                //- +icon('shoppingbag-gray icon-prependInline')
+              .content(style="left: 0;")
+                div
+                  //- .overflow-hidden(style="overflow: hidden;")
+                  .links.padding
+                    a.display-block.hover-black-bg.padding.uppercase(href="#") WINE & SPIRITS HOME
+                    .divider.line.light
+                    a.display-block.hover-black-bg.padding.uppercase(href="#") FEATURED BRANDS
+                    .divider.line.light(style="margin-bottom: 10px;")
+                    .img
+                      a(href="#")
+                        img(src="http://placehold.it/258x236", width="258", height="236")
+
+                  .links(style="width:147px")
+                    a.display-block.hover-black-bg.padding.menu-header.uppercase(href="#") WINE
+                      span.arrow ››
+                    .divider.line.light(style="margin-bottom: 10px;")
+                    .links.sublinks(style="margin-bottom: 12px;")
+                      a.display-block(href="#") Red
+                      a.display-block(href="#") White
+                      a.display-block(href="#") Dessert
+                      a.display-block(href="#") Champagne / Sparkling
+                      a.display-block(href="#") Rose
+                      a.display-block(href="#") Other Wines
+                      br
+                    a.display-block.hover-black-bg.padding.uppercase(href="#") BEER
+                      span.arrow ››
+                    .divider.line.light(style="margin-bottom: 10px;")
+
+                  .links(style="width:130px")
+                    a.display-block.hover-black-bg.padding.menu-header.uppercase(href="#") SPIRITS
+                      span.arrow ››
+                    .divider.line.light(style="margin-bottom: 10px;")
+                    .links.sublinks
+                      a.display-block(href="#") Cognac
+                      a.display-block(href="#") Whiskey
+                      a.display-block(href="#") Vodka
+                      a.display-block(href="#") Baijiu
+                      a.display-block(href="#") Rum
+                      a.display-block(href="#") Gin
+                      a.display-block(href="#") Tequila
+                      a.display-block(href="#") Other Spirits
+                  +discover-mode()
+          
+          //- normal tabs
+          .li.tab.nav(class= current == 'featured-brands' ? " current" : "")
+            a.title.uppercase(href="#") OUR BRANDS
+            .content.no-padding(style="left: 0;")
+              .overflow-hidden(style="overflow: hidden")
+                .links(style="width: 260px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") FEATURED BRANDS HOME
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  a.category-link.brands(href="#") Miu Miu
+                  a.category-link.brands(href="#") Gucci
+                  a.category-link.brands(href="#") Burberry
+                  a.category-link.brands(href="#") Prada
+                  a.category-link.brands(href="#") Louis Vuitton
+                  a.category-link.brands(href="#") Chanel
+                  a.category-link.brands(href="#") View More...
+                .menu-picture.featured-brand(style="float: left;width: 248px;")
+                  a(href="#")
+                    img(src="http://placehold.it/248x368", width="248", height="368")
+                //- .menu-picture.featured-brand(style="float: left;")
+                //-   .title FEATURED BRANDS
+                //-   .a-z A-Z
+                //-   button.button.tranparent View All Now
+
+          .li.tab.nav(class= current == 'women' ? " current" : "")
+            a.title.uppercase(href="#") WOMEN
+            .content(style="left: 0;")
+              div
+                //- .overflow-hidden(style="overflow: hidden;")
+                .links.padding.full-width
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") WOMEN HOME
+                  .divider.line.light
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") FEATURED BRANDS
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .img
+                    a(href="#")
+                      img(src="http://placehold.it/176x257", width="176", height="257")
+                .links
+                  a.display-block.hover-black-bg.padding.menu-header.uppercase(href="#") FASHION
+                    span.arrow ››
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .links.sublinks
+                    a.display-block(href="#") Bags
+                    a.display-block(href="#") Wallets
+                    a.display-block(href="#") Accessories
+                    a.display-block(href="#") Shoes
+                    br
+
+                  a.display-block.hover-black-bg.menu-header.uppercase(href="#") WATCHES & JEWELRY
+                    span.arrow ››
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .links.sublinks
+                    a.display-block(href="#") Watches
+                    a.display-block(href="#") Jewelry
+                +discover-mode()
+
+          .li.tab.nav(class= current == 'men' ? " current" : "")
+            a.title.uppercase(href="#") MEN
+            .content(style="left: 0;")
+              div
+                //- .overflow-hidden(style="overflow: hidden;")
+                .links.padding.full-width
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") MEN HOME
+                  .divider.line.light
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") FEATURED BRANDS
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .img
+                    a(href="#")
+                      img(src="http://placehold.it/176x257", width="176", height="257")
+
+                .links
+                  a.display-block.hover-black-bg.padding.menu-header.uppercase(href="#") FASHION
+                    span.arrow ››
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .links.sublinks
+                    a.display-block(href="#") Bags & Briefcases
+                    a.display-block(href="#") Shoes
+                    a.display-block(href="#") Belts
+                    a.display-block(href="#") Wallets
+                    a.display-block(href="#") Accessories
+                    br
+                    
+                  a.display-block.hover-black-bg.menu-header(href="#") WATCHES & JEWELRY
+                    span.arrow ››
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .links.sublinks
+                    a.display-block(href="#") Watches
+
+                +discover-mode()
+
+          .li.tab.nav(class= current == 'beauty' ? " current" : "")
+            a.title.uppercase(href="#") BEAUTY
+            .content(style="left: 0;")
+              div
+                //- .overflow-hidden(style="overflow: hidden;")
+                .links.padding.full-width
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") BEAUTY HOME
+                  .divider.line.light
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") FEATURED BRANDS
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .img
+                    a(href="#")
+                      img(src="http://placehold.it/176x257", width="176", height="257")
+
+                .links
+                  a.display-block.hover-black-bg.padding.menu-header.uppercase(href="#") BEAUTY FOR HER
+                    span.arrow ››
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .links.sublinks
+                    a.display-block(href="#") Skincare
+                    a.display-block(href="#") Makeup
+                    a.display-block(href="#") Fragrance
+                    br
+
+                  a.display-block.hover-black-bg.menu-header.uppercase(href="#") BEAUTY FOR HIM
+                    span.arrow ››
+                  .divider.line.light(style="margin-bottom: 10px;")
+                  .links.sublinks
+                    a.display-block(href="#") Skincare
+                    a.display-block(href="#") Fragrance
+
+                //- .links(style="width:149px")
+                  //- a.display-block.hover-black-bg.padding.menu-header(href="#") BEAUTY FOR HIM
+                  //-   span.arrow ››
+                  //- .divider.line.light(style="margin-bottom: 10px;")
+                  //- .links.sublinks
+                  //-   a.display-block(href="#") Skincare
+                  //-   a.display-block(href="#") Fragrance
+                +discover-mode()
+
+          .li.tab.nav(class= current == 'travel' ? " current" : "")
+            a.title.uppercase(href="#") TRAVEL GUIDES
+            .content.no-padding(style="right: 0;")
+              div
+                //- .overflow-hidden(style="overflow: hidden;")
+                .links.discover-mode(style="width: 260px;height: 330px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") TRAVEL GUIDES HOME
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") GUAM
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") HONG KONG
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") MACAU
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") NEW YORK
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") OKINAWA
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") SINGAPORE
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") HAWAI
+                  .divider.line.light(style="margin-bottom: 5px;")
+
+                .menu-picture.travel(style="float: left;width: 248px;")
+                  a(href="#")
+                    img(src="http://placehold.it/248x368", width="248", height="368")
+
+          .li.tab.nav.t-journal(class= current == 't-journal' ? " current" : "")
+            a.title.uppercase(href="#")
+              strong T
+              | &nbsp;JOURNAL
+
+          .li.tab.nav(class= current == 'our-stores' ? " current" : "")
+            a.title.uppercase(href="#") OUR STORES
+            .content.no-padding(style="right: 0;")
+              div
+                //- .overflow-hidden(style="overflow: hidden;")
+                .links.discover-mode(style="width: 260px;height: 330px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") SINGAPORE AIRPORT STORE
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") EVENTS AND PROMOTIONS
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") STORES AROUND THE WORLD
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="#") OUR GLOBAL STORE SERVICES
+                  .divider.line.light(style="margin-bottom: 5px;")
+                  a.display-block.hover-black-bg.padding.uppercase(href="http://www.bing.com", target="_blank") CONTACT US
+                  .divider.line.light(style="margin-bottom: 5px;")
+
+                .menu-picture.travel(style="float: left;width: 248px;")
+                  a(href="#")
+                    img(src="http://placehold.it/248x368", width="248", height="368")
+  <!-- END desktop menu -->
+
+mixin discover-mode()
+  .links(style="width:254px; margin-right: 4px;")
+    .display-block.menu-header.uppercase(href="#") DISCOVER MODE
+    .divider.line.light(style="margin-bottom: 10px;")
+    .sublinks.links.discover-mode
+      .display-block.title(href="#") Gift Guide
+      a.display-block(href="#") Mother's Day Gift Guide
+      a.display-block(href="#") Bestsellers
+
+      .display-block.title(href="#", style="margin-top:17px;") Editorials
+      a.display-block(href="#") New Arrivals
+      a.display-block(href="#") Iron Chef Morimoto's Trips & Tips
+      a.display-block(href="#") T Galleria Red Collection
+      a.display-block(href="#") Behind The Scenes: T Galleria's SS 2014 Campaign
+
+mixin preorder-message()
+  .preorder-message
+    .img
+      img(src="./static/img/icon/shopping-bag-banner.png", style="width:50px;height:70px;float:left")
+    //- .title
+      //- strong Wines & Spirits are now available for Shop & Collect 
+      //- span(style="color: #BF2E1A;") >
+    .text(style="padding-left: 60px;padding-top:19px;")
+      | You can now shop items online from our wines and spirits and collect them upon your return to Singapore Airport
+      .icon-tooltip.icon-appendInline(data-tip="tooltip", data-tip-position='right')
+        .tooltip
+          p Message tooltip
+
+mixin preorder-productmessage()
+  .preorder-product-message
+    .text This item is available for Shop & Collect upon your return to Singapore Airport
+      .icon-tooltip.icon-appendInline(data-tip="", data-tip-position='right')
+        .tooltip
+          p Message tooltip
+
+mixin sorting(view,hasSortBy)
+  if hasSortBy
+    .sorting
+      .menu-dropdown
+        .dropdown-text Sort by
+        .dropdown-list
+          .field
+            +input('radio','sortby','Price', 'sPrice')
+          .field
+            +input('radio','sortby','A to Z', 'sAlpha')
+          .field
+            +input('radio','sortby','New Arrivals', 'sNew')
+          .kiwi-grid
+            .kiwi-col.l-1-2
+              .field
+                button.button.transparent.expand
+                  img(src="./static/img/icon/arrow-down-black.png", alt="")
+            .kiwi-col.l-1-2
+              .field
+                button.button.transparent.expand 
+                  img(src="./static/img/icon/arrow-up-black.png", alt="")
+
+
+  .listView
+    .title View
+    .choice
+      a(href="#", title="view in grid", class= view === 'list' ? 'inactive' : 'active', data-typeView="grid")
+        img.display(src="./static/img/icon/view/image.png")
+        img.hidden(src="./static/img/icon/view/image-active.png")
+      a(href="#", title="view in list", class= view === 'grid' ? 'inactive' : 'active', data-typeView="list")
+        img.display(src="./static/img/icon/view/list.png")
+        img.hidden(src="./static/img/icon/view/list-active.png")
+
+//- construct a listing of checkbox for the refine menu
+mixin filterList(filters, group, placeholder)
+  .searchbox
+    .control-group.search
+      input.normal(type="text", placeholder=placeholder)
+      .icon.input-tail
+        img.opacity-0.fade-in(src="http://placehold.it/14")
+  each val, index in filters
+    +filter('checkbox', group+(index+1),val)
+  a.title.reverse.clear-selection(href="#") clear selections
+
+//- construct a list element with an input
+mixin filter(type, name, label)
+  li.refine
+    +input(type, name, label)
+
+mixin product(product)
+  div(class=product.slider ? '' : 'kiwi-col l-1-3 m-1-3 s-1-2')
+    a.productLink(href="product-detail.html")
+      .product
+        .picture
+          img.opacity-0.fade-in(src="http://placehold.it/200", alt=product.name, onload="$(this).css('opacity', '1');")
+        
+        .detail
+          .name
+            .brand-name=product.brand
+            .product-name=product.name
+          if product.extra != 'out-of-stock'
+            if product.discountPrice
+              +price(product.price)(class="before-discount")
+              +price(product.discountPrice, true)(class="after-discount")
+            else
+              +price(product.price, true)(class="no-discount")
+          if product.extra == 'out-of-stock'
+            .extra Out of stock
+          else if product.extra
+            .extra.primary!=product.extra
+
+        .description=product.desc
+
+        .actions
+          .action.wishlist(class=product.wishlist? 'active' : '', data-tip=product.wishlist? "This is on your Wish List" : "Add to Wish List", data-tip-effect='product-tip-fade', data-productid='{000F330F-8B18-46C2-A92B-D22300E52FB5}') 
+            i.icon.icon-heart.grey
+
+          .action.quickview(href="./product-detail.html", data-mfp-src="#modal-quick-view", data-effect="mfp-fade-in", data-tip="Quick Look", data-tip-effect='product-tip-fade') 
+            i.icon.icon-quicklook.black
+        
+        if product.badge
+          .badge(class!=product.badgeClass?product.badgeClass:'')=product.badge
+
+mixin price(price, haveTooltip)
+  - var classes = attributes.class ? attributes.class : ''
+  .price(class!=classes)
+    if haveTooltip
+      span.currency(data-tip="currency-tip", data-tip-position='left', data-tip-effect='currency-tip')
+        span.underline S$
+        span.amount=price
+        .tooltip
+          .currenciesList
+            p Exchange rates are 
+              br 
+              | for reference only
+            ul
+              +currency('hongkong', 'hk', '$', price, 6.20639)
+              +currency('singapore', 'us', '$', price, 0.800617)
+              +currency('australia', 'eu', '€', price, 0.586707)
+              +currency('japan', 'jp', '£', price, 0.470220)
+              +currency('newzealand', 'rm', '¥', price, 4.96957)
+    else
+      span.currency S$      
+      span.amount=price
+
+mixin currency(icon, country, symbol, price, change)
+  li
+    span.country
+      +flag(icon)(class='icon-prependInline')
+      | #{country}
+    span.symbol #{symbol}
+    - var newPrice = Math.round(price*change*100)/100
+    span.value=newPrice
+
+mixin pictureSlider(nb, quickview, enlarge)
+  .images
+    .badge Lorem ipsum
+    if enlarge
+      .zoom-message.kiwi-visible-m.kiwi-visible-s 
+        img.zoom-icon(src="/static/img/zoom-plus-x2.png")
+    .primary.slider.swipe
+      .swipe-wrap
+        - for (var x = 0; x < nb; x++)
+          .slide
+              div(class= quickview ? '' : 'component magnify')
+                img.target.opacity-0.fade-in(src="http://placehold.it/390&text=small+"+x, big="http://placehold.it/780&text=large+"+x, onload="$(this).css('opacity', '1');")
+                if !quickview
+                  .magnifier(style="width: 180px; height: 180px; left: 0px; top: 122px;")
+      .swipe-controls.bullets.kiwi-visible-m
+        div
+          - for(var i=0;i<nb;i++)
+            a.bullet(href="#" index=i, class=i==0? 'active' : '', data-slide=i)
+
+      .swipe-controls.navs.kiwi-visible-m
+        .nav.prev
+          .icon-arrow-left(data-slide='prev')
+        .nav.next
+          .icon-arrow-right(data-slide='next')
+    .thumbnails.sliderWrap.kiwi-hidden-m.kiwi-hidden-s
+      .thumbnails-slider.slider
+        .slides
+          - for (var x = 0; x < nb; x++)
+            .slide
+              img.opacity-0.fade-in(src="http://placehold.it/60x80&text=thumb+"+x, data-slide=x, onload="$(this).css('opacity', '1');")
+
+mixin productDetail(product)
+  section.product.productDetails(class=product.quickview ? '' : 'magnifier', id=product.enlarge ? 'tap-enlarge' : '')
+    .kiwi-grid
+      .kiwi-col.l-1-2.m-1   
+        if !product.quickview 
+          +preorder-productmessage()        
+        +pictureSlider(5,product.quickview,product.enlarge)
+        
+      .kiwi-col.l-1-2.m-1
+        .details
+          .reference
+            .brand=product.brand
+            .name=product.name
+            .code=product.code
+          
+          if product.discountPrice
+            +price(product.price)(class="before-discount")
+            +price(product.discountPrice, true)(class="after-discount")
+          else
+            +price(product.price, true)(class="no-discount")
+
+          .custom
+            .kiwi-grid
+              .kiwi-col.l-1.m-1-2
+                if product.size
+                  .custom-select.size
+                    .dropdown-text=product.size[product.size.active]
+                    .dropdown-list
+                      each size,idx in product.size
+                        if idx != 'active'
+                          .item(class=idx==product.size.active ? 'active':'')
+                            a(href="#", data-value=idx)=size
+
+                    input(type="hidden", name="size", value=product.size.active)
+              .kiwi-col.l-1.m-1-2
+                .quantity 
+                  span.label Quantity
+                  span.qt-choice.minus -
+                  span.qt-choice.qt-value 1
+                  span.qt-choice.plus +
+
+          .actions
+            .kiwi-grid
+              .kiwi-col.l-1-2.m-1
+                .action.addToShoppingbag
+                  a.button.action.expand(class=(product.extra == 'out-of-stock')? 'disabled':'')
+                    +icon('shoppingbag-white icon-prependInline')
+                    | Add to shopping bag
+              .kiwi-col.l-1-2.m-1
+                .action.addToWishlist
+                  a.button.black.expand(data-tip="Save to Wish List to create your personal list of products and gifts", data-tip-position="top")
+                    +icon('heart-base64 icon icon-prependInline')
+                    | Add to wish list
+          if product.extra == 'out-of-stock'
+            .extra Sorry, this item is currently out of stock, but will be back later.
+          else
+          .extra.primary
+            +icon('pricetag icon-prependInline')
+            | Buy 2, get 1 free
+          .availability
+            +icon('pin-gray icon-inline')
+            | This product is currently available at a DEMO store. 
+            a.underline(href="#") Find it now
+          .description.accordion-menu
+            .list.expandable.expanded
+              .title Details
+              .content=product.desc
+            .list.expandable
+              .title Details
+              .content=product.desc
+            .list.expandable
+              .title Details
+              .content=product.desc
+          .more(class=product.quickview ? '' : 'hidden') 
+            a(href='product-detail.html') See more Details ›
+          .share
+            .kiwi-grid
+              .kiwi-col.l-1-2.m-1
+                .asking(class=product.quickview ? 'hidden' : '') Have a question? 
+                  a.underline(href="#") Email us
+              .kiwi-col.l-1-2.m-1
+                .share-button share:
+                  a(href="#") facebook                

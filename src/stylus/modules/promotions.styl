@@ -1,0 +1,133 @@
+.promotions
+  // @media mq-m
+  //   &.area-container
+  //     padding 0
+
+  .kiwi-col
+    &:first-child
+      .promotion
+      .discover
+        // margin-left 0
+        padding-left 0
+      .promotion
+        padding-right 14px
+
+    &:last-child
+      .promotion
+      .discover
+        // margin-right 0
+        padding-right 0
+
+      .promotion
+        padding-left 14px
+
+  @media mq-s
+    padding 20px
+    padding-bottom 10px
+    &.black
+      background #000
+    
+    .kiwi-col
+      margin-bottom 15px
+      display inherit
+    .promo
+      display table-cell
+      width 41%
+
+  a
+    display inline
+
+  .promotion
+    margin-bottom 20px
+    // max-width 310px
+    padding 0 7px
+  
+    .bottom
+      // border border-default
+      margin-top -2px
+      padding 1.1em .5em
+      text-align center
+      height 31px
+
+    .title
+      margin-bottom .8em
+      a
+        text-transform uppercase
+
+    .detail
+      font-size .8em
+
+    @media mq-m
+      padding 0 10px !important
+
+    @media mq-s
+      display table-row
+      padding 0 !important
+
+    
+      
+      img
+        display table-cell
+        width 100%
+        // float left
+      .bottom
+        background none
+        border none
+        display table-cell
+        height 100%
+        padding 1em 2em
+        position relative
+        width 58%
+        vertical-align middle
+        text-align left
+    
+  &.black
+    a
+      color #fff
+      &:hover
+        color color-secondary
+    .bottom
+      border none
+      background #000
+      .title
+        a
+          text-transform uppercase
+
+  .discover
+    margin-bottom 20px
+    padding 0 15px
+  
+    @media mq-m
+      padding 0
+
+    a
+      display inline
+
+    img:hover
+      opacity .8 !important
+
+    .bottom
+      background #fff
+      // border border-default
+      margin-top -2px
+      padding 15px
+      text-align center
+
+      @media mq-s
+        border none
+        // border-bottom border-default
+        margin 0 -20px
+        padding 15px 35px
+
+    .title
+      font-size 1.1em
+      margin-bottom 10px
+      a
+        text-transform uppercase
+    
+    .detail
+      margin-bottom 10px
+
+    .more
+      font-size .8em
+      text-transform uppercase
