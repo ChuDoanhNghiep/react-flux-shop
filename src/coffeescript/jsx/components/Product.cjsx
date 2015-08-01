@@ -5,6 +5,7 @@ Product = React.createClass
   render: ->
     product = @props.product
     url = "#/product/" + product.id
+    soldout = if product.inventory is 0 then <div className="extra">Out of stock</div> else ""
 
     return <div className="kiwi-col l-1-3 m-1-3 s-1-2">
         <a href={url} className="productLink">
@@ -17,6 +18,7 @@ Product = React.createClass
                 <div className="brand-name">{product.brand}</div>
                 <div className="product-name">{product.name}</div>
               </div>
+              {soldout}
               <div className="price no-discount">
                 <span className="currency">
                   <span className="symbol-before">›</span>

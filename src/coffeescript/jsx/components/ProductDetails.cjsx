@@ -1,4 +1,6 @@
 React = require "react"
+Notification = require "react-notification"
+classNames = require "classnames"
 QuantityChoice = require "./QuantityChoice.cjsx"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 
@@ -13,13 +15,23 @@ updateInventory = (id, num) ->
 
 ProductDetails = React.createClass
 
+  updateShoppingbagBtn: ->
+    if @state.product.inventory is 0
+      @setState
+        shoppingbagBtnDisabled: true
+        shoppingbagBtn: "sold out"
+
   getInitialState: ->
     product: ProductListAPI.getProductByID @props.params.id
     selectedQuantity: 1
+    shoppingbagBtnDisabled: false
+    shoppingbagBtn: "Add to Shopping bag"
+    notificationVisible: false
+    notificationMsg: ""
 
   componentDidMount: ->
-
     ProductDetailsStore.addChangeListener @handleQuantityChange
+    this.updateShoppingbagBtn()      
 
   componentWillUnmount: ->
     ProductDetailsStore.removeChangeListener @handleQuantityChange
@@ -29,18 +41,39 @@ ProductDetails = React.createClass
       selectedQuantity: getSelectedQuantity()
 
   shoppingbagClick: ->
+    if @state.shoppingbagBtnDisabled
+      return
+
     @setState
       product: ProductListAPI.getProductByID @props.params.id
 
     num = @state.product.inventory - @state.selectedQuantity
     if num >= 0
       ProductDetailsActions.addToShoppingbag @state.selectedQuantity
-      updateInventory(product.id, num)
+      updateInventory(@state.product.id, num)
+
+      updatedProduct = @state.product
+      updatedProduct.inventory = num
+
+      @setState
+        product: updatedProduct
+      # this.updateShoppingbagBtn()
+
     else
+      @setState
+        shoppingbagBtnDisabled: true
+        notificationVisible: true
+        notificationMsg: "Only " + @state.product.inventory + " items left in store, please select less"
 
-
+  handleNotification: ->
+    @setState
+      shoppingbagBtnDisabled: false
+      notificationVisible: false
+      notificationMsg: ""
 
   render: ->
+    shoppingbagBtnClass = classNames "button action expand", {"disabled": this.state.shoppingbagBtnDisabled}
+
     return  <section id="tap-enlarge" className="product productDetails magnifier">
             <div className="kiwi-grid">
               <div className="kiwi-col l-1-2 m-1">  
@@ -74,12 +107,17 @@ ProductDetails = React.createClass
                     <div className="kiwi-grid">
                       <div className="kiwi-col l-1-2 m-1">
                         <div className="action addToShoppingbag" onClick={this.shoppingbagClick}>
-                          <a className="button action expand">
+                          <a className={shoppingbagBtnClass}>
                             <div className="icon-shoppingbag-white icon-prependInline">
                             </div>
-                            Add to shopping bag
+                            {this.state.shoppingbagBtn}
                           </a>
                         </div>
+                        <Notification 
+                          isActive={this.state.notificationVisible} 
+                          message={this.state.notificationMsg}
+                          action="close"
+                          onClick={this.handleNotification}/>
                       </div>
                       <div className="kiwi-col l-1-2 m-1">
                         <div className="action addToWishlist"><a data-tip="Save to Wish List to create your personal list of products and gifts" data-tip-position="top" className="button black expand">

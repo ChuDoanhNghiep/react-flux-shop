@@ -66,4 +66,6 @@ module.exports =
     data = @getAllProduct()
     idx = _findIndex data, (p) ->
       p.id is id
-    data[idx].inventory = num    
+    data[idx].inventory = num
+    
+    localStorage.setItem "products", JSON.stringify(data) 

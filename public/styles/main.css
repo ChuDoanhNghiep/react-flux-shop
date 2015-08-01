@@ -1511,7 +1511,7 @@ button:focus,
   border: 1px solid #ccc;
   color: #999;
   line-height: 1.6em;
-  cursor: default;
+  pointer-events: none;
 }
 .button.disabled.action {
   background: #b92b17;
@@ -1520,9 +1520,6 @@ button:focus,
   opacity: 0.4;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
   filter: alpha(opacity=40);
-}
-.button.disabled:hover {
-  color: rgba(0,0,0,0.5);
 }
 .button.expand {
   width: 100%;
