@@ -41939,7 +41939,8 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
         quantity: this.state.selectedQuantity,
         price: this.state.product.price,
         sku: this.state.product.sku,
-        category: this.state.product.category
+        category: this.state.product.category,
+        size: this.state.product.size
       };
       ShoppingbagAPI.addShoppingbagProduct(addedProduct);
       updatedProduct = this.state.product;
@@ -42548,7 +42549,7 @@ module.exports = RefinerList;
 
 
 },{"../actions/ProductFilterActions.cjsx":310,"react":305}],323:[function(require,module,exports){
-var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader;
+var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, calculateLabel, calculateSize;
 
 React = require("react");
 
@@ -42562,6 +42563,81 @@ ShoppingbagGroup = require("./ShoppingbagGroup.cjsx");
 
 ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
 
+calculateSize = function(data) {
+  var i, item, len, size;
+  size = 0;
+  for (i = 0, len = data.length; i < len; i++) {
+    item = data[i];
+    size += item.size * item.quantity;
+  }
+  return size;
+};
+
+calculateLabel = function(wine, beer, spirit) {
+  var beerSize, spiritSize, wineSize;
+  wineSize = calculateSize(wine);
+  beerSize = calculateSize(beer);
+  spiritSize = calculateSize(spirit);
+  console.log(wineSize, beerSize, spiritSize);
+  if (spirit.length) {
+    if (wineSize > 1 || beerSize > 1 || spiritSize > 1) {
+      return {
+        type: 1,
+        over: true
+      };
+    } else {
+      return {
+        type: 1,
+        over: false
+      };
+    }
+  }
+  if (wine.length) {
+    if (wineSize <= 2 && beerSize <= 1) {
+      return {
+        type: 2,
+        over: false
+      };
+    }
+    if (wineSize > 2) {
+      return {
+        type: 2,
+        over: true
+      };
+    }
+    if (wineSize <= 1 && beerSize <= 2) {
+      return {
+        type: 3,
+        over: false
+      };
+    }
+    if (wineSize <= 1 && beerSize > 2) {
+      return {
+        type: 2,
+        over: true
+      };
+    }
+  }
+  if (beer.length) {
+    if (beerSize > 1 && beerSize <= 2) {
+      return {
+        type: 3,
+        over: false
+      };
+    }
+    if (beerSize > 2) {
+      return {
+        type: 3,
+        over: true
+      };
+    }
+  }
+  return {
+    type: 1,
+    over: false
+  };
+};
+
 ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
   getInitialState: function() {
     return {
@@ -42569,7 +42645,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
     };
   },
   render: function() {
-    var beer, beerGroup, spirit, spiritGroup, wine, wineGroup;
+    var beer, beerGroup, label, spirit, spiritGroup, wine, wineGroup;
     if (this.state.addedProducts) {
       wine = this.state.addedProducts.filter(function(product) {
         return product.category.toLowerCase() === "wine";
@@ -42580,6 +42656,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
       spirit = this.state.addedProducts.filter(function(product) {
         return product.category.toLowerCase() === "spirit";
       });
+      label = calculateLabel(wine, beer, spirit);
       wineGroup = wine.length ? React.createElement(ShoppingbagGroup, {
         "category": "wine",
         "products": wine
@@ -42597,7 +42674,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
       }, React.createElement("section", {
         "className": "ShoppingBag ShoppingBagPage"
       }, React.createElement(ShoppingbagHeader, {
-        "addedProducts": this.state.addedProducts
+        "label": label
       }), React.createElement("div", {
         "className": "ShoppingBag groupWrap"
       }, wineGroup, spiritGroup, beerGroup), React.createElement(ShoppingbagFooter, null)));
@@ -42757,12 +42834,33 @@ module.exports = ShoppingbagGroup;
 
 
 },{"./ShoppingbagProduct.cjsx":328,"react":305}],327:[function(require,module,exports){
-var React, ShoppingbagHeader;
+var React, ShoppingbagHeader, classNames;
 
 React = require("react");
 
+classNames = require("classnames");
+
 ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
+  getInitialState: function() {
+    return {
+      label: this.props.label
+    };
+  },
   render: function() {
+    var label1, label2, label3;
+    console.log(this.state.label);
+    label1 = classNames("ShoppingBagOption", {
+      "under-allowance": this.state.label.type === 1,
+      "over-allowance": this.state.label.over
+    });
+    label2 = classNames("ShoppingBagOption", {
+      "under-allowance": this.state.label.type === 2,
+      "over-allowance": this.state.label.over
+    });
+    label3 = classNames("ShoppingBagOption", {
+      "under-allowance": this.state.label.type === 3,
+      "over-allowance": this.state.label.over
+    });
     return React.createElement("header", {
       "className": "ShoppingBagHeader purchaseLimits"
     }, React.createElement("div", {
@@ -42776,7 +42874,7 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
     }, React.createElement("div", {
       "className": "kiwi-col l-1-3"
     }, React.createElement("div", {
-      "className": "ShoppingBagOption under-allowance"
+      "className": label1
     }, React.createElement("div", {
       "className": "option-nb"
     }, "1"), React.createElement("div", {
@@ -42806,7 +42904,7 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
     }, "beer")))), React.createElement("div", {
       "className": "kiwi-col l-1-3"
     }, React.createElement("div", {
-      "className": "ShoppingBagOption"
+      "className": label2
     }, React.createElement("div", {
       "className": "option-nb"
     }, "2"), React.createElement("div", {
@@ -42828,7 +42926,7 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
     }, "beer")))), React.createElement("div", {
       "className": "kiwi-col l-1-3"
     }, React.createElement("div", {
-      "className": "ShoppingBagOption"
+      "className": label3
     }, React.createElement("div", {
       "className": "option-nb"
     }, "3"), React.createElement("div", {
@@ -42854,7 +42952,7 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
 module.exports = ShoppingbagHeader;
 
 
-},{"react":305}],328:[function(require,module,exports){
+},{"classnames":3,"react":305}],328:[function(require,module,exports){
 var React, ShoppingbagProduct;
 
 React = require("react");
@@ -43342,7 +43440,7 @@ module.exports = {
     idx = -1;
     if (all) {
       idx = _findIndex(all, function(p) {
-        return p.id === id;
+        return p.id === data.id;
       });
     } else {
       all = [];

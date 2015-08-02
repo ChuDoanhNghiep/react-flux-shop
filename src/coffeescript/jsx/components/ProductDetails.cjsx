@@ -60,6 +60,7 @@ ProductDetails = React.createClass
         price: @state.product.price
         sku: @state.product.sku
         category: @state.product.category
+        size: @state.product.size
 
       ShoppingbagAPI.addShoppingbagProduct(addedProduct)
 

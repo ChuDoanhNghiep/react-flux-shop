@@ -10,7 +10,7 @@ module.exports =
     idx = -1
     if all
       idx = _findIndex all, (p) ->
-        p.id is id
+        p.id is data.id
     else
       all = []
 
