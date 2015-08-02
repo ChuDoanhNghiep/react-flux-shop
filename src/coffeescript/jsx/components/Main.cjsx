@@ -3,7 +3,7 @@ ReactRouter = require "react-router"
 RouteHandler = ReactRouter.RouteHandler
 
 Breadcrumb = require "./Breadcrumb.cjsx"
-BrandDetails = require "./BrandDetails.cjsx"
+# BrandDetails = require "./BrandDetails.cjsx"
 
 Main = React.createClass
 
@@ -19,7 +19,6 @@ Main = React.createClass
                     <h1 className="divider GNB-line"> Wine and spirits</h1>
                 </div>
                 <Breadcrumb />
-                <BrandDetails />
 
                 <RouteHandler />
 

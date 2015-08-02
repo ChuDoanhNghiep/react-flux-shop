@@ -24,7 +24,7 @@ HeaderShoppingbag = React.createClass
 
 
     return  <div className="title img">
-            <a href="./shoppingbag-detail.html"><i className="icon icon-shoppingbag-white-base64"></i></a>
+            <a href="#/shoppingbag"><i className="icon icon-shoppingbag-white-base64"></i></a>
               {num}
             </div>
 

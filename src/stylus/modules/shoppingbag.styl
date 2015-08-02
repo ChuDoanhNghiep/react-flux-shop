@@ -1,0 +1,733 @@
+padding-header = 8px
+color-under-allowance = #59c263
+color-over-allowance = #bf3434
+padding-header = 8px
+color-under-allowance = #59c263
+color-over-allowance = #bf3434
+
+dropShadow-ie(color, size)
+  filter unquote("progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=0, Strength={size}) progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=45, Strength={size-1}) progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=90, Strength={size}) progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=135, Strength={size-1}) progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=180, Strength={size}) progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=225, Strength={size-1}) progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=260, Strength={size}) progid:DXImageTransform.Microsoft.Shadow(color='{color}', Direction=305, Strength={size-1})")
+
+/*******************************************************************************
+                              Shopping Bag
+*******************************************************************************/
+.ShoppingBag
+  rem-prop('font-size', 11px)
+
+  *
+    box-sizing border-box
+  .ShoppingBagGroup
+    clearfix()
+    
+/* Headers for the shopping bag */
+/******************************************************************************/
+.ShoppingBagHeader
+  color black
+  position relative
+
+  &:before, &:after
+    display table
+    content " "
+    line-height 0
+
+  &:after
+    clear both
+
+  .primary-title
+    color color-tundora
+    font-preorder(300, 20px)
+    font-size 20px
+    font-family Helvetica
+    font-weight 500
+    margin 12px 0px 8px
+    text-align center
+    @media mq-s
+      font-size 16px
+
+  .title
+    color inherit
+    font-family inherit
+    font-size inherit
+    font-weight bold
+    margin 0
+    text-transform uppercase
+
+  &.purchaseLimits
+    .limits
+      margin 20px auto
+      max-width 560px
+
+  &.allowance
+    background #000
+    position relative
+    color #fff
+    height 53px
+
+  .tooltip
+    display none
+
+.ShoppingBagOption
+  background #fff
+  border 1px solid #606060
+  height 110px
+  position relative
+  text-align center
+  margin-left -1px
+
+  .option-nb
+    font-preorder(bold, 20px)
+    font-weight 400
+    color #000
+    margin 12px 0px 8px
+
+  &.under-allowance
+  &.over-allowance
+    z-index 2
+    &:before
+    &:after
+      border-bottom 10px solid transparent
+      border-left 12px solid transparent
+      border-right 12px solid transparent
+      border-top 10px solid transparent
+      content ''
+      height 0px
+      left 50%
+      margin-left -12px
+      position absolute
+      width 0px
+    &:after
+      bottom -19px
+      border-top-color #fff
+    &:before
+      bottom -23px
+
+  &.under-allowance
+    border-color color-under-allowance
+    box-shadow 0 0 0 2px color-under-allowance
+    &:before
+      border-top-color color-under-allowance
+
+  &.over-allowance
+    border-color color-over-allowance
+    box-shadow 0 0 0 2px color-over-allowance
+    &:before
+      border-top-color color-over-allowance
+
+.ShoppingBagLimit
+  font-preorder(300, 15px)
+  line-height 18px
+  text-transform uppercase
+
+  .limit
+    font-weight bold
+
+  .divider
+    border none
+    margin 0
+    
+/* Limit element for the shopping bag */
+/******************************************************************************/
+.ShoppingBagLimit
+  clearfix()
+
+  &.isReached
+    opacity .3
+
+.ShoppingBagHeader
+  .img
+    float left
+    margin-right 24px
+
+  .desc
+    float left
+    margin 11px 0
+    text-align left
+
+  .title
+    font-family font-family-preorder
+    font-weight bold
+    font-size 18px
+    text-transform uppercase
+
+  .total
+  .link
+    font-family font-family-preorder
+    font-weight 300
+    font-size 16px
+
+  a.link
+    color #fff
+    text-transform uppercase
+    &:hover
+      color rgba(#fff, .7)
+    &:after
+      border-bottom 5px solid transparent
+      border-left 6px solid color-gray
+      border-right 6px solid transparent
+      border-top 5px solid transparent
+      content ''
+      display inline-block
+      height 0
+      margin-left 5px
+      position relative
+      width 0
+
+  &.under-allowance
+    background color-under-allowance
+    height 53px
+    .img
+      position relative
+      &:after
+        background-image url('../img/icon/icon.png')
+        background-position -173px -179px
+        background-repeat no-repeat
+        content ''
+        display inline-block
+        height 30px
+        left 34px
+        position absolute
+        top 12px
+        width 30px
+
+    a.link
+      &:after
+        border-left-color #ace1b1
+
+  &.over-allowance
+    background color-over-allowance
+    .img
+      position relative
+      &:after
+        background-image url('../img/icon/icon.png')
+        background-position -141px -142px
+        background-repeat no-repeat
+        content ''
+        display inline-block
+        height 28px
+        left 32px
+        position absolute
+        top 14px
+        width 30px
+    a.link
+      &:after
+        display none
+
+
+/* Listing of product in the shopping bag */
+/******************************************************************************/
+.ShoppingBag
+  .groupWrap
+    max-height 400px
+    overflow auto
+
+.ShoppingBagListProduct
+  margin 0
+  padding 0
+  
+.ShoppingBagListProduct
+
+  .col
+    clearfix()
+    .qt
+      display inline-block
+
+
+  .priceWrap
+    clearfix()
+    position relative
+
+    .size
+      display inline-block
+      margin-bottom 12px
+      padding-top 8px
+
+    .priceWithLabel
+      position absolute
+      top 0
+      right 0
+      display inline-block
+
+      label
+        font-family Verdana
+        font-size 12px
+      .ShoppingBagPriceWrap
+        display inline-block
+        position static
+        &.beforePromo
+          .currency
+            text-decoration line-through
+          .amount
+            text-decoration line-through
+
+  .price.beforePromo:before
+    content " "
+
+
+  .promoPrice
+    position absolute
+    right 0
+    .ShoppingBagPriceWrap
+      position static
+      >span
+        color #b92b17
+
+/* Product Styles */
+/******************************************************************************/
+.ShoppingBagProduct
+  border-top border-default
+  color black
+  display inline-block
+  margin 0
+  padding 24px 50px 26px 10px
+  position relative
+  text-align left
+  width 400px
+
+  &:first-child
+    border-bottom none
+
+  .img
+    float left
+    width 86px
+    @media mq-s
+      width 66px
+
+  .details
+    float left
+    padding 0
+    position relative
+    margin-left 4px
+    width 240px
+
+    .col-1
+      margin-bottom 30px
+
+  .desc
+    font-family "Times new roman"
+    font-size 16px
+    font-weight bold
+    margin-bottom 5px
+    padding-left 5px
+
+  .name
+    font-size 14px
+    margin-bottom 5px
+    padding-left 5px
+
+  .qt
+    float left
+    font-size 12px
+    // font-weight bold
+    margin-bottom 5px
+    margin-right -20px
+    padding-left 5px
+    position relative
+    text-transform uppercase
+    user-select none
+
+
+    .plus
+    .minus
+    .qt-value
+      margin 3px 0
+
+    .plus
+    .minus
+      border 1px solid #000
+      cursor pointer
+      display inline-block
+      height 25px
+      line-height 23px
+      text-align center
+      width 25px
+
+      &.disabled
+        border-color color-mercury
+        color color-mercury
+
+    .minus
+      margin-left 5px
+
+    .qt-value
+      background #fff
+      display inline-block
+      padding 2px 13px
+
+  .size
+    font-size 12px
+    // font-weight bold
+    margin-bottom 5px
+    padding-left 5px
+    text-transform uppercase
+
+  .tooltip
+    display none
+
+/* ShoppingBag price Styles */
+/******************************************************************************/
+.ShoppingBagPriceWrap
+  margin-bottom 5px
+  padding-left 5px
+  padding 0
+  position absolute
+  right -43px
+  font-size 12px
+  font-weight bold
+  line-height 31px
+
+  >label
+    font-size 12px
+    font-weight normal
+    font-family Verdana
+
+  .currency
+    cursor pointer
+    display inline-block
+    padding-right 5px
+    text-transform uppercase
+    &:hover
+      color color-secondary
+
+
+  .before-discount
+    .currency
+      cursor default
+
+/* Product DropDown Menu Styles */
+/******************************************************************************/
+.ShoppingBagProductMenu
+  // cursor pointer
+  position absolute !important
+  right 12px
+  top 14px
+  z-index 2
+  img
+    height 27px
+    width 27px
+
+/* Shopping Bag Footer */
+/******************************************************************************/
+.ShoppingBagFooter
+  @extend .ShoppingBagHeader
+  border-top 1px solid #ccc
+  font-weight bold
+  padding 1em 2em
+
+  .total-confirmation
+    clearfix()
+
+  .title
+    float left
+    font-family font-family-default
+    text-transform uppercase
+
+  .ShoppingBagPriceWrap
+    right 34px
+    line-height initial
+    margin-top -4px
+
+  .tooltip
+    display none
+    position absolute
+    width 100%
+    height 100%
+  &.form
+  .form
+    padding-left 3em
+    padding-right 3em
+
+    .form-field
+      color color-emperor
+      font-weight normal
+      margin-bottom 10px
+      label.cfe
+        display block
+        margin-left 20px
+        .cfe-checkbox
+          margin-left -21px
+      a
+        color inherit
+        text-decoration underline
+
+
+  .button.checkout
+    background #000
+    border 1px solid transparent
+    color #fff
+    font-size 14px
+    font-weight 400
+    letter-spacing 2px
+    transition all .4s ease-in-out
+    width 344px
+    &:hover
+      color #b7b7b7
+
+    &.disabled
+      background #d9d9d9
+      border 1px solid #7c7c7c
+      color #575757
+      cursor default
+      &:hover
+        color #979797
+
+    &.over-allowance
+      background #bf3434
+      cursor default
+      border 0px
+      color #fff
+      &:hover
+        color #EDC2B7
+
+  a.continue-shopping
+    font-size 1em
+    margin-top 1em
+    color color-emperor
+    &:hover
+      color color-silver
+    &:after
+      arrow('left', 4px, color-gray)
+
+  .promo
+    clearfix()
+    margin-bottom 10px
+    >.title
+      font-weight normal
+      font-size 14px
+      font-family Verdana
+    .price
+      font-size 12px
+
+
+
+
+
+/*******************************************************************************
+                              Shopping Bag Details
+*******************************************************************************/          
+.shoppingBag-page
+  .ShoppingBag.groupWrap
+    border-bottom 1px solid #000
+  .ShoppingBag
+
+    footer
+      .title
+        float right
+        font-weight normal
+        margin-right 20px
+      // background color-mercury
+
+  .ShoppingBagGroup
+
+    >.title
+      text-transform uppercase
+      font-weight bold
+      padding 10px
+
+      .icon-prependInline
+        margin-top -5px
+
+
+  .ShoppingBagFooter
+    border none
+    font-weight normal
+    margin 0
+    a
+      color inherit
+      text-decoration underline
+
+    .form
+      padding-right 0
+      padding-left 9em
+      @media mq-s
+        padding-left 0
+
+      .button.checkout
+        width 100%
+
+  $margin-bottom = 15px
+  .list-guarantee
+    li
+      margin-bottom $margin-bottom
+
+      &.shop-with-confidence
+        font-weight bold
+
+      &.ssl-secure
+        .icon-prependInline
+          margin-left 3px
+          margin-right 14px
+
+  .promo
+    margin-left 35px
+    .price
+      float right
+      position relative
+
+  .total-confirmation
+    // margin-bottom $margin-bottom
+    margin-left 35px
+    clearfix()
+    .price
+      position relative
+      float right
+      right -6px
+
+  .order-processing
+    color color-secondary
+    margin-right 90px
+
+  .button.checkout
+    margin 15px 0
+
+  .limitsWrap
+  .ShoppingBagOption
+    max-width 500px
+
+  .ShoppingBagFooter
+    a
+      &.continue-shopping
+        float right
+        font-size 1.3em
+        margin-right -5px
+        position relative
+        text-decoration none !important
+
+
+  @media mq-m
+    .ShoppingBagDetailsAllowance-tip
+      display block
+
+    .shoppingBag-page
+      .ShoppingBag
+        max-width none
+
+        .purchaseLimits
+          .limitsWrap
+            max-width 500px
+            .slider-arrow
+              &.right
+                right 20px
+              &.left
+                left 20px
+
+          .ShoppingBagLimit
+            text-align center
+            .desc
+            .img
+            .title
+            .total
+              float none
+              margin 0
+              line-height 1.4em
+              text-align center
+
+            .total
+              &:before
+                display none
+
+        // .ShoppingBagProduct
+        //   .update-button
+        //     font-size 1em
+        //     margin 0
+        //     padding .4em 2em
+        //     width auto
+
+        .ShoppingBagFooter
+          .order-processing
+              margin 0
+
+          // .button.checkout
+          //   margin-left 0
+          //   margin-right 0
+
+  @media mq-s
+    #shopping-bag
+      >.area-container
+        padding 0
+
+    .my-tabs
+      .content-item
+        padding 0
+
+    .shoppingBag-page
+      .ShoppingBag
+        .ShoppingBagProduct
+          .details
+            padding-left 70px
+          .col
+            float none
+            width auto
+
+            > *
+              padding-left 0
+              margin-bottom 3px
+            &.col-2
+              margin-right 0
+              margin-top 20px
+
+          .size
+            font-weight normal
+
+          .qt
+            .qt-value
+              padding 2px 7px
+              margin 0
+
+          .ShoppingBagPriceWrap
+
+          //   position static
+          //   margin-top 20px
+          //   margin-bottom 20px
+
+            .price
+              &.after-discount
+                margin-top 0
+
+          .extra
+            padding-left 5px
+
+        footer
+          margin-bottom 20px
+
+        .ShoppingBagFooter
+          &.divider
+            border-top 1px solid color-silver
+
+          .total-confirmation
+            margin-left 0
+
+          .form
+            padding 0
+
+    .ShoppingBagFooter
+      &.shop-note
+        padding 0
+        margin-top 15px
+        .list-guarantee
+          padding 15px 20px 20px
+          border 1px solid #e1e1e1
+
+        .order-processing
+          margin 20px
+
+  .legalAge-tip
+    text-decoration underline
+  // .ShoppingBag
+  //   .limitsWrap
+
+
+  .ShoppingBag
+    .ShoppingBagPriceWrap
+      line-height normal
+
+      .priceWrap
+        .price
+          &.beforePromo
+            text-decoration line-through
+            .currency
+              text-decoration line-through
+
+          &.promo
+            margin-left 0
+            >span
+              color #b92b17

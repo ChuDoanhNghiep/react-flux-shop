@@ -41214,8 +41214,8 @@ HeaderShoppingbag = require("./components/HeaderShoppingbag.cjsx");
 React.render(React.createElement(HeaderShoppingbag, null), document.getElementById("react-shoppingbag"));
 
 
-},{"./components/HeaderShoppingbag.cjsx":314,"react":305}],307:[function(require,module,exports){
-var ProductListData, ReactRouter, Route, brandCollection, main, productDetails, routes;
+},{"./components/HeaderShoppingbag.cjsx":313,"react":305}],307:[function(require,module,exports){
+var ProductListData, ReactRouter, Route, brandCollection, main, productDetails, routes, shoppingbagDetails;
 
 window.React = require("react");
 
@@ -41226,6 +41226,8 @@ main = require("./components/Main.cjsx");
 brandCollection = require("./components/BrandCollection.cjsx");
 
 productDetails = require("./components/ProductDetails.cjsx");
+
+shoppingbagDetails = require("./components/ShoppingbagDetails.cjsx");
 
 ReactRouter = require("react-router");
 
@@ -41243,6 +41245,10 @@ routes = React.createElement(Route, {
   "name": "productDetails",
   "path": "/product/:id",
   "handler": productDetails
+}), React.createElement(Route, {
+  "name": "shoppingbagDetails",
+  "path": "/shoppingbag",
+  "handler": shoppingbagDetails
 }));
 
 ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
@@ -41251,6 +41257,8 @@ ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
   defaultID = "brand-collection";
   if (name.indexOf("/product") === 0) {
     defaultID = "product-details";
+  } else if (name.indexOf("/shoppingbag") === 0) {
+    defaultID = "shopping-bag";
   }
   return React.render(React.createElement(Root, {
     "pageID": defaultID
@@ -41258,7 +41266,7 @@ ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
 });
 
 
-},{"./ProductListData.coffee":308,"./components/BrandCollection.cjsx":311,"./components/Main.cjsx":315,"./components/ProductDetails.cjsx":317,"react":305,"react-router":136}],308:[function(require,module,exports){
+},{"./ProductListData.coffee":308,"./components/BrandCollection.cjsx":311,"./components/Main.cjsx":314,"./components/ProductDetails.cjsx":316,"./components/ShoppingbagDetails.cjsx":323,"react":305,"react-router":136}],308:[function(require,module,exports){
 module.exports = {
   init: function() {
     localStorage.clear();
@@ -41271,7 +41279,8 @@ module.exports = {
         category: "wine",
         brand: "DFS Selects: Wine",
         currency: "S$",
-        price: "100.00",
+        price: 100.00,
+        size: 0.75,
         country: "france",
         grape_varietal: "Merlot",
         region: "Bordeaux",
@@ -41285,7 +41294,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Babich Wines Ltd",
-        price: "200",
+        price: 200,
+        size: 0.75,
         country: "Argentina",
         grape_varietal: "Sangiovese",
         region: "Burgundy",
@@ -41299,7 +41309,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Mud HOurs",
-        price: "100.00",
+        price: 128.00,
+        size: 0.75,
         country: "spain",
         grape_varietal: "Cabearnet Sauvignon",
         region: "Central Otago",
@@ -41313,7 +41324,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Zinfandelic",
-        price: "100.00",
+        price: 100.00,
+        size: 0.75,
         country: "south africa",
         grape_varietal: "Shiraz",
         region: "Champagne",
@@ -41327,7 +41339,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Bottega",
-        price: "100.00",
+        price: 163.00,
+        size: 0.75,
         country: "Germany",
         grape_varietal: "riesling",
         region: "graves",
@@ -41341,7 +41354,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Wine Spots",
-        price: "100.00",
+        price: 110.00,
+        size: 0.75,
         country: "chile",
         grape_varietal: "pinot noir",
         region: "Bordeaux",
@@ -41355,7 +41369,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Frescobaldi",
-        price: "100.00",
+        price: 134.00,
+        size: 0.75,
         country: "france",
         grape_varietal: "Merlot",
         region: "South Australia",
@@ -41369,7 +41384,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Tommasi",
-        price: "100.00",
+        price: 70.00,
+        size: 0.75,
         country: "france",
         grape_varietal: "Merlot",
         region: "St. Julien",
@@ -41383,7 +41399,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Yalumba",
-        price: "100.00",
+        price: 29.00,
+        size: 0.75,
         country: "canada",
         grape_varietal: "Merlot",
         region: "Rhone Valley",
@@ -41397,7 +41414,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Silver Oak Cellars",
-        price: "100.00",
+        price: 49.00,
+        size: 0.75,
         country: "united states",
         grape_varietal: "Sauvignon Blanc",
         region: "Pessac Leognan",
@@ -41411,7 +41429,8 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Frescobaldi",
-        price: "100.00",
+        price: 400.00,
+        size: 0.75,
         country: "england",
         grape_varietal: "Bordeaux Red Blend",
         region: "Tuscany",
@@ -41426,10 +41445,148 @@ module.exports = {
         image: "http://placehold.it/200",
         category: "wine",
         brand: "Moet & Chandon",
-        price: "123.45",
+        price: 123.45,
+        size: 0.75,
         country: "united states",
         grape_varietal: "Sauvignon Blanc",
         region: "Pessac Leognan",
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000013",
+        sku: "1938373445",
+        name: "Kronenbourg 1664 0.33L X 3",
+        image: "http://placehold.it/200",
+        category: "beer",
+        brand: "Shop selects: Beer",
+        price: 173.45,
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000014",
+        sku: "193232374638",
+        name: "Somersby Cider 0.33L x3",
+        image: "http://placehold.it/200",
+        category: "beer",
+        brand: "DFS Selects: Beer",
+        price: 153.45,
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000015",
+        sku: "19334424638",
+        name: "Hoegaarden 0.33L X 3",
+        image: "http://placehold.it/200",
+        category: "beer",
+        brand: "DFS selects: Beer",
+        price: 223.45,
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000016",
+        sku: "1923244638",
+        name: "Johnni Walker GOld reserve 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "johnnie walker",
+        price: 133.45,
+        type: "Scotch Whisky",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000017",
+        sku: "194242424638",
+        name: "Zacapa 23 year old 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "Zacapa",
+        price: 123.45,
+        type: "Liqueur",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000017",
+        sku: "192323234638",
+        name: "Shui jing fang red fortune 0.5L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "shui jing fang",
+        price: 623.45,
+        type: "Baijiu",
+        size: 0.5,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000018",
+        sku: "232423244638",
+        name: "Chatelle napoleon 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "chatelle napoleon brandy",
+        price: 23.45,
+        type: "brandy",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000019",
+        sku: "42424223244638",
+        name: "Martell XO 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "martell",
+        price: 422.45,
+        type: "Cognac",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000020",
+        sku: "1923244638",
+        name: "Tanqueray Ten 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "tanqueray",
+        price: 223.45,
+        type: "gin",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000021",
+        sku: "8923244638",
+        name: "Absolut Vodka 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "absolut",
+        price: 23.45,
+        type: "vodka",
+        size: 1,
         shop_recommended: "true",
         currency: "S$",
         inventory: 2,
@@ -41465,7 +41622,7 @@ ProductDetailsActions = {
 module.exports = ProductDetailsActions;
 
 
-},{"../constants/ShopConstants.cjsx":324,"../dispatcher/AppDispatcher.cjsx":325}],310:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330}],310:[function(require,module,exports){
 var AppDispatcher, ProductFilterActions, ShopConstants;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41502,7 +41659,7 @@ ProductFilterActions = {
 module.exports = ProductFilterActions;
 
 
-},{"../constants/ShopConstants.cjsx":324,"../dispatcher/AppDispatcher.cjsx":325}],311:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330}],311:[function(require,module,exports){
 var BrandCollection, ProductFilterRefine, ProductFilterSort, ProductList, React;
 
 React = require("react");
@@ -41548,43 +41705,7 @@ BrandCollection = React.createClass({displayName: "BrandCollection",
 module.exports = BrandCollection;
 
 
-},{"./ProductFilterRefine.cjsx":318,"./ProductFilterSort.cjsx":319,"./ProductList.cjsx":320,"react":305}],312:[function(require,module,exports){
-var BrandDetails, React;
-
-React = require("react");
-
-BrandDetails = React.createClass({displayName: "BrandDetails",
-  render: function() {
-    return React.createElement("div", {
-      "className": "kiwi-grid divider"
-    }, React.createElement("div", {
-      "className": "kiwi-col l-7-16 m-1"
-    }, React.createElement("div", {
-      "className": "block img"
-    }, React.createElement("img", {
-      "src": "http://placehold.it/450x280",
-      "className": "fade-in"
-    }))), React.createElement("div", {
-      "className": "kiwi-col l-9-16 m-1"
-    }, React.createElement("div", {
-      "className": "block details"
-    }, React.createElement("div", {
-      "className": "title"
-    }, "Chateau Beychevelle"), React.createElement("p", {
-      "className": "description"
-    }, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris euismod, erat non porttitor consequat, dolor enim molestie eros, ut fringilla augue urna sit amet felis. Quisque imperdiet orci at nulla sodales, et porttitor leo porta. Nullam neque arcu, mollis bibendum lobortis non, mattis in lorem. Aliquam nec mollis turpis. Ut vulputate pellentesque gravida. className aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed consectetur elit quis lectus dapibus, sed tincidunt nisi elementum."), React.createElement("p", {
-      "className": "discover"
-    }, "Discover the latest collection at your nearest ", React.createElement("a", {
-      "href": "#",
-      "className": "underline"
-    }, "DFS store"), "."))));
-  }
-});
-
-module.exports = BrandDetails;
-
-
-},{"react":305}],313:[function(require,module,exports){
+},{"./ProductFilterRefine.cjsx":317,"./ProductFilterSort.cjsx":318,"./ProductList.cjsx":319,"react":305}],312:[function(require,module,exports){
 var Breadcrumb, React;
 
 React = require("react");
@@ -41610,7 +41731,7 @@ Breadcrumb = React.createClass({displayName: "Breadcrumb",
 module.exports = Breadcrumb;
 
 
-},{"react":305}],314:[function(require,module,exports){
+},{"react":305}],313:[function(require,module,exports){
 var HeaderShoppingbag, HeaderShoppingbagStore, React, getProductCount;
 
 React = require("react");
@@ -41646,7 +41767,7 @@ HeaderShoppingbag = React.createClass({displayName: "HeaderShoppingbag",
     return React.createElement("div", {
       "className": "title img"
     }, React.createElement("a", {
-      "href": "./shoppingbag-detail.html"
+      "href": "#/shoppingbag"
     }, React.createElement("i", {
       "className": "icon icon-shoppingbag-white-base64"
     })), num);
@@ -41656,8 +41777,8 @@ HeaderShoppingbag = React.createClass({displayName: "HeaderShoppingbag",
 module.exports = HeaderShoppingbag;
 
 
-},{"../stores/HeaderShoppingbagStore.cjsx":326,"react":305}],315:[function(require,module,exports){
-var BrandDetails, Breadcrumb, Main, React, ReactRouter, RouteHandler;
+},{"../stores/HeaderShoppingbagStore.cjsx":331,"react":305}],314:[function(require,module,exports){
+var Breadcrumb, Main, React, ReactRouter, RouteHandler;
 
 React = require("react");
 
@@ -41666,8 +41787,6 @@ ReactRouter = require("react-router");
 RouteHandler = ReactRouter.RouteHandler;
 
 Breadcrumb = require("./Breadcrumb.cjsx");
-
-BrandDetails = require("./BrandDetails.cjsx");
 
 Main = React.createClass({displayName: "Main",
   getDefaultProps: function() {
@@ -41685,14 +41804,14 @@ Main = React.createClass({displayName: "Main",
       "className": "pos-relative"
     }, React.createElement("h1", {
       "className": "divider GNB-line"
-    }, " Wine and spirits")), React.createElement(Breadcrumb, null), React.createElement(BrandDetails, null), React.createElement(RouteHandler, null)));
+    }, " Wine and spirits")), React.createElement(Breadcrumb, null), React.createElement(RouteHandler, null)));
   }
 });
 
 module.exports = Main;
 
 
-},{"./BrandDetails.cjsx":312,"./Breadcrumb.cjsx":313,"react":305,"react-router":136}],316:[function(require,module,exports){
+},{"./Breadcrumb.cjsx":312,"react":305,"react-router":136}],315:[function(require,module,exports){
 var Product, React;
 
 React = require("react");
@@ -41744,8 +41863,8 @@ Product = React.createClass({displayName: "Product",
 module.exports = Product;
 
 
-},{"react":305}],317:[function(require,module,exports){
-var Notification, ProductDetails, ProductDetailsActions, ProductDetailsStore, ProductListAPI, QuantityChoice, React, classNames, getSelectedQuantity, updateInventory;
+},{"react":305}],316:[function(require,module,exports){
+var Notification, ProductDetails, ProductDetailsActions, ProductDetailsStore, ProductListAPI, QuantityChoice, React, ShoppingbagAPI, classNames, getSelectedQuantity, updateInventory;
 
 React = require("react");
 
@@ -41756,6 +41875,8 @@ classNames = require("classnames");
 QuantityChoice = require("./QuantityChoice.cjsx");
 
 ProductListAPI = require("../utils/ProductListAPI.coffee");
+
+ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
 
 ProductDetailsStore = require("../stores/ProductDetailsStore.cjsx");
 
@@ -41801,7 +41922,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
     });
   },
   shoppingbagClick: function() {
-    var num, updatedProduct;
+    var addedProduct, num, updatedProduct;
     if (this.state.shoppingbagBtnDisabled) {
       return;
     }
@@ -41812,6 +41933,15 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
     if (num >= 0) {
       ProductDetailsActions.addToShoppingbag(this.state.selectedQuantity);
       updateInventory(this.state.product.id, num);
+      addedProduct = {
+        id: this.state.product.id,
+        name: this.state.product.name,
+        quantity: this.state.selectedQuantity,
+        price: this.state.product.price,
+        sku: this.state.product.sku,
+        category: this.state.product.category
+      };
+      ShoppingbagAPI.addShoppingbagProduct(addedProduct);
       updatedProduct = this.state.product;
       updatedProduct.inventory = num;
       return this.setState({
@@ -41948,7 +42078,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
 module.exports = ProductDetails;
 
 
-},{"../actions/ProductDetailsActions.cjsx":309,"../stores/ProductDetailsStore.cjsx":327,"../utils/ProductListAPI.coffee":331,"./QuantityChoice.cjsx":321,"classnames":3,"react":305,"react-notification":110}],318:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":309,"../stores/ProductDetailsStore.cjsx":332,"../utils/ProductListAPI.coffee":336,"../utils/ShoppingbagAPI.coffee":337,"./QuantityChoice.cjsx":320,"classnames":3,"react":305,"react-notification":110}],317:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, React, RefineGroup, RefinerList, getRefinerList;
 
 React = require("react");
@@ -42043,7 +42173,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":328,"./RefineGroup.cjsx":322,"./RefinerList.cjsx":323,"react":305}],319:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":333,"./RefineGroup.cjsx":321,"./RefinerList.cjsx":322,"react":305}],318:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -42132,7 +42262,7 @@ ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
 module.exports = ProductFilterSort;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],320:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],319:[function(require,module,exports){
 /** @jsx React.DOM */;
 var Product, ProductList, ProductListAPI, ProductListStore, React;
 
@@ -42247,7 +42377,7 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":329,"../utils/ProductListAPI.coffee":331,"./Product.cjsx":316,"react":305}],321:[function(require,module,exports){
+},{"../stores/ProductListStore.cjsx":334,"../utils/ProductListAPI.coffee":336,"./Product.cjsx":315,"react":305}],320:[function(require,module,exports){
 var ProductDetailsActions, QuantityChoice, React;
 
 React = require("react");
@@ -42294,7 +42424,7 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
 module.exports = QuantityChoice;
 
 
-},{"../actions/ProductDetailsActions.cjsx":309,"react":305}],322:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":309,"react":305}],321:[function(require,module,exports){
 var ProductFilterActions, React, RefineGroup;
 
 React = require("react");
@@ -42377,7 +42507,7 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
 module.exports = RefineGroup;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],323:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],322:[function(require,module,exports){
 var ProductFilterActions, React, RefinerList;
 
 React = require("react");
@@ -42417,7 +42547,398 @@ RefinerList = React.createClass({displayName: "RefinerList",
 module.exports = RefinerList;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],324:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],323:[function(require,module,exports){
+var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader;
+
+React = require("react");
+
+ShoppingbagEmpty = require("./ShoppingbagEmpty.cjsx");
+
+ShoppingbagHeader = require("./ShoppingbagHeader.cjsx");
+
+ShoppingbagFooter = require("./ShoppingbagFooter.cjsx");
+
+ShoppingbagGroup = require("./ShoppingbagGroup.cjsx");
+
+ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
+
+ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
+  getInitialState: function() {
+    return {
+      addedProducts: ShoppingbagAPI.getShoppingbagProducts()
+    };
+  },
+  render: function() {
+    var beer, beerGroup, spirit, spiritGroup, wine, wineGroup;
+    if (this.state.addedProducts) {
+      wine = this.state.addedProducts.filter(function(product) {
+        return product.category.toLowerCase() === "wine";
+      });
+      beer = this.state.addedProducts.filter(function(product) {
+        return product.category.toLowerCase() === "beer";
+      });
+      spirit = this.state.addedProducts.filter(function(product) {
+        return product.category.toLowerCase() === "spirit";
+      });
+      wineGroup = wine.length ? React.createElement(ShoppingbagGroup, {
+        "category": "wine",
+        "products": wine
+      }) : "";
+      beerGroup = beer.length ? React.createElement(ShoppingbagGroup, {
+        "category": "beer",
+        "products": beer
+      }) : "";
+      spiritGroup = spirit.length ? React.createElement(ShoppingbagGroup, {
+        "category": "spirit",
+        "products": spirt
+      }) : "";
+      return React.createElement("div", {
+        "className": "shoppingBag-page"
+      }, React.createElement("section", {
+        "className": "ShoppingBag ShoppingBagPage"
+      }, React.createElement(ShoppingbagHeader, {
+        "addedProducts": this.state.addedProducts
+      }), React.createElement("div", {
+        "className": "ShoppingBag groupWrap"
+      }, wineGroup, spiritGroup, beerGroup), React.createElement(ShoppingbagFooter, null)));
+    } else {
+      return React.createElement("div", {
+        "className": "shoppingBag-page"
+      }, React.createElement(ShoppingbagEmpty, null));
+    }
+  }
+});
+
+module.exports = ShoppingbagDetails;
+
+
+},{"../utils/ShoppingbagAPI.coffee":337,"./ShoppingbagEmpty.cjsx":324,"./ShoppingbagFooter.cjsx":325,"./ShoppingbagGroup.cjsx":326,"./ShoppingbagHeader.cjsx":327,"react":305}],324:[function(require,module,exports){
+var React, ShoppingbagEmpty;
+
+React = require("react");
+
+ShoppingbagEmpty = React.createClass({displayName: "ShoppingbagEmpty",
+  render: function() {
+    return React.createElement("div", null, React.createElement("h2", null, "Your Shopping Bag"), React.createElement("p", null, "You can currently Shop and Collect items from our Wines and Spirits and Beauty Collections."), React.createElement("div", {
+      "className": "steps"
+    }, React.createElement("div", {
+      "className": "kiwi-grid"
+    }, React.createElement("div", {
+      "className": "kiwi-col l-1-3"
+    }, React.createElement("div", {
+      "className": "step step-1"
+    }, React.createElement("div", {
+      "className": "picto"
+    }, "1"), React.createElement("div", {
+      "className": "text"
+    }, "Add items ", React.createElement("br", null), "to your bag"))), React.createElement("div", {
+      "className": "kiwi-col l-1-3"
+    }, React.createElement("div", {
+      "className": "step step-2"
+    }, React.createElement("div", {
+      "className": "picto"
+    }, "2"), React.createElement("div", {
+      "className": "text"
+    }, "Pay ", React.createElement("br", null), "online"))), React.createElement("div", {
+      "className": "kiwi-col l-1-3"
+    }, React.createElement("div", {
+      "className": "step step-3"
+    }, React.createElement("div", {
+      "className": "picto"
+    }, "3"), React.createElement("div", {
+      "className": "text"
+    }, "Collect ", React.createElement("br", null), "in store"))))), React.createElement("p", {
+      "className": "learn-more"
+    }, React.createElement("a", {
+      "className": "link underline",
+      "href": "#"
+    }, "Learn more about Shop and Collect")));
+  }
+});
+
+module.exports = ShoppingbagEmpty;
+
+
+},{"react":305}],325:[function(require,module,exports){
+var React, ShoppingbagFooter;
+
+React = require("react");
+
+ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
+  render: function() {
+    return React.createElement("div", {
+      "className": "ShoppingBagFooter"
+    }, React.createElement("div", {
+      "className": "promo"
+    }, React.createElement("div", {
+      "className": "title"
+    }, "PROMOTIONS:"), React.createElement("div", {
+      "className": "price ShoppingBagPriceWrap"
+    }, React.createElement("span", {
+      "className": "currency"
+    }, React.createElement("span", {
+      "className": "symbol-before"
+    }, "\u203a"), React.createElement("span", {
+      "className": "underline"
+    }, "S$"), React.createElement("span", {
+      "className": "amount"
+    }, "1.46")))), React.createElement("div", {
+      "className": "total-confirmation"
+    }, React.createElement("div", {
+      "className": "price ShoppingBagPriceWrap ShoppingBagPriceTotalWrap"
+    }, React.createElement("span", {
+      "className": "currency"
+    }, React.createElement("span", {
+      "className": "symbol-before"
+    }, "\u203a"), React.createElement("span", {
+      "className": "underline"
+    }, "S$"), React.createElement("span", {
+      "className": "amount"
+    }, "185.46"))), React.createElement("div", {
+      "className": "title"
+    }, "total")));
+  }
+});
+
+module.exports = ShoppingbagFooter;
+
+
+},{"react":305}],326:[function(require,module,exports){
+var React, ShoppingbagGroup, ShoppingbagProduct;
+
+React = require("react");
+
+ShoppingbagProduct = require("./ShoppingbagProduct.cjsx");
+
+ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
+  getInitialState: function() {
+    return {
+      category: this.props.category,
+      products: this.props.products
+    };
+  },
+  render: function() {
+    var items;
+    items = this.state.products.map((function(_this) {
+      return function(product) {
+        return React.createElement(ShoppingbagProduct, {
+          "key": product.objectID,
+          "product": product
+        });
+      };
+    })(this));
+    return React.createElement("div", {
+      "className": "ShoppingBagGroup"
+    }, React.createElement("div", {
+      "className": "ShoppingBagHeader allowance under-allowance "
+    }, React.createElement("div", {
+      "className": "img"
+    }, React.createElement("img", {
+      "style": {
+        width: "52px",
+        height: "52px"
+      },
+      "src": "./images/icons/allowance-Wines-x2.png"
+    })), React.createElement("div", {
+      "className": "desc"
+    }, React.createElement("span", {
+      "className": "title"
+    }, this.state.category, "  "), React.createElement("span", {
+      "className": "total"
+    }, "1.25cL Allowance"), React.createElement("div", {
+      "className": "link"
+    }, React.createElement("a", {
+      "className": "link"
+    }, "Buy ", this.state.category, " now")))), items);
+  }
+});
+
+module.exports = ShoppingbagGroup;
+
+
+},{"./ShoppingbagProduct.cjsx":328,"react":305}],327:[function(require,module,exports){
+var React, ShoppingbagHeader;
+
+React = require("react");
+
+ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
+  render: function() {
+    return React.createElement("header", {
+      "className": "ShoppingBagHeader purchaseLimits"
+    }, React.createElement("div", {
+      "className": "primary-title"
+    }, "Duty-Free Allowance Options: ", React.createElement("span", {
+      "className": "icon-tooltip icon-appendInline"
+    })), React.createElement("div", {
+      "className": "limits"
+    }, React.createElement("div", {
+      "className": "kiwi-grid allowanceOptionWrap"
+    }, React.createElement("div", {
+      "className": "kiwi-col l-1-3"
+    }, React.createElement("div", {
+      "className": "ShoppingBagOption under-allowance"
+    }, React.createElement("div", {
+      "className": "option-nb"
+    }, "1"), React.createElement("div", {
+      "className": "ShoppingBagLimit"
+    }, React.createElement("span", {
+      "className": "limit"
+    }, "1L"), React.createElement("span", {
+      "className": "divider"
+    }, "  "), React.createElement("span", {
+      "className": "type"
+    }, "wines")), React.createElement("div", {
+      "className": "ShoppingBagLimit"
+    }, React.createElement("span", {
+      "className": "limit"
+    }, "1L"), React.createElement("span", {
+      "className": "divider"
+    }, "  "), React.createElement("span", {
+      "className": "type"
+    }, "spirits")), React.createElement("div", {
+      "className": "ShoppingBagLimit"
+    }, React.createElement("span", {
+      "className": "limit"
+    }, "1L"), React.createElement("span", {
+      "className": "divider"
+    }, "  "), React.createElement("span", {
+      "className": "type"
+    }, "beer")))), React.createElement("div", {
+      "className": "kiwi-col l-1-3"
+    }, React.createElement("div", {
+      "className": "ShoppingBagOption"
+    }, React.createElement("div", {
+      "className": "option-nb"
+    }, "2"), React.createElement("div", {
+      "className": "ShoppingBagLimit"
+    }, React.createElement("span", {
+      "className": "limit"
+    }, "2L"), React.createElement("span", {
+      "className": "divider"
+    }, "  "), React.createElement("span", {
+      "className": "type"
+    }, "wines")), React.createElement("div", {
+      "className": "ShoppingBagLimit"
+    }, React.createElement("span", {
+      "className": "limit"
+    }, "1L"), React.createElement("span", {
+      "className": "divider"
+    }, "  "), React.createElement("span", {
+      "className": "type"
+    }, "beer")))), React.createElement("div", {
+      "className": "kiwi-col l-1-3"
+    }, React.createElement("div", {
+      "className": "ShoppingBagOption"
+    }, React.createElement("div", {
+      "className": "option-nb"
+    }, "3"), React.createElement("div", {
+      "className": "ShoppingBagLimit"
+    }, React.createElement("span", {
+      "className": "limit"
+    }, "1L"), React.createElement("span", {
+      "className": "divider"
+    }, "  "), React.createElement("span", {
+      "className": "type"
+    }, "wines")), React.createElement("div", {
+      "className": "ShoppingBagLimit"
+    }, React.createElement("span", {
+      "className": "limit"
+    }, "2L"), React.createElement("span", {
+      "className": "divider"
+    }, "  "), React.createElement("span", {
+      "className": "type"
+    }, "beer")))))));
+  }
+});
+
+module.exports = ShoppingbagHeader;
+
+
+},{"react":305}],328:[function(require,module,exports){
+var React, ShoppingbagProduct;
+
+React = require("react");
+
+ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
+  getInitialState: function() {
+    return {
+      product: this.props.product
+    };
+  },
+  render: function() {
+    return React.createElement("ul", {
+      "className": "ShoppingBagListProduct"
+    }, React.createElement("li", {
+      "className": "ShoppingBagProduct"
+    }, React.createElement("div", {
+      "className": "ShoppingBagProductMenu"
+    }, React.createElement("a", {
+      "href": "#"
+    }, React.createElement("img", {
+      "src": "./images/icons/delete-bag-item-x2.png"
+    }))), React.createElement("a", {
+      "className": "img",
+      "href": "#/product/{this.state.product.id}"
+    }, React.createElement("img", {
+      "src": "http://placehold.it/86"
+    })), React.createElement("div", {
+      "className": "details"
+    }, React.createElement("div", {
+      "className": "kiwi-grid"
+    }, React.createElement("div", {
+      "className": "kiwi-col l-3-8 s-1"
+    }, React.createElement("div", {
+      "className": "detailsWrap"
+    }, React.createElement("div", {
+      "className": "name"
+    }, this.state.product.brand), React.createElement("div", {
+      "className": "desc"
+    }, this.state.product.name), React.createElement("div", {
+      "className": "reference"
+    }, this.state.product.sku))), React.createElement("div", {
+      "className": "kiwi-col l-5-8 s-1"
+    }, React.createElement("div", {
+      "className": "size"
+    }, "SIZE: 75CL"), React.createElement("div", {
+      "className": "qt"
+    }, "QTY: ", React.createElement("span", {
+      "className": "minus disabled"
+    }, "-"), React.createElement("span", {
+      "className": "qt-value"
+    }, this.state.product.quantity), React.createElement("span", {
+      "className": "plus"
+    }, "+")), React.createElement("div", {
+      "className": "ShoppingBagPriceWrap"
+    }, React.createElement("label", null, "UNIT PRICE:"), React.createElement("div", {
+      "className": "priceWrap"
+    }, React.createElement("span", {
+      "className": "price beforePromo"
+    }, React.createElement("span", {
+      "className": "currency"
+    }, "S$"), React.createElement("span", {
+      "className": "amount"
+    }, "154555.77")), React.createElement("div", {
+      "className": "price promo"
+    }, React.createElement("span", {
+      "className": "curclassNamerency"
+    }, React.createElement("span", {
+      "className": "symbol-before"
+    }, "\u203a"), React.createElement("span", {
+      "className": "underline"
+    }, this.state.product.currency), React.createElement("span", {
+      "className": "amount"
+    }, this.state.product.price))))), React.createElement("div", {
+      "className": "extra primary"
+    }, React.createElement("div", {
+      "className": "icon-pricetag icon-prependInline"
+    }), "FREE WEEKEND BAG WITH PURCHASE OF 1 BOTTLE MORE"))))));
+  }
+});
+
+module.exports = ShoppingbagProduct;
+
+
+},{"react":305}],329:[function(require,module,exports){
 var keyMirror;
 
 keyMirror = require("react/lib/keyMirror");
@@ -42432,7 +42953,7 @@ module.exports = keyMirror({
 });
 
 
-},{"react/lib/keyMirror":290}],325:[function(require,module,exports){
+},{"react/lib/keyMirror":290}],330:[function(require,module,exports){
 var AppDispatcher, Dispatcher;
 
 Dispatcher = require("flux").Dispatcher;
@@ -42449,7 +42970,7 @@ AppDispatcher.handleViewAction = function(action) {
 module.exports = AppDispatcher;
 
 
-},{"flux":46}],326:[function(require,module,exports){
+},{"flux":46}],331:[function(require,module,exports){
 var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, addProduct, assign, productCount;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -42498,7 +43019,7 @@ AppDispatcher.register(function(payload) {
 module.exports = HeaderShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":324,"../dispatcher/AppDispatcher.cjsx":325,"events":1,"react/lib/Object.assign":176}],327:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],332:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductDetailsStore, ShopConstants, assign, selectedQuantity, updateQuantity;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -42547,7 +43068,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductDetailsStore;
 
 
-},{"../constants/ShopConstants.cjsx":324,"../dispatcher/AppDispatcher.cjsx":325,"events":1,"react/lib/Object.assign":176}],328:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -42616,7 +43137,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":324,"../dispatcher/AppDispatcher.cjsx":325,"events":1,"react/lib/Object.assign":176}],329:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],334:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductListStore, ShopConstants, addProductRefiner, assign, removeAllProductRefiner, removeProductRefiner, selectedFilter, selectedRefiners, setProductListFilter;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -42703,7 +43224,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":324,"../dispatcher/AppDispatcher.cjsx":325,"events":1,"react/lib/Object.assign":176}],330:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],335:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -42728,7 +43249,7 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":99}],331:[function(require,module,exports){
+},{"lodash/lang/isArray":99}],336:[function(require,module,exports){
 var _find, _findIndex, _sortByOrder, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
@@ -42806,7 +43327,37 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":330,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],332:[function(require,module,exports){
+},{"./ObjValidator.coffee":335,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],337:[function(require,module,exports){
+var _findIndex;
+
+_findIndex = require("lodash/array/findIndex");
+
+module.exports = {
+  getShoppingbagProducts: function() {
+    return JSON.parse(localStorage.getItem("shoppingbagProducts"));
+  },
+  addShoppingbagProduct: function(data) {
+    var all, idx;
+    all = this.getShoppingbagProducts();
+    idx = -1;
+    if (all) {
+      idx = _findIndex(all, function(p) {
+        return p.id === id;
+      });
+    } else {
+      all = [];
+    }
+    if (idx >= 0) {
+      all[idx].quantity += data.quantity;
+    } else {
+      all.push(data);
+    }
+    return localStorage.setItem("shoppingbagProducts", JSON.stringify(all));
+  }
+};
+
+
+},{"lodash/array/findIndex":50}],338:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -42838,7 +43389,7 @@ require("./jsx/MainApp.cjsx");
 require("./jsx/HeaderApp.cjsx");
 
 
-},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":333,"./modules/menu-dropdown.coffee":334,"./modules/menu-tabs.coffee":335,"./modules/mobile-menu.coffee":336,"./modules/popup.coffee":337,"./modules/product.coffee":338,"./modules/products-list.coffee":339,"./modules/refine-menu.coffee":340,"./modules/sticky-menu.coffee":341,"./modules/tooltip.coffee":342,"./pages/page.coffee":343,"jquery":49,"magnific-popup":109}],333:[function(require,module,exports){
+},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":339,"./modules/menu-dropdown.coffee":340,"./modules/menu-tabs.coffee":341,"./modules/mobile-menu.coffee":342,"./modules/popup.coffee":343,"./modules/product.coffee":344,"./modules/products-list.coffee":345,"./modules/refine-menu.coffee":346,"./modules/sticky-menu.coffee":347,"./modules/tooltip.coffee":348,"./pages/page.coffee":349,"jquery":49,"magnific-popup":109}],339:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -42954,7 +43505,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],334:[function(require,module,exports){
+},{}],340:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -43115,7 +43666,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],335:[function(require,module,exports){
+},{}],341:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43252,7 +43803,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],336:[function(require,module,exports){
+},{}],342:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43321,7 +43872,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],337:[function(require,module,exports){
+},{}],343:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43390,7 +43941,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],338:[function(require,module,exports){
+},{}],344:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -43867,7 +44418,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],339:[function(require,module,exports){
+},{}],345:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -43886,7 +44437,7 @@ $(function() {
 });
 
 
-},{}],340:[function(require,module,exports){
+},{}],346:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44040,7 +44591,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],341:[function(require,module,exports){
+},{}],347:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44114,7 +44665,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],342:[function(require,module,exports){
+},{}],348:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44373,7 +44924,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":4,"component-tip":10}],343:[function(require,module,exports){
+},{"component-events":4,"component-tip":10}],349:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -44677,4 +45228,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[332]);
+},{}]},{},[338]);

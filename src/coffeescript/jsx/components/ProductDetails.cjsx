@@ -3,6 +3,7 @@ Notification = require "react-notification"
 classNames = require "classnames"
 QuantityChoice = require "./QuantityChoice.cjsx"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
+ShoppingbagAPI = require "../utils/ShoppingbagAPI.coffee"
 
 ProductDetailsStore = require "../stores/ProductDetailsStore.cjsx"
 ProductDetailsActions = require "../actions/ProductDetailsActions.cjsx"
@@ -51,6 +52,16 @@ ProductDetails = React.createClass
     if num >= 0
       ProductDetailsActions.addToShoppingbag @state.selectedQuantity
       updateInventory(@state.product.id, num)
+
+      addedProduct = 
+        id: @state.product.id
+        name: @state.product.name
+        quantity: @state.selectedQuantity
+        price: @state.product.price
+        sku: @state.product.sku
+        category: @state.product.category
+
+      ShoppingbagAPI.addShoppingbagProduct(addedProduct)
 
       updatedProduct = @state.product
       updatedProduct.inventory = num
