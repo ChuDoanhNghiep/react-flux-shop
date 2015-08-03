@@ -5,13 +5,19 @@ ShoppingbagFooter = require "./ShoppingbagFooter.cjsx"
 ShoppingbagGroup = require "./ShoppingbagGroup.cjsx"
 ShoppingbagAPI = require "../utils/ShoppingbagAPI.coffee"
 
+ShoppingbagStore = require "../stores/ShoppingbagStore.cjsx"
+
 calculateTotalPrice = (data) ->
+  if data is null
+    return 0
   total = 0
   for item in data
     total += (item.price * item.quantity)
   return total
 
 calculateSize = (data) ->
+  if data is null
+    return 0
   size = 0
   for item in data
     size += (item.size * item.quantity)
@@ -47,13 +53,25 @@ calculateLabel = (wine, beer, spirit) ->
 
   return {type: 1, over: false}
 
+getCurrentState = ->
+  addedProducts = ShoppingbagAPI.getShoppingbagProducts()
+  total = calculateTotalPrice addedProducts
+  return {addedProducts: addedProducts, total: total}
 
 ShoppingbagDetails = React.createClass
 
   getInitialState: ->
-    addedProducts = ShoppingbagAPI.getShoppingbagProducts()
-    total = calculateTotalPrice addedProducts
-    return {addedProducts: addedProducts, total: total}
+    getCurrentState()
+
+  componentDidMount: ->
+    ShoppingbagStore.addChangeListener @handleChange
+
+  componentWillUnmount: ->
+    ShoppingbagStore.removeChangeListener @handleChange
+
+  handleChange: ->
+    console.log "shoppingbag change"
+    @setState getCurrentState()
 
   render: ->
     if @state.addedProducts

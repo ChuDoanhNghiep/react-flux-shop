@@ -41214,7 +41214,7 @@ HeaderShoppingbag = require("./components/HeaderShoppingbag.cjsx");
 React.render(React.createElement(HeaderShoppingbag, null), document.getElementById("react-shoppingbag"));
 
 
-},{"./components/HeaderShoppingbag.cjsx":313,"react":305}],307:[function(require,module,exports){
+},{"./components/HeaderShoppingbag.cjsx":314,"react":305}],307:[function(require,module,exports){
 var ProductListData, ReactRouter, Route, brandCollection, main, productDetails, routes, shoppingbagDetails;
 
 window.React = require("react");
@@ -41266,7 +41266,7 @@ ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
 });
 
 
-},{"./ProductListData.coffee":308,"./components/BrandCollection.cjsx":311,"./components/Main.cjsx":314,"./components/ProductDetails.cjsx":316,"./components/ShoppingbagDetails.cjsx":323,"react":305,"react-router":136}],308:[function(require,module,exports){
+},{"./ProductListData.coffee":308,"./components/BrandCollection.cjsx":312,"./components/Main.cjsx":315,"./components/ProductDetails.cjsx":317,"./components/ShoppingbagDetails.cjsx":324,"react":305,"react-router":136}],308:[function(require,module,exports){
 module.exports = {
   init: function() {
     localStorage.clear();
@@ -41622,7 +41622,7 @@ ProductDetailsActions = {
 module.exports = ProductDetailsActions;
 
 
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330}],310:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331}],310:[function(require,module,exports){
 var AppDispatcher, ProductFilterActions, ShopConstants;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41659,7 +41659,38 @@ ProductFilterActions = {
 module.exports = ProductFilterActions;
 
 
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330}],311:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331}],311:[function(require,module,exports){
+var AppDispatcher, ShopConstants, ShoppingbagActions;
+
+AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
+
+ShopConstants = require("../constants/ShopConstants.cjsx");
+
+ShoppingbagActions = {
+  increaseShoppingbagProductQuantity: function(data) {
+    return AppDispatcher.handleViewAction({
+      actionType: ShopConstants.INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY,
+      data: data
+    });
+  },
+  decreaseShoppingbagProductQuantity: function(data) {
+    return AppDispatcher.handleViewAction({
+      actionType: ShopConstants.DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY,
+      data: data
+    });
+  },
+  removeShoppingbagProduct: function(data) {
+    return AppDispatcher.handleViewAction({
+      actionType: ShopConstants.REMOVE_SHOPPINGBAG_PRODUCT,
+      data: data
+    });
+  }
+};
+
+module.exports = ShoppingbagActions;
+
+
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331}],312:[function(require,module,exports){
 var BrandCollection, ProductFilterRefine, ProductFilterSort, ProductList, React;
 
 React = require("react");
@@ -41705,7 +41736,7 @@ BrandCollection = React.createClass({displayName: "BrandCollection",
 module.exports = BrandCollection;
 
 
-},{"./ProductFilterRefine.cjsx":317,"./ProductFilterSort.cjsx":318,"./ProductList.cjsx":319,"react":305}],312:[function(require,module,exports){
+},{"./ProductFilterRefine.cjsx":318,"./ProductFilterSort.cjsx":319,"./ProductList.cjsx":320,"react":305}],313:[function(require,module,exports){
 var Breadcrumb, React;
 
 React = require("react");
@@ -41731,7 +41762,7 @@ Breadcrumb = React.createClass({displayName: "Breadcrumb",
 module.exports = Breadcrumb;
 
 
-},{"react":305}],313:[function(require,module,exports){
+},{"react":305}],314:[function(require,module,exports){
 var HeaderShoppingbag, HeaderShoppingbagStore, React, getProductCount;
 
 React = require("react");
@@ -41777,7 +41808,7 @@ HeaderShoppingbag = React.createClass({displayName: "HeaderShoppingbag",
 module.exports = HeaderShoppingbag;
 
 
-},{"../stores/HeaderShoppingbagStore.cjsx":331,"react":305}],314:[function(require,module,exports){
+},{"../stores/HeaderShoppingbagStore.cjsx":332,"react":305}],315:[function(require,module,exports){
 var Breadcrumb, Main, React, ReactRouter, RouteHandler;
 
 React = require("react");
@@ -41811,7 +41842,7 @@ Main = React.createClass({displayName: "Main",
 module.exports = Main;
 
 
-},{"./Breadcrumb.cjsx":312,"react":305,"react-router":136}],315:[function(require,module,exports){
+},{"./Breadcrumb.cjsx":313,"react":305,"react-router":136}],316:[function(require,module,exports){
 var Product, React;
 
 React = require("react");
@@ -41863,7 +41894,7 @@ Product = React.createClass({displayName: "Product",
 module.exports = Product;
 
 
-},{"react":305}],316:[function(require,module,exports){
+},{"react":305}],317:[function(require,module,exports){
 var Notification, ProductDetails, ProductDetailsActions, ProductListAPI, QuantityChoice, React, ShoppingbagAPI, classNames, updateInventory;
 
 React = require("react");
@@ -42083,7 +42114,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
 module.exports = ProductDetails;
 
 
-},{"../actions/ProductDetailsActions.cjsx":309,"../utils/ProductListAPI.coffee":335,"../utils/ShoppingbagAPI.coffee":336,"./QuantityChoice.cjsx":320,"classnames":3,"react":305,"react-notification":110}],317:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":309,"../utils/ProductListAPI.coffee":337,"../utils/ShoppingbagAPI.coffee":338,"./QuantityChoice.cjsx":321,"classnames":3,"react":305,"react-notification":110}],318:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, React, RefineGroup, RefinerList, getRefinerList;
 
 React = require("react");
@@ -42178,7 +42209,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":332,"./RefineGroup.cjsx":321,"./RefinerList.cjsx":322,"react":305}],318:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":333,"./RefineGroup.cjsx":322,"./RefinerList.cjsx":323,"react":305}],319:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -42267,7 +42298,7 @@ ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
 module.exports = ProductFilterSort;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],319:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],320:[function(require,module,exports){
 /** @jsx React.DOM */;
 var Product, ProductList, ProductListAPI, ProductListStore, React;
 
@@ -42382,7 +42413,7 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":333,"../utils/ProductListAPI.coffee":335,"./Product.cjsx":315,"react":305}],320:[function(require,module,exports){
+},{"../stores/ProductListStore.cjsx":334,"../utils/ProductListAPI.coffee":337,"./Product.cjsx":316,"react":305}],321:[function(require,module,exports){
 var QuantityChoice, React;
 
 React = require("react");
@@ -42413,7 +42444,7 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
 module.exports = QuantityChoice;
 
 
-},{"react":305}],321:[function(require,module,exports){
+},{"react":305}],322:[function(require,module,exports){
 var ProductFilterActions, React, RefineGroup;
 
 React = require("react");
@@ -42496,7 +42527,7 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
 module.exports = RefineGroup;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],322:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],323:[function(require,module,exports){
 var ProductFilterActions, React, RefinerList;
 
 React = require("react");
@@ -42536,8 +42567,8 @@ RefinerList = React.createClass({displayName: "RefinerList",
 module.exports = RefinerList;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],323:[function(require,module,exports){
-var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, calculateLabel, calculateSize, calculateTotalPrice;
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],324:[function(require,module,exports){
+var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, ShoppingbagStore, calculateLabel, calculateSize, calculateTotalPrice, getCurrentState;
 
 React = require("react");
 
@@ -42551,8 +42582,13 @@ ShoppingbagGroup = require("./ShoppingbagGroup.cjsx");
 
 ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
 
+ShoppingbagStore = require("../stores/ShoppingbagStore.cjsx");
+
 calculateTotalPrice = function(data) {
   var i, item, len, total;
+  if (data === null) {
+    return 0;
+  }
   total = 0;
   for (i = 0, len = data.length; i < len; i++) {
     item = data[i];
@@ -42563,6 +42599,9 @@ calculateTotalPrice = function(data) {
 
 calculateSize = function(data) {
   var i, item, len, size;
+  if (data === null) {
+    return 0;
+  }
   size = 0;
   for (i = 0, len = data.length; i < len; i++) {
     item = data[i];
@@ -42636,15 +42675,29 @@ calculateLabel = function(wine, beer, spirit) {
   };
 };
 
+getCurrentState = function() {
+  var addedProducts, total;
+  addedProducts = ShoppingbagAPI.getShoppingbagProducts();
+  total = calculateTotalPrice(addedProducts);
+  return {
+    addedProducts: addedProducts,
+    total: total
+  };
+};
+
 ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
   getInitialState: function() {
-    var addedProducts, total;
-    addedProducts = ShoppingbagAPI.getShoppingbagProducts();
-    total = calculateTotalPrice(addedProducts);
-    return {
-      addedProducts: addedProducts,
-      total: total
-    };
+    return getCurrentState();
+  },
+  componentDidMount: function() {
+    return ShoppingbagStore.addChangeListener(this.handleChange);
+  },
+  componentWillUnmount: function() {
+    return ShoppingbagStore.removeChangeListener(this.handleChange);
+  },
+  handleChange: function() {
+    console.log("shoppingbag change");
+    return this.setState(getCurrentState());
   },
   render: function() {
     var beer, beerGroup, label, spirit, spiritGroup, wine, wineGroup;
@@ -42693,7 +42746,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
 module.exports = ShoppingbagDetails;
 
 
-},{"../utils/ShoppingbagAPI.coffee":336,"./ShoppingbagEmpty.cjsx":324,"./ShoppingbagFooter.cjsx":325,"./ShoppingbagGroup.cjsx":326,"./ShoppingbagHeader.cjsx":327,"react":305}],324:[function(require,module,exports){
+},{"../stores/ShoppingbagStore.cjsx":335,"../utils/ShoppingbagAPI.coffee":338,"./ShoppingbagEmpty.cjsx":325,"./ShoppingbagFooter.cjsx":326,"./ShoppingbagGroup.cjsx":327,"./ShoppingbagHeader.cjsx":328,"react":305}],325:[function(require,module,exports){
 var React, ShoppingbagEmpty;
 
 React = require("react");
@@ -42740,7 +42793,7 @@ ShoppingbagEmpty = React.createClass({displayName: "ShoppingbagEmpty",
 module.exports = ShoppingbagEmpty;
 
 
-},{"react":305}],325:[function(require,module,exports){
+},{"react":305}],326:[function(require,module,exports){
 var React, ShoppingbagFooter;
 
 React = require("react");
@@ -42784,7 +42837,7 @@ ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
 module.exports = ShoppingbagFooter;
 
 
-},{"react":305}],326:[function(require,module,exports){
+},{"react":305}],327:[function(require,module,exports){
 var React, ShoppingbagGroup, ShoppingbagProduct;
 
 React = require("react");
@@ -42837,7 +42890,7 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
 module.exports = ShoppingbagGroup;
 
 
-},{"./ShoppingbagProduct.cjsx":328,"react":305}],327:[function(require,module,exports){
+},{"./ShoppingbagProduct.cjsx":329,"react":305}],328:[function(require,module,exports){
 var React, ShoppingbagHeader, classNames;
 
 React = require("react");
@@ -42956,15 +43009,44 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
 module.exports = ShoppingbagHeader;
 
 
-},{"classnames":3,"react":305}],328:[function(require,module,exports){
-var React, ShoppingbagProduct;
+},{"classnames":3,"react":305}],329:[function(require,module,exports){
+var QuantityChoice, React, ShoppingbagActions, ShoppingbagProduct;
 
 React = require("react");
 
+QuantityChoice = require("./QuantityChoice.cjsx");
+
+ShoppingbagActions = require("../actions/ShoppingbagActions.cjsx");
+
 ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
+  handleCloseClick: function() {
+    return ShoppingbagActions.removeShoppingbagProduct(this.state.product);
+  },
+  handleQuantityMinus: function() {
+    var updatedProduct;
+    if (this.state.selectedQuantity > 1) {
+      updatedProduct = this.state.product;
+      updatedProduct.quantity -= 1;
+      console.log(updatedProduct);
+      ShoppingbagActions.decreaseShoppingbagProductQuantity(updatedProduct);
+      return this.setState({
+        selectedQuantity: this.state.selectedQuantity - 1
+      });
+    }
+  },
+  handleQuantityPlus: function() {
+    var updatedProduct;
+    updatedProduct = this.state.product;
+    updatedProduct.quantity += 1;
+    ShoppingbagActions.increaseShoppingbagProductQuantity(updatedProduct);
+    return this.setState({
+      selectedQuantity: this.state.selectedQuantity + 1
+    });
+  },
   getInitialState: function() {
     return {
-      product: this.props.product
+      product: this.props.product,
+      selectedQuantity: this.props.product.quantity
     };
   },
   render: function() {
@@ -42975,10 +43057,10 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
     }, React.createElement("div", {
       "className": "ShoppingBagProductMenu"
     }, React.createElement("a", {
-      "href": "#"
-    }, React.createElement("img", {
-      "src": "./images/icons/delete-bag-item-x2.png"
-    }))), React.createElement("a", {
+      "href": "#",
+      "className": "button close",
+      "onClick": this.handleCloseClick
+    })), React.createElement("a", {
       "className": "img",
       "href": "#/product/{this.state.product.id}"
     }, React.createElement("img", {
@@ -43001,15 +43083,11 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
       "className": "kiwi-col l-5-8 s-1"
     }, React.createElement("div", {
       "className": "size"
-    }, "SIZE: ", this.state.product.size * 100, "CL"), React.createElement("div", {
-      "className": "qt"
-    }, "QTY: ", React.createElement("span", {
-      "className": "minus disabled"
-    }, "-"), React.createElement("span", {
-      "className": "qt-value"
-    }, this.state.product.quantity), React.createElement("span", {
-      "className": "plus"
-    }, "+")), React.createElement("div", {
+    }, "SIZE: ", this.state.product.size * 100, "CL"), React.createElement(QuantityChoice, {
+      "quantity": this.state.selectedQuantity,
+      "minusClick": this.handleQuantityMinus,
+      "plusClick": this.handleQuantityPlus
+    }), React.createElement("div", {
       "className": "ShoppingBagPriceWrap"
     }, React.createElement("label", null, "UNIT PRICE:"), React.createElement("div", {
       "className": "priceWrap"
@@ -43040,7 +43118,7 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
 module.exports = ShoppingbagProduct;
 
 
-},{"react":305}],329:[function(require,module,exports){
+},{"../actions/ShoppingbagActions.cjsx":311,"./QuantityChoice.cjsx":321,"react":305}],330:[function(require,module,exports){
 var keyMirror;
 
 keyMirror = require("react/lib/keyMirror");
@@ -43051,11 +43129,14 @@ module.exports = keyMirror({
   CLEAR_REFINER: "CLEAR_REFINER",
   SET_FILTER: "SET_FILTER",
   ADD_TO_SHOPPINGBAG: "ADD_TO_SHOPPINGBAG",
-  SELECT_QUANTITY: "SELECT_QUANTITY"
+  SELECT_QUANTITY: "SELECT_QUANTITY",
+  INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY: "INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY",
+  DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY: "DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY",
+  REMOVE_SHOPPINGBAG_PRODUCT: "REMOVE_SHOPPINGBAG_PRODUCT"
 });
 
 
-},{"react/lib/keyMirror":290}],330:[function(require,module,exports){
+},{"react/lib/keyMirror":290}],331:[function(require,module,exports){
 var AppDispatcher, Dispatcher;
 
 Dispatcher = require("flux").Dispatcher;
@@ -43072,8 +43153,8 @@ AppDispatcher.handleViewAction = function(action) {
 module.exports = AppDispatcher;
 
 
-},{"flux":46}],331:[function(require,module,exports){
-var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, addProduct, assign, productCount;
+},{"flux":46}],332:[function(require,module,exports){
+var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, addOne, addProduct, assign, minusOne, productCount, removeProduct;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
 
@@ -43087,6 +43168,18 @@ productCount = 0;
 
 addProduct = function(data) {
   return productCount = productCount + data;
+};
+
+removeProduct = function(num) {
+  return productCount -= num;
+};
+
+addOne = function() {
+  return productCount += 1;
+};
+
+minusOne = function() {
+  return productCount -= 1;
 };
 
 HeaderShoppingbagStore = assign({}, EventEmitter.prototype, {
@@ -43107,9 +43200,21 @@ HeaderShoppingbagStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(payload) {
   var action;
   action = payload.action;
+  console.log(action);
   switch (action.actionType) {
     case ShopConstants.ADD_TO_SHOPPINGBAG:
       addProduct(action.data);
+      break;
+    case ShopConstants.REMOVE_SHOPPINGBAG_PRODUCT:
+      removeProduct(action.data.quantity);
+      break;
+    case ShopConstants.DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY:
+      console.log("decrease");
+      minusOne();
+      break;
+    case ShopConstants.INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY:
+      console.log("increase");
+      addOne();
       break;
     default:
       return true;
@@ -43121,7 +43226,7 @@ AppDispatcher.register(function(payload) {
 module.exports = HeaderShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],332:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43190,7 +43295,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"events":1,"react/lib/Object.assign":176}],334:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductListStore, ShopConstants, addProductRefiner, assign, removeAllProductRefiner, removeProductRefiner, selectedFilter, selectedRefiners, setProductListFilter;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43277,7 +43382,70 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],334:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"events":1,"react/lib/Object.assign":176}],335:[function(require,module,exports){
+var AppDispatcher, EventEmitter, ShopConstants, ShoppingbagAPI, ShoppingbagStore, assign, removeItem, updateItem, updateItem2;
+
+AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
+
+EventEmitter = require("events").EventEmitter;
+
+ShopConstants = require("../constants/ShopConstants.cjsx");
+
+assign = require("react/lib/Object.assign");
+
+ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
+
+updateItem = function(item) {
+  return ShoppingbagAPI.updateShoppingbagProductQuantity(item);
+};
+
+updateItem2 = function(item) {
+  return ShoppingbagAPI.updateShoppingbagProductQuantity(item);
+};
+
+removeItem = function(item) {
+  return ShoppingbagAPI.removeShoppingbagProduct(item);
+};
+
+ShoppingbagStore = assign({}, EventEmitter.prototype, {
+  getShoppingbagProducts: function() {
+    return ShoppingbagAPI.getShoppingbagProducts();
+  },
+  emitChange: function() {
+    return this.emit("change");
+  },
+  addChangeListener: function(callback) {
+    return this.on("change", callback);
+  },
+  removeChangeListener: function(callback) {
+    return this.removeListener("change", callback);
+  }
+});
+
+AppDispatcher.register(function(payload) {
+  var action;
+  action = payload.action;
+  switch (action.actionType) {
+    case ShopConstants.REMOVE_SHOPPINGBAG_PRODUCT:
+      removeItem(action.data);
+      break;
+    case ShopConstants.INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY:
+      updateItem(action.data);
+      break;
+    case ShopConstants.DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY:
+      updateItem2(action.data);
+      break;
+    default:
+      return true;
+  }
+  ShoppingbagStore.emitChange();
+  return true;
+});
+
+module.exports = ShoppingbagStore;
+
+
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"../utils/ShoppingbagAPI.coffee":338,"events":1,"react/lib/Object.assign":176}],336:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -43302,7 +43470,7 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":99}],335:[function(require,module,exports){
+},{"lodash/lang/isArray":99}],337:[function(require,module,exports){
 var _find, _findIndex, _sortByOrder, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
@@ -43380,7 +43548,7 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":334,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],336:[function(require,module,exports){
+},{"./ObjValidator.coffee":336,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],338:[function(require,module,exports){
 var _findIndex;
 
 _findIndex = require("lodash/array/findIndex");
@@ -43406,11 +43574,29 @@ module.exports = {
       all.push(data);
     }
     return localStorage.setItem("shoppingbagProducts", JSON.stringify(all));
+  },
+  removeShoppingbagProduct: function(data) {
+    var all, idx;
+    all = this.getShoppingbagProducts();
+    idx = _findIndex(all, function(p) {
+      return p.id === data.id;
+    });
+    all.splice(idx, 1);
+    return localStorage.setItem("shoppingbagProducts", JSON.stringify(all));
+  },
+  updateShoppingbagProductQuantity: function(data) {
+    var all, idx;
+    all = this.getShoppingbagProducts();
+    idx = _findIndex(all, function(p) {
+      return p.id === data.id;
+    });
+    all[idx].quantity = data.quantity;
+    return localStorage.setItem("shoppingbagProducts", JSON.stringify(all));
   }
 };
 
 
-},{"lodash/array/findIndex":50}],337:[function(require,module,exports){
+},{"lodash/array/findIndex":50}],339:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -43442,7 +43628,7 @@ require("./jsx/MainApp.cjsx");
 require("./jsx/HeaderApp.cjsx");
 
 
-},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":338,"./modules/menu-dropdown.coffee":339,"./modules/menu-tabs.coffee":340,"./modules/mobile-menu.coffee":341,"./modules/popup.coffee":342,"./modules/product.coffee":343,"./modules/products-list.coffee":344,"./modules/refine-menu.coffee":345,"./modules/sticky-menu.coffee":346,"./modules/tooltip.coffee":347,"./pages/page.coffee":348,"jquery":49,"magnific-popup":109}],338:[function(require,module,exports){
+},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":340,"./modules/menu-dropdown.coffee":341,"./modules/menu-tabs.coffee":342,"./modules/mobile-menu.coffee":343,"./modules/popup.coffee":344,"./modules/product.coffee":345,"./modules/products-list.coffee":346,"./modules/refine-menu.coffee":347,"./modules/sticky-menu.coffee":348,"./modules/tooltip.coffee":349,"./pages/page.coffee":350,"jquery":49,"magnific-popup":109}],340:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43558,7 +43744,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],339:[function(require,module,exports){
+},{}],341:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -43719,7 +43905,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],340:[function(require,module,exports){
+},{}],342:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43856,7 +44042,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],341:[function(require,module,exports){
+},{}],343:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43925,7 +44111,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],342:[function(require,module,exports){
+},{}],344:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43994,7 +44180,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],343:[function(require,module,exports){
+},{}],345:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -44471,7 +44657,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],344:[function(require,module,exports){
+},{}],346:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -44490,7 +44676,7 @@ $(function() {
 });
 
 
-},{}],345:[function(require,module,exports){
+},{}],347:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44644,7 +44830,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],346:[function(require,module,exports){
+},{}],348:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44718,7 +44904,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],347:[function(require,module,exports){
+},{}],349:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44977,7 +45163,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":4,"component-tip":10}],348:[function(require,module,exports){
+},{"component-events":4,"component-tip":10}],350:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -45281,4 +45467,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[337]);
+},{}]},{},[339]);

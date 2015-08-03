@@ -1,18 +1,44 @@
 React = require "react"
+QuantityChoice = require "./QuantityChoice.cjsx"
+ShoppingbagActions = require "../actions/ShoppingbagActions.cjsx"
 
 ShoppingbagProduct = React.createClass
 
+  handleCloseClick: ->
+    ShoppingbagActions.removeShoppingbagProduct @state.product
+
+  handleQuantityMinus: ->
+    if @state.selectedQuantity > 1
+      updatedProduct = @state.product
+      updatedProduct.quantity -= 1
+      console.log updatedProduct
+      ShoppingbagActions.decreaseShoppingbagProductQuantity updatedProduct
+
+      @setState
+        selectedQuantity: @state.selectedQuantity - 1
+
+  handleQuantityPlus: ->
+    updatedProduct = @state.product
+    updatedProduct.quantity += 1
+
+    ShoppingbagActions.increaseShoppingbagProductQuantity updatedProduct    
+    @setState
+      selectedQuantity: @state.selectedQuantity + 1
+
   getInitialState: ->
     product: @props.product
+    selectedQuantity: @props.product.quantity
 
   render: ->
       
     return   <ul className="ShoppingBagListProduct">
                 <li className="ShoppingBagProduct">
                   <div className="ShoppingBagProductMenu">
-                    <a href="#"><img src="./images/icons/delete-bag-item-x2.png"/></a>
+                    <a href="#" className="button close" onClick={this.handleCloseClick}></a>
                   </div>
-                    <a className="img" href="#/product/{this.state.product.id}"><img src="http://placehold.it/86" /></a>
+                    <a className="img" href="#/product/{this.state.product.id}">
+                      <img src="http://placehold.it/86" />
+                    </a>
                   <div className="details">
                     <div className="kiwi-grid">
                       <div className="kiwi-col l-3-8 s-1">
@@ -24,11 +50,11 @@ ShoppingbagProduct = React.createClass
                       </div>
                       <div className="kiwi-col l-5-8 s-1">
                         <div className="size">SIZE: {this.state.product.size * 100}CL</div>
-                        <div className="qt">QTY: 
-                          <span className="minus disabled">-</span>
-                          <span className="qt-value">{this.state.product.quantity}</span>
-                          <span className="plus">+</span>
-                        </div>
+
+                        <QuantityChoice quantity={this.state.selectedQuantity}
+                          minusClick={this.handleQuantityMinus}
+                          plusClick={this.handleQuantityPlus}/>
+
                         <div className="ShoppingBagPriceWrap">
                           <label>UNIT PRICE:</label>
                           <div className="priceWrap">

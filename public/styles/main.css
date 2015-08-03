@@ -1531,6 +1531,13 @@ button:focus,
   padding: 5px;
   width: auto;
 }
+.button.close {
+  color: #777;
+  font-size: 32px;
+}
+.button.close:after {
+  content: "×";
+}
 .share-btn a {
   margin-right: 6px;
 }
