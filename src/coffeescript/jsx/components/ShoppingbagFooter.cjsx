@@ -2,6 +2,9 @@ React = require "react"
 
 ShoppingbagFooter = React.createClass
 
+    # getInitialState: ->
+    #   total
+
     render: ->
         return <div className="ShoppingBagFooter">
                   <div className="promo">
@@ -10,7 +13,7 @@ ShoppingbagFooter = React.createClass
                         <span className="currency">
                         <span className="symbol-before">›</span>
                         <span className="underline">S$</span>
-                        <span className="amount">1.46</span>
+                        <span className="amount">xxx</span>
                         </span>
                     </div>
                   </div>
@@ -19,7 +22,7 @@ ShoppingbagFooter = React.createClass
                         <span className="currency">
                             <span className="symbol-before">›</span>
                             <span className="underline">S$</span>
-                            <span className="amount">185.46</span>
+                            <span className="amount">{this.props.total}</span>
                         </span>
                     </div>
                     <div className="title">total</div>

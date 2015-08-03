@@ -5,6 +5,12 @@ ShoppingbagFooter = require "./ShoppingbagFooter.cjsx"
 ShoppingbagGroup = require "./ShoppingbagGroup.cjsx"
 ShoppingbagAPI = require "../utils/ShoppingbagAPI.coffee"
 
+calculateTotalPrice = (data) ->
+  total = 0
+  for item in data
+    total += (item.price * item.quantity)
+  return total
+
 calculateSize = (data) ->
   size = 0
   for item in data
@@ -45,7 +51,9 @@ calculateLabel = (wine, beer, spirit) ->
 ShoppingbagDetails = React.createClass
 
   getInitialState: ->
-    addedProducts: ShoppingbagAPI.getShoppingbagProducts()
+    addedProducts = ShoppingbagAPI.getShoppingbagProducts()
+    total = calculateTotalPrice addedProducts
+    return {addedProducts: addedProducts, total: total}
 
   render: ->
     if @state.addedProducts
@@ -61,7 +69,7 @@ ShoppingbagDetails = React.createClass
 
       wineGroup = if wine.length then <ShoppingbagGroup category="wine" products={wine} /> else ""
       beerGroup = if beer.length then <ShoppingbagGroup category="beer" products={beer} /> else ""
-      spiritGroup = if spirit.length then <ShoppingbagGroup category="spirit" products={spirt} /> else ""
+      spiritGroup = if spirit.length then <ShoppingbagGroup category="spirit" products={spirit} /> else ""
 
       return <div className="shoppingBag-page">
                 <section className="ShoppingBag ShoppingBagPage">
@@ -71,7 +79,7 @@ ShoppingbagDetails = React.createClass
                     {spiritGroup}
                     {beerGroup}
                   </div>
-                  <ShoppingbagFooter />
+                  <ShoppingbagFooter total={this.state.total} />
                 </section>
               </div>
     else

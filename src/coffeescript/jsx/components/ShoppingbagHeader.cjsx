@@ -8,9 +8,9 @@ ShoppingbagHeader = React.createClass
 
   render: ->
     console.log this.state.label
-    label1 = classNames "ShoppingBagOption", {"under-allowance": this.state.label.type is 1, "over-allowance": this.state.label.over}
-    label2 = classNames "ShoppingBagOption", {"under-allowance": this.state.label.type is 2, "over-allowance": this.state.label.over}
-    label3 = classNames "ShoppingBagOption", {"under-allowance": this.state.label.type is 3, "over-allowance": this.state.label.over}
+    label1 = classNames "ShoppingBagOption", {"under-allowance": this.state.label.type is 1, "over-allowance": this.state.label.type is 1 and this.state.label.over}
+    label2 = classNames "ShoppingBagOption", {"under-allowance": this.state.label.type is 2, "over-allowance": this.state.label.type is 2 and this.state.label.over}
+    label3 = classNames "ShoppingBagOption", {"under-allowance": this.state.label.type is 3, "over-allowance": this.state.label.type is 3 and this.state.label.over}
 
 
     return <header className="ShoppingBagHeader purchaseLimits">

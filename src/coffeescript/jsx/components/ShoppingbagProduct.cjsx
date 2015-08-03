@@ -23,7 +23,7 @@ ShoppingbagProduct = React.createClass
                         </div>
                       </div>
                       <div className="kiwi-col l-5-8 s-1">
-                        <div className="size">SIZE: 75CL</div>
+                        <div className="size">SIZE: {this.state.product.size * 100}CL</div>
                         <div className="qt">QTY: 
                           <span className="minus disabled">-</span>
                           <span className="qt-value">{this.state.product.quantity}</span>
@@ -33,7 +33,7 @@ ShoppingbagProduct = React.createClass
                           <label>UNIT PRICE:</label>
                           <div className="priceWrap">
                             <span className="price beforePromo">
-                              <span className="currency">S$</span><span className="amount">154555.77</span>
+                              <span className="currency">{this.state.product.currency}</span><span className="amount">{this.state.product.price}</span>
                             </span>
                             <div className="price promo">
                               <span className="curclassNamerency">

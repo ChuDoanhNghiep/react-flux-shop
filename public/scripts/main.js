@@ -42549,7 +42549,7 @@ module.exports = RefinerList;
 
 
 },{"../actions/ProductFilterActions.cjsx":310,"react":305}],323:[function(require,module,exports){
-var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, calculateLabel, calculateSize;
+var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, calculateLabel, calculateSize, calculateTotalPrice;
 
 React = require("react");
 
@@ -42562,6 +42562,16 @@ ShoppingbagFooter = require("./ShoppingbagFooter.cjsx");
 ShoppingbagGroup = require("./ShoppingbagGroup.cjsx");
 
 ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
+
+calculateTotalPrice = function(data) {
+  var i, item, len, total;
+  total = 0;
+  for (i = 0, len = data.length; i < len; i++) {
+    item = data[i];
+    total += item.price * item.quantity;
+  }
+  return total;
+};
 
 calculateSize = function(data) {
   var i, item, len, size;
@@ -42640,8 +42650,12 @@ calculateLabel = function(wine, beer, spirit) {
 
 ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
   getInitialState: function() {
+    var addedProducts, total;
+    addedProducts = ShoppingbagAPI.getShoppingbagProducts();
+    total = calculateTotalPrice(addedProducts);
     return {
-      addedProducts: ShoppingbagAPI.getShoppingbagProducts()
+      addedProducts: addedProducts,
+      total: total
     };
   },
   render: function() {
@@ -42667,7 +42681,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
       }) : "";
       spiritGroup = spirit.length ? React.createElement(ShoppingbagGroup, {
         "category": "spirit",
-        "products": spirt
+        "products": spirit
       }) : "";
       return React.createElement("div", {
         "className": "shoppingBag-page"
@@ -42677,7 +42691,9 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
         "label": label
       }), React.createElement("div", {
         "className": "ShoppingBag groupWrap"
-      }, wineGroup, spiritGroup, beerGroup), React.createElement(ShoppingbagFooter, null)));
+      }, wineGroup, spiritGroup, beerGroup), React.createElement(ShoppingbagFooter, {
+        "total": this.state.total
+      })));
     } else {
       return React.createElement("div", {
         "className": "shoppingBag-page"
@@ -42759,7 +42775,7 @@ ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
       "className": "underline"
     }, "S$"), React.createElement("span", {
       "className": "amount"
-    }, "1.46")))), React.createElement("div", {
+    }, "xxx")))), React.createElement("div", {
       "className": "total-confirmation"
     }, React.createElement("div", {
       "className": "price ShoppingBagPriceWrap ShoppingBagPriceTotalWrap"
@@ -42771,7 +42787,7 @@ ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
       "className": "underline"
     }, "S$"), React.createElement("span", {
       "className": "amount"
-    }, "185.46"))), React.createElement("div", {
+    }, this.props.total))), React.createElement("div", {
       "className": "title"
     }, "total")));
   }
@@ -42851,15 +42867,15 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
     console.log(this.state.label);
     label1 = classNames("ShoppingBagOption", {
       "under-allowance": this.state.label.type === 1,
-      "over-allowance": this.state.label.over
+      "over-allowance": this.state.label.type === 1 && this.state.label.over
     });
     label2 = classNames("ShoppingBagOption", {
       "under-allowance": this.state.label.type === 2,
-      "over-allowance": this.state.label.over
+      "over-allowance": this.state.label.type === 2 && this.state.label.over
     });
     label3 = classNames("ShoppingBagOption", {
       "under-allowance": this.state.label.type === 3,
-      "over-allowance": this.state.label.over
+      "over-allowance": this.state.label.type === 3 && this.state.label.over
     });
     return React.createElement("header", {
       "className": "ShoppingBagHeader purchaseLimits"
@@ -42997,7 +43013,7 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
       "className": "kiwi-col l-5-8 s-1"
     }, React.createElement("div", {
       "className": "size"
-    }, "SIZE: 75CL"), React.createElement("div", {
+    }, "SIZE: ", this.state.product.size * 100, "CL"), React.createElement("div", {
       "className": "qt"
     }, "QTY: ", React.createElement("span", {
       "className": "minus disabled"
@@ -43013,9 +43029,9 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
       "className": "price beforePromo"
     }, React.createElement("span", {
       "className": "currency"
-    }, "S$"), React.createElement("span", {
+    }, this.state.product.currency), React.createElement("span", {
       "className": "amount"
-    }, "154555.77")), React.createElement("div", {
+    }, this.state.product.price)), React.createElement("div", {
       "className": "price promo"
     }, React.createElement("span", {
       "className": "curclassNamerency"
