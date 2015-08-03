@@ -5,11 +5,7 @@ QuantityChoice = require "./QuantityChoice.cjsx"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 ShoppingbagAPI = require "../utils/ShoppingbagAPI.coffee"
 
-ProductDetailsStore = require "../stores/ProductDetailsStore.cjsx"
 ProductDetailsActions = require "../actions/ProductDetailsActions.cjsx"
-
-getSelectedQuantity = ->
-  ProductDetailsStore.getSeletedQuantity()
 
 updateInventory = (id, num) ->
   ProductListAPI.updateProductInventory id, num
@@ -21,25 +17,6 @@ ProductDetails = React.createClass
       @setState
         shoppingbagBtnDisabled: true
         shoppingbagBtn: "sold out"
-
-  getInitialState: ->
-    product: ProductListAPI.getProductByID @props.params.id
-    selectedQuantity: 1
-    shoppingbagBtnDisabled: false
-    shoppingbagBtn: "Add to Shopping bag"
-    notificationVisible: false
-    notificationMsg: ""
-
-  componentDidMount: ->
-    ProductDetailsStore.addChangeListener @handleQuantityChange
-    this.updateShoppingbagBtn()      
-
-  componentWillUnmount: ->
-    ProductDetailsStore.removeChangeListener @handleQuantityChange
-
-  handleQuantityChange: ->
-    @setState 
-      selectedQuantity: getSelectedQuantity()
 
   shoppingbagClick: ->
     if @state.shoppingbagBtnDisabled
@@ -56,8 +33,11 @@ ProductDetails = React.createClass
       addedProduct = 
         id: @state.product.id
         name: @state.product.name
+        brand: @state.product.brand
+        image: @state.product.image
         quantity: @state.selectedQuantity
         price: @state.product.price
+        currency: @state.product.currency
         sku: @state.product.sku
         category: @state.product.category
         size: @state.product.size
@@ -82,6 +62,27 @@ ProductDetails = React.createClass
       shoppingbagBtnDisabled: false
       notificationVisible: false
       notificationMsg: ""
+
+  handleQuantityMinus: ->
+    if @state.selectedQuantity > 1
+
+      @setState
+        selectedQuantity: @state.selectedQuantity - 1
+
+  handleQuantityPlus: ->
+    @setState
+      selectedQuantity: @state.selectedQuantity + 1
+
+  getInitialState: ->
+    product: ProductListAPI.getProductByID @props.params.id
+    selectedQuantity: 1
+    shoppingbagBtnDisabled: false
+    shoppingbagBtn: "Add to Shopping bag"
+    notificationVisible: false
+    notificationMsg: ""
+
+  componentDidMount: ->
+    this.updateShoppingbagBtn()
 
   render: ->
     shoppingbagBtnClass = classNames "button action expand", {"disabled": this.state.shoppingbagBtnDisabled}
@@ -113,7 +114,9 @@ ProductDetails = React.createClass
                     </span>
                   </div>
                   <div className="custom" data-quantity={this.state.selectedQuantity}>
-                    <QuantityChoice />
+                    <QuantityChoice quantity={this.state.selectedQuantity}
+                     minusClick={this.handleQuantityMinus}
+                     plusClick={this.handleQuantityPlus}/>
                   </div>
                   <div className="actions">
                     <div className="kiwi-grid">

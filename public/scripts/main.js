@@ -41864,7 +41864,7 @@ module.exports = Product;
 
 
 },{"react":305}],316:[function(require,module,exports){
-var Notification, ProductDetails, ProductDetailsActions, ProductDetailsStore, ProductListAPI, QuantityChoice, React, ShoppingbagAPI, classNames, getSelectedQuantity, updateInventory;
+var Notification, ProductDetails, ProductDetailsActions, ProductListAPI, QuantityChoice, React, ShoppingbagAPI, classNames, updateInventory;
 
 React = require("react");
 
@@ -41878,13 +41878,7 @@ ProductListAPI = require("../utils/ProductListAPI.coffee");
 
 ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
 
-ProductDetailsStore = require("../stores/ProductDetailsStore.cjsx");
-
 ProductDetailsActions = require("../actions/ProductDetailsActions.cjsx");
-
-getSelectedQuantity = function() {
-  return ProductDetailsStore.getSeletedQuantity();
-};
 
 updateInventory = function(id, num) {
   return ProductListAPI.updateProductInventory(id, num);
@@ -41898,28 +41892,6 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
         shoppingbagBtn: "sold out"
       });
     }
-  },
-  getInitialState: function() {
-    return {
-      product: ProductListAPI.getProductByID(this.props.params.id),
-      selectedQuantity: 1,
-      shoppingbagBtnDisabled: false,
-      shoppingbagBtn: "Add to Shopping bag",
-      notificationVisible: false,
-      notificationMsg: ""
-    };
-  },
-  componentDidMount: function() {
-    ProductDetailsStore.addChangeListener(this.handleQuantityChange);
-    return this.updateShoppingbagBtn();
-  },
-  componentWillUnmount: function() {
-    return ProductDetailsStore.removeChangeListener(this.handleQuantityChange);
-  },
-  handleQuantityChange: function() {
-    return this.setState({
-      selectedQuantity: getSelectedQuantity()
-    });
   },
   shoppingbagClick: function() {
     var addedProduct, num, updatedProduct;
@@ -41936,8 +41908,11 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
       addedProduct = {
         id: this.state.product.id,
         name: this.state.product.name,
+        brand: this.state.product.brand,
+        image: this.state.product.image,
         quantity: this.state.selectedQuantity,
         price: this.state.product.price,
+        currency: this.state.product.currency,
         sku: this.state.product.sku,
         category: this.state.product.category,
         size: this.state.product.size
@@ -41962,6 +41937,31 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
       notificationVisible: false,
       notificationMsg: ""
     });
+  },
+  handleQuantityMinus: function() {
+    if (this.state.selectedQuantity > 1) {
+      return this.setState({
+        selectedQuantity: this.state.selectedQuantity - 1
+      });
+    }
+  },
+  handleQuantityPlus: function() {
+    return this.setState({
+      selectedQuantity: this.state.selectedQuantity + 1
+    });
+  },
+  getInitialState: function() {
+    return {
+      product: ProductListAPI.getProductByID(this.props.params.id),
+      selectedQuantity: 1,
+      shoppingbagBtnDisabled: false,
+      shoppingbagBtn: "Add to Shopping bag",
+      notificationVisible: false,
+      notificationMsg: ""
+    };
+  },
+  componentDidMount: function() {
+    return this.updateShoppingbagBtn();
   },
   render: function() {
     var shoppingbagBtnClass;
@@ -42008,7 +42008,11 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
     }, this.state.product.price))), React.createElement("div", {
       "className": "custom",
       "data-quantity": this.state.selectedQuantity
-    }, React.createElement(QuantityChoice, null)), React.createElement("div", {
+    }, React.createElement(QuantityChoice, {
+      "quantity": this.state.selectedQuantity,
+      "minusClick": this.handleQuantityMinus,
+      "plusClick": this.handleQuantityPlus
+    })), React.createElement("div", {
       "className": "actions"
     }, React.createElement("div", {
       "className": "kiwi-grid"
@@ -42079,7 +42083,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
 module.exports = ProductDetails;
 
 
-},{"../actions/ProductDetailsActions.cjsx":309,"../stores/ProductDetailsStore.cjsx":332,"../utils/ProductListAPI.coffee":336,"../utils/ShoppingbagAPI.coffee":337,"./QuantityChoice.cjsx":320,"classnames":3,"react":305,"react-notification":110}],317:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":309,"../utils/ProductListAPI.coffee":335,"../utils/ShoppingbagAPI.coffee":336,"./QuantityChoice.cjsx":320,"classnames":3,"react":305,"react-notification":110}],317:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, React, RefineGroup, RefinerList, getRefinerList;
 
 React = require("react");
@@ -42174,7 +42178,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":333,"./RefineGroup.cjsx":321,"./RefinerList.cjsx":322,"react":305}],318:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":332,"./RefineGroup.cjsx":321,"./RefinerList.cjsx":322,"react":305}],318:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -42378,32 +42382,16 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":334,"../utils/ProductListAPI.coffee":336,"./Product.cjsx":315,"react":305}],320:[function(require,module,exports){
-var ProductDetailsActions, QuantityChoice, React;
+},{"../stores/ProductListStore.cjsx":333,"../utils/ProductListAPI.coffee":335,"./Product.cjsx":315,"react":305}],320:[function(require,module,exports){
+var QuantityChoice, React;
 
 React = require("react");
 
-ProductDetailsActions = require("../actions/ProductDetailsActions.cjsx");
-
 QuantityChoice = React.createClass({displayName: "QuantityChoice",
-  getInitialState: function() {
+  getDefaultProps: function() {
     return {
       quantity: 1
     };
-  },
-  handleMinus: function() {
-    if (this.state.quantity > 1) {
-      ProductDetailsActions.selectQuantity(this.state.quantity - 1);
-      return this.setState({
-        quantity: this.state.quantity - 1
-      });
-    }
-  },
-  handlePlus: function() {
-    ProductDetailsActions.selectQuantity(this.state.quantity + 1);
-    return this.setState({
-      quantity: this.state.quantity + 1
-    });
   },
   render: function() {
     return React.createElement("div", {
@@ -42412,12 +42400,12 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
       "className": "label"
     }, "Quantity"), React.createElement("span", {
       "className": "qt-choice minus",
-      "onClick": this.handleMinus
+      "onClick": this.props.minusClick
     }, "-"), React.createElement("span", {
       "className": "qt-choice qt-value"
-    }, " ", this.state.quantity), React.createElement("span", {
+    }, " ", this.props.quantity), React.createElement("span", {
       "className": "qt-choice plus",
-      "onClick": this.handlePlus
+      "onClick": this.props.plusClick
     }, "+"));
   }
 });
@@ -42425,7 +42413,7 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
 module.exports = QuantityChoice;
 
 
-},{"../actions/ProductDetailsActions.cjsx":309,"react":305}],321:[function(require,module,exports){
+},{"react":305}],321:[function(require,module,exports){
 var ProductFilterActions, React, RefineGroup;
 
 React = require("react");
@@ -42705,7 +42693,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
 module.exports = ShoppingbagDetails;
 
 
-},{"../utils/ShoppingbagAPI.coffee":337,"./ShoppingbagEmpty.cjsx":324,"./ShoppingbagFooter.cjsx":325,"./ShoppingbagGroup.cjsx":326,"./ShoppingbagHeader.cjsx":327,"react":305}],324:[function(require,module,exports){
+},{"../utils/ShoppingbagAPI.coffee":336,"./ShoppingbagEmpty.cjsx":324,"./ShoppingbagFooter.cjsx":325,"./ShoppingbagGroup.cjsx":326,"./ShoppingbagHeader.cjsx":327,"react":305}],324:[function(require,module,exports){
 var React, ShoppingbagEmpty;
 
 React = require("react");
@@ -43134,55 +43122,6 @@ module.exports = HeaderShoppingbagStore;
 
 
 },{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],332:[function(require,module,exports){
-var AppDispatcher, EventEmitter, ProductDetailsStore, ShopConstants, assign, selectedQuantity, updateQuantity;
-
-AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
-
-EventEmitter = require("events").EventEmitter;
-
-ShopConstants = require("../constants/ShopConstants.cjsx");
-
-assign = require("react/lib/Object.assign");
-
-selectedQuantity = 0;
-
-updateQuantity = function(n) {
-  return selectedQuantity = n;
-};
-
-ProductDetailsStore = assign({}, EventEmitter.prototype, {
-  getSeletedQuantity: function() {
-    return selectedQuantity;
-  },
-  emitChange: function() {
-    return this.emit("change");
-  },
-  addChangeListener: function(callback) {
-    return this.on("change", callback);
-  },
-  removeChangeListener: function(callback) {
-    return this.removeListener("change", callback);
-  }
-});
-
-AppDispatcher.register(function(payload) {
-  var action;
-  action = payload.action;
-  switch (action.actionType) {
-    case ShopConstants.SELECT_QUANTITY:
-      updateQuantity(action.data);
-      break;
-    default:
-      return true;
-  }
-  ProductDetailsStore.emitChange();
-  return true;
-});
-
-module.exports = ProductDetailsStore;
-
-
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43251,7 +43190,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],334:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductListStore, ShopConstants, addProductRefiner, assign, removeAllProductRefiner, removeProductRefiner, selectedFilter, selectedRefiners, setProductListFilter;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43338,7 +43277,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],335:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":329,"../dispatcher/AppDispatcher.cjsx":330,"events":1,"react/lib/Object.assign":176}],334:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -43363,7 +43302,7 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":99}],336:[function(require,module,exports){
+},{"lodash/lang/isArray":99}],335:[function(require,module,exports){
 var _find, _findIndex, _sortByOrder, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
@@ -43441,7 +43380,7 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":335,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],337:[function(require,module,exports){
+},{"./ObjValidator.coffee":334,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],336:[function(require,module,exports){
 var _findIndex;
 
 _findIndex = require("lodash/array/findIndex");
@@ -43471,7 +43410,7 @@ module.exports = {
 };
 
 
-},{"lodash/array/findIndex":50}],338:[function(require,module,exports){
+},{"lodash/array/findIndex":50}],337:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -43503,7 +43442,7 @@ require("./jsx/MainApp.cjsx");
 require("./jsx/HeaderApp.cjsx");
 
 
-},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":339,"./modules/menu-dropdown.coffee":340,"./modules/menu-tabs.coffee":341,"./modules/mobile-menu.coffee":342,"./modules/popup.coffee":343,"./modules/product.coffee":344,"./modules/products-list.coffee":345,"./modules/refine-menu.coffee":346,"./modules/sticky-menu.coffee":347,"./modules/tooltip.coffee":348,"./pages/page.coffee":349,"jquery":49,"magnific-popup":109}],339:[function(require,module,exports){
+},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":338,"./modules/menu-dropdown.coffee":339,"./modules/menu-tabs.coffee":340,"./modules/mobile-menu.coffee":341,"./modules/popup.coffee":342,"./modules/product.coffee":343,"./modules/products-list.coffee":344,"./modules/refine-menu.coffee":345,"./modules/sticky-menu.coffee":346,"./modules/tooltip.coffee":347,"./pages/page.coffee":348,"jquery":49,"magnific-popup":109}],338:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43619,7 +43558,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],340:[function(require,module,exports){
+},{}],339:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -43780,7 +43719,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],341:[function(require,module,exports){
+},{}],340:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43917,7 +43856,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],342:[function(require,module,exports){
+},{}],341:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43986,7 +43925,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],343:[function(require,module,exports){
+},{}],342:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44055,7 +43994,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],344:[function(require,module,exports){
+},{}],343:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -44532,7 +44471,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],345:[function(require,module,exports){
+},{}],344:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -44551,7 +44490,7 @@ $(function() {
 });
 
 
-},{}],346:[function(require,module,exports){
+},{}],345:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44705,7 +44644,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],347:[function(require,module,exports){
+},{}],346:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44779,7 +44718,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],348:[function(require,module,exports){
+},{}],347:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -45038,7 +44977,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":4,"component-tip":10}],349:[function(require,module,exports){
+},{"component-events":4,"component-tip":10}],348:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -45342,4 +45281,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[338]);
+},{}]},{},[337]);
