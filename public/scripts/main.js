@@ -41777,9 +41777,7 @@ getProductCount = function() {
 
 HeaderShoppingbag = React.createClass({displayName: "HeaderShoppingbag",
   getInitialState: function() {
-    return {
-      productCount: 0
-    };
+    return getProductCount();
   },
   componentDidMount: function() {
     return HeaderShoppingbagStore.addChangeListener(this.handleChange);
@@ -42568,7 +42566,7 @@ module.exports = RefinerList;
 
 
 },{"../actions/ProductFilterActions.cjsx":310,"react":305}],324:[function(require,module,exports){
-var React, ShoppingbagAPI, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, ShoppingbagStore, calculateLabel, calculateSize, calculateTotalPrice, getCurrentState;
+var React, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, ShoppingbagStore, calculateLabel, calculateSize, calculateTotalPrice, getCurrentState;
 
 React = require("react");
 
@@ -42579,8 +42577,6 @@ ShoppingbagHeader = require("./ShoppingbagHeader.cjsx");
 ShoppingbagFooter = require("./ShoppingbagFooter.cjsx");
 
 ShoppingbagGroup = require("./ShoppingbagGroup.cjsx");
-
-ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
 
 ShoppingbagStore = require("../stores/ShoppingbagStore.cjsx");
 
@@ -42615,7 +42611,6 @@ calculateLabel = function(wine, beer, spirit) {
   wineSize = calculateSize(wine);
   beerSize = calculateSize(beer);
   spiritSize = calculateSize(spirit);
-  console.log(wineSize, beerSize, spiritSize);
   if (spirit.length) {
     if (wineSize > 1 || beerSize > 1 || spiritSize > 1) {
       return {
@@ -42630,6 +42625,12 @@ calculateLabel = function(wine, beer, spirit) {
     }
   }
   if (wine.length) {
+    if (wineSize <= 1 && beerSize <= 1) {
+      return {
+        type: 1,
+        over: false
+      };
+    }
     if (wineSize <= 2 && beerSize <= 1) {
       return {
         type: 2,
@@ -42677,7 +42678,7 @@ calculateLabel = function(wine, beer, spirit) {
 
 getCurrentState = function() {
   var addedProducts, total;
-  addedProducts = ShoppingbagAPI.getShoppingbagProducts();
+  addedProducts = ShoppingbagStore.getShoppingbagProducts();
   total = calculateTotalPrice(addedProducts);
   return {
     addedProducts: addedProducts,
@@ -42696,12 +42697,11 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
     return ShoppingbagStore.removeChangeListener(this.handleChange);
   },
   handleChange: function() {
-    console.log("shoppingbag change");
     return this.setState(getCurrentState());
   },
   render: function() {
-    var beer, beerGroup, label, spirit, spiritGroup, wine, wineGroup;
-    if (this.state.addedProducts) {
+    var beer, beerQuota, label, spirit, spiritQuota, wine, wineQuota;
+    if (this.state.addedProducts && this.state.addedProducts.length) {
       wine = this.state.addedProducts.filter(function(product) {
         return product.category.toLowerCase() === "wine";
       });
@@ -42712,18 +42712,16 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
         return product.category.toLowerCase() === "spirit";
       });
       label = calculateLabel(wine, beer, spirit);
-      wineGroup = wine.length ? React.createElement(ShoppingbagGroup, {
-        "category": "wine",
-        "products": wine
-      }) : "";
-      beerGroup = beer.length ? React.createElement(ShoppingbagGroup, {
-        "category": "beer",
-        "products": beer
-      }) : "";
-      spiritGroup = spirit.length ? React.createElement(ShoppingbagGroup, {
-        "category": "spirit",
-        "products": spirit
-      }) : "";
+      wineQuota = 1;
+      beerQuota = 1;
+      spiritQuota = 1;
+      if (label.type === 2) {
+        wineQuota = 2;
+        spiritQuota = 0;
+      } else if (label.type === 3) {
+        beerQuota = 2;
+        spiritQuota = 0;
+      }
       return React.createElement("div", {
         "className": "shoppingBag-page"
       }, React.createElement("section", {
@@ -42732,7 +42730,19 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
         "label": label
       }), React.createElement("div", {
         "className": "ShoppingBag groupWrap"
-      }, wineGroup, spiritGroup, beerGroup), React.createElement(ShoppingbagFooter, {
+      }, React.createElement(ShoppingbagGroup, {
+        "category": "wine",
+        "products": wine,
+        "quota": wineQuota
+      }), React.createElement(ShoppingbagGroup, {
+        "category": "spirit",
+        "products": spirit,
+        "quota": spiritQuota
+      }), React.createElement(ShoppingbagGroup, {
+        "category": "beer",
+        "products": beer,
+        "quota": beerQuota
+      })), React.createElement(ShoppingbagFooter, {
         "total": this.state.total
       })));
     } else {
@@ -42746,7 +42756,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
 module.exports = ShoppingbagDetails;
 
 
-},{"../stores/ShoppingbagStore.cjsx":335,"../utils/ShoppingbagAPI.coffee":338,"./ShoppingbagEmpty.cjsx":325,"./ShoppingbagFooter.cjsx":326,"./ShoppingbagGroup.cjsx":327,"./ShoppingbagHeader.cjsx":328,"react":305}],325:[function(require,module,exports){
+},{"../stores/ShoppingbagStore.cjsx":335,"./ShoppingbagEmpty.cjsx":325,"./ShoppingbagFooter.cjsx":326,"./ShoppingbagGroup.cjsx":327,"./ShoppingbagHeader.cjsx":328,"react":305}],325:[function(require,module,exports){
 var React, ShoppingbagEmpty;
 
 React = require("react");
@@ -42838,21 +42848,36 @@ module.exports = ShoppingbagFooter;
 
 
 },{"react":305}],327:[function(require,module,exports){
-var React, ShoppingbagGroup, ShoppingbagProduct;
+var React, ShoppingbagGroup, ShoppingbagProduct, classNames, getTotalSize;
 
 React = require("react");
 
 ShoppingbagProduct = require("./ShoppingbagProduct.cjsx");
 
+classNames = require("classnames");
+
+getTotalSize = function(data) {
+  var i, item, len, total;
+  total = 0;
+  if (data) {
+    for (i = 0, len = data.length; i < len; i++) {
+      item = data[i];
+      total += item.size * item.quantity;
+    }
+  }
+  return total;
+};
+
 ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
   getInitialState: function() {
     return {
       category: this.props.category,
-      products: this.props.products
+      products: this.props.products,
+      quota: this.props.quota
     };
   },
   render: function() {
-    var items;
+    var imgUrl, items, label, totalSize;
     items = this.state.products.map((function(_this) {
       return function(product) {
         return React.createElement(ShoppingbagProduct, {
@@ -42861,10 +42886,16 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
         });
       };
     })(this));
+    totalSize = getTotalSize(this.state.products);
+    label = classNames("ShoppingBagHeader allowance", {
+      "under-allowance": totalSize && totalSize <= this.state.quota,
+      "over-allowance": totalSize && totalSize > this.state.quota
+    });
+    imgUrl = "./images/icons/allowance-" + this.state.category + "-x2.png";
     return React.createElement("div", {
       "className": "ShoppingBagGroup"
     }, React.createElement("div", {
-      "className": "ShoppingBagHeader allowance under-allowance "
+      "className": label
     }, React.createElement("div", {
       "className": "img"
     }, React.createElement("img", {
@@ -42872,14 +42903,14 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
         width: "52px",
         height: "52px"
       },
-      "src": "./images/icons/allowance-Wines-x2.png"
+      "src": imgUrl
     })), React.createElement("div", {
       "className": "desc"
     }, React.createElement("span", {
       "className": "title"
     }, this.state.category, "  "), React.createElement("span", {
       "className": "total"
-    }, "1.25cL Allowance"), React.createElement("div", {
+    }, this.state.quota, "L Allowance"), React.createElement("div", {
       "className": "link"
     }, React.createElement("a", {
       "className": "link"
@@ -42890,7 +42921,7 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
 module.exports = ShoppingbagGroup;
 
 
-},{"./ShoppingbagProduct.cjsx":329,"react":305}],328:[function(require,module,exports){
+},{"./ShoppingbagProduct.cjsx":329,"classnames":3,"react":305}],328:[function(require,module,exports){
 var React, ShoppingbagHeader, classNames;
 
 React = require("react");
@@ -42905,7 +42936,6 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
   },
   render: function() {
     var label1, label2, label3;
-    console.log(this.state.label);
     label1 = classNames("ShoppingBagOption", {
       "under-allowance": this.state.label.type === 1,
       "over-allowance": this.state.label.type === 1 && this.state.label.over
@@ -43019,15 +43049,17 @@ QuantityChoice = require("./QuantityChoice.cjsx");
 ShoppingbagActions = require("../actions/ShoppingbagActions.cjsx");
 
 ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
-  handleCloseClick: function() {
-    return ShoppingbagActions.removeShoppingbagProduct(this.state.product);
+  handleCloseClick: function(event) {
+    var removedProduct;
+    event.preventDefault();
+    removedProduct = this.state.product;
+    return ShoppingbagActions.removeShoppingbagProduct(removedProduct);
   },
   handleQuantityMinus: function() {
     var updatedProduct;
     if (this.state.selectedQuantity > 1) {
       updatedProduct = this.state.product;
       updatedProduct.quantity -= 1;
-      console.log(updatedProduct);
       ShoppingbagActions.decreaseShoppingbagProductQuantity(updatedProduct);
       return this.setState({
         selectedQuantity: this.state.selectedQuantity - 1
@@ -43050,6 +43082,8 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
     };
   },
   render: function() {
+    var productUrl;
+    productUrl = "#/product/" + this.state.product.id;
     return React.createElement("ul", {
       "className": "ShoppingBagListProduct"
     }, React.createElement("li", {
@@ -43062,7 +43096,7 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
       "onClick": this.handleCloseClick
     })), React.createElement("a", {
       "className": "img",
-      "href": "#/product/{this.state.product.id}"
+      "href": productUrl
     }, React.createElement("img", {
       "src": "http://placehold.it/86"
     })), React.createElement("div", {
@@ -43154,7 +43188,7 @@ module.exports = AppDispatcher;
 
 
 },{"flux":46}],332:[function(require,module,exports){
-var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, addOne, addProduct, assign, minusOne, productCount, removeProduct;
+var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, ShoppingbagAPI, addOne, addProduct, assign, minusOne, productCount, removeProduct;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
 
@@ -43164,7 +43198,9 @@ ShopConstants = require("../constants/ShopConstants.cjsx");
 
 assign = require("react/lib/Object.assign");
 
-productCount = 0;
+ShoppingbagAPI = require("../utils/ShoppingbagAPI.coffee");
+
+productCount = ShoppingbagAPI.getProductCount();
 
 addProduct = function(data) {
   return productCount = productCount + data;
@@ -43200,7 +43236,6 @@ HeaderShoppingbagStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(payload) {
   var action;
   action = payload.action;
-  console.log(action);
   switch (action.actionType) {
     case ShopConstants.ADD_TO_SHOPPINGBAG:
       addProduct(action.data);
@@ -43209,11 +43244,9 @@ AppDispatcher.register(function(payload) {
       removeProduct(action.data.quantity);
       break;
     case ShopConstants.DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY:
-      console.log("decrease");
       minusOne();
       break;
     case ShopConstants.INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY:
-      console.log("increase");
       addOne();
       break;
     default:
@@ -43226,7 +43259,7 @@ AppDispatcher.register(function(payload) {
 module.exports = HeaderShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"../utils/ShoppingbagAPI.coffee":338,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43581,6 +43614,7 @@ module.exports = {
     idx = _findIndex(all, function(p) {
       return p.id === data.id;
     });
+    console.log(idx);
     all.splice(idx, 1);
     return localStorage.setItem("shoppingbagProducts", JSON.stringify(all));
   },
@@ -43592,6 +43626,16 @@ module.exports = {
     });
     all[idx].quantity = data.quantity;
     return localStorage.setItem("shoppingbagProducts", JSON.stringify(all));
+  },
+  getProductCount: function() {
+    var all, count, i, item, len;
+    all = this.getShoppingbagProducts() || [];
+    count = 0;
+    for (i = 0, len = all.length; i < len; i++) {
+      item = all[i];
+      count += item.quantity;
+    }
+    return count;
   }
 };
 

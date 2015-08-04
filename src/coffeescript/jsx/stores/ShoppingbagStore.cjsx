@@ -29,7 +29,6 @@ ShoppingbagStore = assign {}, EventEmitter.prototype,
 
 AppDispatcher.register (payload) ->
   action = payload.action
-  # console.log action
 
   switch action.actionType
 

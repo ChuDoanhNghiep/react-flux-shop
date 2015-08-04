@@ -2,8 +2,9 @@ AppDispatcher = require "../dispatcher/AppDispatcher.cjsx"
 EventEmitter = require("events").EventEmitter
 ShopConstants = require "../constants/ShopConstants.cjsx"
 assign = require "react/lib/Object.assign"
+ShoppingbagAPI = require "../utils/ShoppingbagAPI.coffee"
 
-productCount = 0
+productCount = ShoppingbagAPI.getProductCount()
 
 addProduct = (data) ->
   productCount = productCount + data
@@ -32,7 +33,7 @@ HeaderShoppingbagStore = assign {}, EventEmitter.prototype,
 
 AppDispatcher.register (payload) ->
   action = payload.action
-  console.log action
+
   switch action.actionType
 
     when ShopConstants.ADD_TO_SHOPPINGBAG
@@ -42,13 +43,10 @@ AppDispatcher.register (payload) ->
       removeProduct(action.data.quantity)
 
     when ShopConstants.DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY
-      console.log "decrease"
       minusOne()
 
     when ShopConstants.INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY
-      console.log "increase"
       addOne()
-
 
     else
       return true

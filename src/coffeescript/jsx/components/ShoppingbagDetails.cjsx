@@ -3,7 +3,6 @@ ShoppingbagEmpty = require "./ShoppingbagEmpty.cjsx"
 ShoppingbagHeader = require "./ShoppingbagHeader.cjsx"
 ShoppingbagFooter = require "./ShoppingbagFooter.cjsx"
 ShoppingbagGroup = require "./ShoppingbagGroup.cjsx"
-ShoppingbagAPI = require "../utils/ShoppingbagAPI.coffee"
 
 ShoppingbagStore = require "../stores/ShoppingbagStore.cjsx"
 
@@ -27,7 +26,7 @@ calculateLabel = (wine, beer, spirit) ->
   wineSize = calculateSize(wine)
   beerSize = calculateSize(beer)
   spiritSize = calculateSize(spirit)
-  console.log wineSize,beerSize,spiritSize
+  # console.log wineSize,beerSize,spiritSize
 
   if spirit.length
     if wineSize > 1 or beerSize > 1 or spiritSize > 1
@@ -36,6 +35,8 @@ calculateLabel = (wine, beer, spirit) ->
       return {type: 1, over: false}
 
   if wine.length
+    if wineSize <= 1 and beerSize <= 1
+      return {type: 1, over: false}
     if wineSize <= 2 and beerSize <= 1
       return {type: 2, over: false}
     if wineSize >2
@@ -54,7 +55,7 @@ calculateLabel = (wine, beer, spirit) ->
   return {type: 1, over: false}
 
 getCurrentState = ->
-  addedProducts = ShoppingbagAPI.getShoppingbagProducts()
+  addedProducts = ShoppingbagStore.getShoppingbagProducts()
   total = calculateTotalPrice addedProducts
   return {addedProducts: addedProducts, total: total}
 
@@ -70,11 +71,10 @@ ShoppingbagDetails = React.createClass
     ShoppingbagStore.removeChangeListener @handleChange
 
   handleChange: ->
-    console.log "shoppingbag change"
     @setState getCurrentState()
 
   render: ->
-    if @state.addedProducts
+    if @state.addedProducts and @state.addedProducts.length
 
       wine = @state.addedProducts.filter (product) ->
         product.category.toLowerCase() is "wine"
@@ -85,17 +85,23 @@ ShoppingbagDetails = React.createClass
 
       label = calculateLabel wine, beer, spirit
 
-      wineGroup = if wine.length then <ShoppingbagGroup category="wine" products={wine} /> else ""
-      beerGroup = if beer.length then <ShoppingbagGroup category="beer" products={beer} /> else ""
-      spiritGroup = if spirit.length then <ShoppingbagGroup category="spirit" products={spirit} /> else ""
+      wineQuota = 1
+      beerQuota = 1
+      spiritQuota = 1
+      if label.type is 2
+        wineQuota = 2
+        spiritQuota = 0
+      else if label.type is 3
+        beerQuota = 2
+        spiritQuota = 0 
 
       return <div className="shoppingBag-page">
                 <section className="ShoppingBag ShoppingBagPage">
                   <ShoppingbagHeader label={label} />
                   <div className="ShoppingBag groupWrap">
-                    {wineGroup}
-                    {spiritGroup}
-                    {beerGroup}
+                    <ShoppingbagGroup category="wine" products={wine} quota={wineQuota} />
+                    <ShoppingbagGroup category="spirit" products={spirit} quota={spiritQuota} />
+                    <ShoppingbagGroup category="beer" products={beer} quota={beerQuota} />
                   </div>
                   <ShoppingbagFooter total={this.state.total} />
                 </section>

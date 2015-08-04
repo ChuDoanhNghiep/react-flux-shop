@@ -4,14 +4,16 @@ ShoppingbagActions = require "../actions/ShoppingbagActions.cjsx"
 
 ShoppingbagProduct = React.createClass
 
-  handleCloseClick: ->
-    ShoppingbagActions.removeShoppingbagProduct @state.product
+  handleCloseClick: (event) ->
+    event.preventDefault()
+    removedProduct = @state.product
+    ShoppingbagActions.removeShoppingbagProduct removedProduct
 
   handleQuantityMinus: ->
     if @state.selectedQuantity > 1
       updatedProduct = @state.product
       updatedProduct.quantity -= 1
-      console.log updatedProduct
+      # console.log updatedProduct
       ShoppingbagActions.decreaseShoppingbagProductQuantity updatedProduct
 
       @setState
@@ -30,13 +32,14 @@ ShoppingbagProduct = React.createClass
     selectedQuantity: @props.product.quantity
 
   render: ->
-      
+    productUrl = "#/product/" + this.state.product.id
+
     return   <ul className="ShoppingBagListProduct">
                 <li className="ShoppingBagProduct">
                   <div className="ShoppingBagProductMenu">
                     <a href="#" className="button close" onClick={this.handleCloseClick}></a>
                   </div>
-                    <a className="img" href="#/product/{this.state.product.id}">
+                    <a className="img" href={productUrl}>
                       <img src="http://placehold.it/86" />
                     </a>
                   <div className="details">

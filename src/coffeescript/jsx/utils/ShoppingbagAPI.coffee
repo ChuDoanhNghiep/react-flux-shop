@@ -27,6 +27,7 @@ module.exports =
     all = @getShoppingbagProducts()
     idx = _findIndex all, (p) ->
       p.id is data.id
+    console.log idx
     all.splice idx, 1
 
     localStorage.setItem "shoppingbagProducts", JSON.stringify(all)
@@ -40,3 +41,11 @@ module.exports =
     all[idx].quantity = data.quantity
 
     localStorage.setItem "shoppingbagProducts", JSON.stringify(all)    
+
+  getProductCount: ->
+    all = @getShoppingbagProducts() || []
+    count = 0
+    for item in all
+      count += item.quantity
+
+    return count

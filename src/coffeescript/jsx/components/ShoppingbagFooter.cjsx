@@ -2,10 +2,8 @@ React = require "react"
 
 ShoppingbagFooter = React.createClass
 
-    # getInitialState: ->
-    #   total
-
     render: ->
+
         return <div className="ShoppingBagFooter">
                   <div className="promo">
                     <div className="title">PROMOTIONS:</div>
