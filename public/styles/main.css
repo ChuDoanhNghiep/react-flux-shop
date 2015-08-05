@@ -4064,6 +4064,103 @@ input.placeholder {
     display: none;
   }
 }
+.listCategories * {
+  box-sizing: border-box;
+}
+.listCategories .list {
+  border-bottom: 1px solid #000;
+  border-top: 1px solid #000;
+  color: #000;
+  margin-top: -1px;
+  padding-left: 9px;
+}
+.listCategories .list:hover >.title {
+  color: #999;
+}
+@media screen and (max-width: 960px) {
+  .listCategories .list {
+    border: none;
+    margin-top: 0;
+  }
+}
+.listCategories .list >.title {
+  font-family: Arial;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.listCategories .list.expandable >.title {
+  cursor: pointer;
+  position: relative;
+  padding: 15px 0;
+}
+@media screen and (max-width: 960px) {
+  .listCategories .list.expandable >.title {
+    padding: 15px;
+  }
+}
+.listCategories .list.expandable >.title:after {
+  content: '+';
+  position: absolute;
+  right: 16px;
+  zoom: 1;
+}
+.listCategories .list.expanded >.title:after {
+  content: '-';
+}
+.listCategories .list .content {
+  display: none;
+}
+.listCategories .list .title {
+  display: block;
+}
+@media screen and (max-width: 960px) {
+  .listCategories .list .title {
+    border: 1px solid #e1e1e1;
+    margin-top: -1px;
+  }
+}
+.listCategories .list .submenu {
+  padding-top: 0;
+  margin-bottom: 22px;
+}
+@media screen and (max-width: 960px) {
+  .listCategories .list .submenu {
+    background: #f2f2f2;
+  }
+}
+.listCategories .list .submenu .title {
+  font-family: Verdana;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.4em;
+  line-height: 21px;
+  padding: 0 1em;
+  position: relative;
+  color: #000;
+}
+.listCategories .list .submenu .title:hover {
+  color: #999;
+}
+.listCategories .list .submenu .title:before {
+  content: '-';
+  color: #c1310f;
+  position: absolute;
+  left: 0;
+}
+@media screen and (max-width: 960px) {
+  .listCategories .list .submenu .title {
+    padding: 1em 1.5em;
+    line-height: initial;
+  }
+}
+.listCategories .list .submenu .title.current {
+  font-weight: bold;
+}
+@media screen and (max-width: 960px) {
+  .listCategories {
+    margin-bottom: 20px;
+  }
+}
 .details {
   padding: 10px 10px 10px 40px;
   line-height: 1.4em;

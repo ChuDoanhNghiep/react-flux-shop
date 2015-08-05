@@ -41249,11 +41249,20 @@ routes = React.createElement(Route, {
   "name": "shoppingbagDetails",
   "path": "/shoppingbag",
   "handler": shoppingbagDetails
+}), React.createElement(Route, {
+  "name": "category",
+  "path": "/:category",
+  "handler": brandCollection
+}), React.createElement(Route, {
+  "name": "subCategory",
+  "path": "/:category/:subCategory",
+  "handler": brandCollection
 }));
 
 ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
   var defaultID, name;
-  name = state.pathname;
+  name = state.path;
+  console.log(state.path);
   defaultID = "brand-collection";
   if (name.indexOf("/product") === 0) {
     defaultID = "product-details";
@@ -41266,7 +41275,7 @@ ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
 });
 
 
-},{"./ProductListData.coffee":308,"./components/BrandCollection.cjsx":312,"./components/Main.cjsx":315,"./components/ProductDetails.cjsx":317,"./components/ShoppingbagDetails.cjsx":324,"react":305,"react-router":136}],308:[function(require,module,exports){
+},{"./ProductListData.coffee":308,"./components/BrandCollection.cjsx":312,"./components/Main.cjsx":315,"./components/ProductDetails.cjsx":317,"./components/ShoppingbagDetails.cjsx":326,"react":305,"react-router":136}],308:[function(require,module,exports){
 module.exports = {
   init: function() {
     localStorage.clear();
@@ -41622,7 +41631,7 @@ ProductDetailsActions = {
 module.exports = ProductDetailsActions;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331}],310:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":332,"../dispatcher/AppDispatcher.cjsx":333}],310:[function(require,module,exports){
 var AppDispatcher, ProductFilterActions, ShopConstants;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41659,7 +41668,7 @@ ProductFilterActions = {
 module.exports = ProductFilterActions;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331}],311:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":332,"../dispatcher/AppDispatcher.cjsx":333}],311:[function(require,module,exports){
 var AppDispatcher, ShopConstants, ShoppingbagActions;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41690,8 +41699,8 @@ ShoppingbagActions = {
 module.exports = ShoppingbagActions;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331}],312:[function(require,module,exports){
-var BrandCollection, ProductFilterRefine, ProductFilterSort, ProductList, React;
+},{"../constants/ShopConstants.cjsx":332,"../dispatcher/AppDispatcher.cjsx":333}],312:[function(require,module,exports){
+var BrandCollection, ProductFilterRefine, ProductFilterSort, ProductList, ProductListCategoryMenu, React;
 
 React = require("react");
 
@@ -41701,21 +41710,27 @@ ProductFilterRefine = require("./ProductFilterRefine.cjsx");
 
 ProductList = require("./ProductList.cjsx");
 
+ProductListCategoryMenu = require("./ProductListCategoryMenu.cjsx");
+
 BrandCollection = React.createClass({displayName: "BrandCollection",
   render: function() {
+    console.log(this.props.params.category, this.props.params.subCategory);
     return React.createElement("div", {
       "id": "product-listing"
     }, React.createElement("div", {
       "className": "kiwi-grid"
     }, React.createElement("div", {
       "className": "kiwi-col l-2-7 m-1"
-    }, React.createElement("div", {
+    }, React.createElement(ProductListCategoryMenu, null), React.createElement("div", {
       "className": "productsFilter expand-menu-adjust cfe-form"
     }, React.createElement("div", {
       "className": "menuwrap"
     }, React.createElement(ProductFilterSort, {
       "selectedFilter": "shop_recommended"
-    }), React.createElement(ProductFilterRefine, null)))), React.createElement("div", {
+    }), React.createElement(ProductFilterRefine, {
+      "category": this.props.params.category,
+      "subCategory": this.props.params.subCategory
+    })))), React.createElement("div", {
       "className": "kiwi-col l-5-7 m-1"
     }, React.createElement("div", {
       "className": "preorder-message"
@@ -41728,7 +41743,9 @@ BrandCollection = React.createClass({displayName: "BrandCollection",
     }, React.createElement("div", {
       "className": "tooltip"
     }, React.createElement("p", null, "Message tooltip"))))), React.createElement(ProductList, {
-      "selectedFilter": "shop_recommended"
+      "selectedSorter": "shop_recommended",
+      "category": this.props.params.category,
+      "subCategory": this.props.params.subCategory
     }))));
   }
 });
@@ -41736,7 +41753,7 @@ BrandCollection = React.createClass({displayName: "BrandCollection",
 module.exports = BrandCollection;
 
 
-},{"./ProductFilterRefine.cjsx":318,"./ProductFilterSort.cjsx":319,"./ProductList.cjsx":320,"react":305}],313:[function(require,module,exports){
+},{"./ProductFilterRefine.cjsx":318,"./ProductFilterSort.cjsx":319,"./ProductList.cjsx":320,"./ProductListCategoryMenu.cjsx":321,"react":305}],313:[function(require,module,exports){
 var Breadcrumb, React;
 
 React = require("react");
@@ -41806,7 +41823,7 @@ HeaderShoppingbag = React.createClass({displayName: "HeaderShoppingbag",
 module.exports = HeaderShoppingbag;
 
 
-},{"../stores/HeaderShoppingbagStore.cjsx":332,"react":305}],315:[function(require,module,exports){
+},{"../stores/HeaderShoppingbagStore.cjsx":334,"react":305}],315:[function(require,module,exports){
 var Breadcrumb, Main, React, ReactRouter, RouteHandler;
 
 React = require("react");
@@ -42112,7 +42129,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
 module.exports = ProductDetails;
 
 
-},{"../actions/ProductDetailsActions.cjsx":309,"../utils/ProductListAPI.coffee":337,"../utils/ShoppingbagAPI.coffee":338,"./QuantityChoice.cjsx":321,"classnames":3,"react":305,"react-notification":110}],318:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":309,"../utils/ProductListAPI.coffee":339,"../utils/ShoppingbagAPI.coffee":340,"./QuantityChoice.cjsx":323,"classnames":3,"react":305,"react-notification":110}],318:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, React, RefineGroup, RefinerList, getRefinerList;
 
 React = require("react");
@@ -42207,7 +42224,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":333,"./RefineGroup.cjsx":322,"./RefinerList.cjsx":323,"react":305}],319:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":335,"./RefineGroup.cjsx":324,"./RefinerList.cjsx":325,"react":305}],319:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -42332,16 +42349,23 @@ ProductList = React.createClass({displayName: "ProductList",
     });
   },
   getInitialState: function() {
+    var rawData;
+    console.log(this.props.category, this.props.subCategory);
+    rawData = [];
+    if (this.props.category) {
+      rawData = ProductListAPI.getProductByCategory(this.props.category, this.props.subCategory);
+    } else {
+      rawData = ProductListAPI.getAllProduct();
+    }
+    console.log(rawData);
+    if (this.props.selectedSorter) {
+      rawData = ProductListAPI.getfilteredData(rawData, this.props.selectedSorter);
+    }
     return {
       viewType: "grid",
-      products: [],
-      filter: this.props.selectedFilter
+      products: rawData,
+      filter: this.props.selectedSorter
     };
-  },
-  componentWillMount: function() {
-    return this.setState({
-      products: ProductListAPI.getProductListData(this.state.filter)
-    });
   },
   componentDidMount: function() {
     return ProductListStore.addChangeListener(this.handleChange);
@@ -42411,7 +42435,75 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":334,"../utils/ProductListAPI.coffee":337,"./Product.cjsx":316,"react":305}],321:[function(require,module,exports){
+},{"../stores/ProductListStore.cjsx":336,"../utils/ProductListAPI.coffee":339,"./Product.cjsx":316,"react":305}],321:[function(require,module,exports){
+var ProductListCategoryMenu, ProductListCategorySubMenu, React;
+
+React = require("react");
+
+ProductListCategorySubMenu = require("./ProductListCategorySubMenu.cjsx");
+
+ProductListCategoryMenu = React.createClass({displayName: "ProductListCategoryMenu",
+  render: function() {
+    var listObj, menulist;
+    listObj = window.productCategoryList;
+    menulist = Object.keys(listObj).map((function(_this) {
+      return function(item) {
+        return React.createElement(ProductListCategorySubMenu, {
+          "title": item,
+          "list": listObj[item]
+        });
+      };
+    })(this));
+    return React.createElement("div", {
+      "className": "listCategories"
+    }, React.createElement("div", {
+      "className": "menuwrap"
+    }, menulist));
+  }
+});
+
+module.exports = ProductListCategoryMenu;
+
+
+},{"./ProductListCategorySubMenu.cjsx":322,"react":305}],322:[function(require,module,exports){
+var ProductListCategorySubMenu, React;
+
+React = require("react");
+
+ProductListCategorySubMenu = React.createClass({displayName: "ProductListCategorySubMenu",
+  render: function() {
+    var list, titleUrl;
+    list = this.props.list.map((function(_this) {
+      return function(i) {
+        var url;
+        url = "#/" + _this.props.title + "/" + i;
+        return React.createElement("a", {
+          "href": url,
+          "className": "title"
+        }, " ", i, " ");
+      };
+    })(this));
+    titleUrl = "#/" + this.props.title;
+    return React.createElement("div", {
+      "className": "list expandable expanded"
+    }, React.createElement("div", {
+      "className": "title"
+    }, this.props.title), React.createElement("div", {
+      "className": "content submenu",
+      "style": {
+        display: "block"
+      }
+    }, list, React.createElement("a", {
+      "href": titleUrl,
+      "className": "title"
+    }, "All ", this.props.title)));
+  }
+});
+
+module.exports = ProductListCategorySubMenu;
+
+
+},{"react":305}],323:[function(require,module,exports){
 var QuantityChoice, React;
 
 React = require("react");
@@ -42442,7 +42534,7 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
 module.exports = QuantityChoice;
 
 
-},{"react":305}],322:[function(require,module,exports){
+},{"react":305}],324:[function(require,module,exports){
 var ProductFilterActions, React, RefineGroup;
 
 React = require("react");
@@ -42525,7 +42617,7 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
 module.exports = RefineGroup;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],323:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],325:[function(require,module,exports){
 var ProductFilterActions, React, RefinerList;
 
 React = require("react");
@@ -42565,7 +42657,7 @@ RefinerList = React.createClass({displayName: "RefinerList",
 module.exports = RefinerList;
 
 
-},{"../actions/ProductFilterActions.cjsx":310,"react":305}],324:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":310,"react":305}],326:[function(require,module,exports){
 var React, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, ShoppingbagStore, calculateLabel, calculateSize, calculateTotalPrice, getCurrentState;
 
 React = require("react");
@@ -42756,7 +42848,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
 module.exports = ShoppingbagDetails;
 
 
-},{"../stores/ShoppingbagStore.cjsx":335,"./ShoppingbagEmpty.cjsx":325,"./ShoppingbagFooter.cjsx":326,"./ShoppingbagGroup.cjsx":327,"./ShoppingbagHeader.cjsx":328,"react":305}],325:[function(require,module,exports){
+},{"../stores/ShoppingbagStore.cjsx":337,"./ShoppingbagEmpty.cjsx":327,"./ShoppingbagFooter.cjsx":328,"./ShoppingbagGroup.cjsx":329,"./ShoppingbagHeader.cjsx":330,"react":305}],327:[function(require,module,exports){
 var React, ShoppingbagEmpty;
 
 React = require("react");
@@ -42803,7 +42895,7 @@ ShoppingbagEmpty = React.createClass({displayName: "ShoppingbagEmpty",
 module.exports = ShoppingbagEmpty;
 
 
-},{"react":305}],326:[function(require,module,exports){
+},{"react":305}],328:[function(require,module,exports){
 var React, ShoppingbagFooter;
 
 React = require("react");
@@ -42847,7 +42939,7 @@ ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
 module.exports = ShoppingbagFooter;
 
 
-},{"react":305}],327:[function(require,module,exports){
+},{"react":305}],329:[function(require,module,exports){
 var React, ShoppingbagGroup, ShoppingbagProduct, classNames, getTotalSize;
 
 React = require("react");
@@ -42921,7 +43013,7 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
 module.exports = ShoppingbagGroup;
 
 
-},{"./ShoppingbagProduct.cjsx":329,"classnames":3,"react":305}],328:[function(require,module,exports){
+},{"./ShoppingbagProduct.cjsx":331,"classnames":3,"react":305}],330:[function(require,module,exports){
 var React, ShoppingbagHeader, classNames;
 
 React = require("react");
@@ -43039,7 +43131,7 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
 module.exports = ShoppingbagHeader;
 
 
-},{"classnames":3,"react":305}],329:[function(require,module,exports){
+},{"classnames":3,"react":305}],331:[function(require,module,exports){
 var QuantityChoice, React, ShoppingbagActions, ShoppingbagProduct;
 
 React = require("react");
@@ -43152,7 +43244,7 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
 module.exports = ShoppingbagProduct;
 
 
-},{"../actions/ShoppingbagActions.cjsx":311,"./QuantityChoice.cjsx":321,"react":305}],330:[function(require,module,exports){
+},{"../actions/ShoppingbagActions.cjsx":311,"./QuantityChoice.cjsx":323,"react":305}],332:[function(require,module,exports){
 var keyMirror;
 
 keyMirror = require("react/lib/keyMirror");
@@ -43170,7 +43262,7 @@ module.exports = keyMirror({
 });
 
 
-},{"react/lib/keyMirror":290}],331:[function(require,module,exports){
+},{"react/lib/keyMirror":290}],333:[function(require,module,exports){
 var AppDispatcher, Dispatcher;
 
 Dispatcher = require("flux").Dispatcher;
@@ -43187,7 +43279,7 @@ AppDispatcher.handleViewAction = function(action) {
 module.exports = AppDispatcher;
 
 
-},{"flux":46}],332:[function(require,module,exports){
+},{"flux":46}],334:[function(require,module,exports){
 var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, ShoppingbagAPI, addOne, addProduct, assign, minusOne, productCount, removeProduct;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43259,7 +43351,7 @@ AppDispatcher.register(function(payload) {
 module.exports = HeaderShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"../utils/ShoppingbagAPI.coffee":338,"events":1,"react/lib/Object.assign":176}],333:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":332,"../dispatcher/AppDispatcher.cjsx":333,"../utils/ShoppingbagAPI.coffee":340,"events":1,"react/lib/Object.assign":176}],335:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43328,7 +43420,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"events":1,"react/lib/Object.assign":176}],334:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":332,"../dispatcher/AppDispatcher.cjsx":333,"events":1,"react/lib/Object.assign":176}],336:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductListStore, ShopConstants, addProductRefiner, assign, removeAllProductRefiner, removeProductRefiner, selectedFilter, selectedRefiners, setProductListFilter;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43415,7 +43507,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"events":1,"react/lib/Object.assign":176}],335:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":332,"../dispatcher/AppDispatcher.cjsx":333,"events":1,"react/lib/Object.assign":176}],337:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ShopConstants, ShoppingbagAPI, ShoppingbagStore, assign, removeItem, updateItem, updateItem2;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43478,7 +43570,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":330,"../dispatcher/AppDispatcher.cjsx":331,"../utils/ShoppingbagAPI.coffee":338,"events":1,"react/lib/Object.assign":176}],336:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":332,"../dispatcher/AppDispatcher.cjsx":333,"../utils/ShoppingbagAPI.coffee":340,"events":1,"react/lib/Object.assign":176}],338:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -43503,8 +43595,8 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":99}],337:[function(require,module,exports){
-var _find, _findIndex, _sortByOrder, sort, validator;
+},{"lodash/lang/isArray":99}],339:[function(require,module,exports){
+var _find, _findIndex, _sortByOrder, refine, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
 
@@ -43514,11 +43606,11 @@ _findIndex = require("lodash/array/findIndex");
 
 validator = require("./ObjValidator.coffee");
 
-sort = function(data, filter) {
-  switch (filter) {
+sort = function(data, sorter) {
+  switch (sorter) {
     case "shop_recommended":
       return data.filter(function(elem, index, array) {
-        return elem[filter];
+        return elem[sorter];
       });
     case "price_ascending":
       return _sortByOrder(data, ["price"], ["asc"]);
@@ -43533,33 +43625,48 @@ sort = function(data, filter) {
   }
 };
 
+refine = function(data, refiners) {
+  var categoryID, i, j, len, len1, ref, ref1, refinedData, refiner, tmp;
+  refinedData = [];
+  ref = Object.keys(refiners);
+  for (i = 0, len = ref.length; i < len; i++) {
+    categoryID = ref[i];
+    if (refiners[categoryID].length) {
+      ref1 = refiners[categoryID];
+      for (j = 0, len1 = ref1.length; j < len1; j++) {
+        refiner = ref1[j];
+        refiner = refiner.toLowerCase();
+        tmp = data.filter(function(elem) {
+          return elem[categoryID].toLowerCase() === refiner;
+        });
+        refinedData = refinedData.concat(tmp);
+      }
+    }
+  }
+  return refinedData;
+};
+
 module.exports = {
   getAllProduct: function() {
     return JSON.parse(localStorage.getItem("products"));
   },
-  getProductListData: function(filter, refiners) {
-    var categoryID, data, i, j, len, len1, ref, ref1, refinedData, refiner, tmp;
+  getProductListData: function(sorter, refiners) {
+    var data, refinedData;
     data = this.getAllProduct();
     if (refiners && validator(refiners)) {
-      refinedData = [];
-      ref = Object.keys(refiners);
-      for (i = 0, len = ref.length; i < len; i++) {
-        categoryID = ref[i];
-        if (refiners[categoryID].length) {
-          ref1 = refiners[categoryID];
-          for (j = 0, len1 = ref1.length; j < len1; j++) {
-            refiner = ref1[j];
-            refiner = refiner.toLowerCase();
-            tmp = data.filter(function(elem) {
-              return elem[categoryID].toLowerCase() === refiner;
-            });
-            refinedData = refinedData.concat(tmp);
-          }
-        }
-      }
-      return sort(refinedData, filter);
+      refinedData = refine(data, refiners);
+      return sort(refinedData, sorter);
     } else {
-      return sort(data, filter);
+      return sort(data, sorter);
+    }
+  },
+  getfilteredData: function(data, sorter, refiners) {
+    var refinedData;
+    if (refiners && validator(refiners)) {
+      refinedData = refine(data, refiners);
+      return sort(refinedData, sorter);
+    } else {
+      return sort(data, sorter);
     }
   },
   getProductByID: function(id) {
@@ -43568,6 +43675,19 @@ module.exports = {
     return _find(data, function(p) {
       return p.id === id;
     });
+  },
+  getProductByCategory: function(category, type) {
+    var data;
+    data = this.getAllProduct();
+    if (category && type) {
+      return _find(data, function(p) {
+        return p.category === category && p.type === type;
+      });
+    } else if (category) {
+      return _find(data, function(p) {
+        return p.category === category;
+      });
+    }
   },
   updateProductInventory: function(id, num) {
     var data, idx;
@@ -43581,7 +43701,7 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":336,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],338:[function(require,module,exports){
+},{"./ObjValidator.coffee":338,"lodash/array/findIndex":50,"lodash/collection/find":52,"lodash/collection/sortByOrder":53}],340:[function(require,module,exports){
 var _findIndex;
 
 _findIndex = require("lodash/array/findIndex");
@@ -43640,7 +43760,7 @@ module.exports = {
 };
 
 
-},{"lodash/array/findIndex":50}],339:[function(require,module,exports){
+},{"lodash/array/findIndex":50}],341:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -43672,7 +43792,7 @@ require("./jsx/MainApp.cjsx");
 require("./jsx/HeaderApp.cjsx");
 
 
-},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":340,"./modules/menu-dropdown.coffee":341,"./modules/menu-tabs.coffee":342,"./modules/mobile-menu.coffee":343,"./modules/popup.coffee":344,"./modules/product.coffee":345,"./modules/products-list.coffee":346,"./modules/refine-menu.coffee":347,"./modules/sticky-menu.coffee":348,"./modules/tooltip.coffee":349,"./pages/page.coffee":350,"jquery":49,"magnific-popup":109}],340:[function(require,module,exports){
+},{"./jsx/HeaderApp.cjsx":306,"./jsx/MainApp.cjsx":307,"./modules/expandable-menu.coffee":342,"./modules/menu-dropdown.coffee":343,"./modules/menu-tabs.coffee":344,"./modules/mobile-menu.coffee":345,"./modules/popup.coffee":346,"./modules/product.coffee":347,"./modules/products-list.coffee":348,"./modules/refine-menu.coffee":349,"./modules/sticky-menu.coffee":350,"./modules/tooltip.coffee":351,"./pages/page.coffee":352,"jquery":49,"magnific-popup":109}],342:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -43788,7 +43908,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],341:[function(require,module,exports){
+},{}],343:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -43949,7 +44069,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],342:[function(require,module,exports){
+},{}],344:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44086,7 +44206,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],343:[function(require,module,exports){
+},{}],345:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44155,7 +44275,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],344:[function(require,module,exports){
+},{}],346:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44224,7 +44344,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],345:[function(require,module,exports){
+},{}],347:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -44701,7 +44821,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],346:[function(require,module,exports){
+},{}],348:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -44720,7 +44840,7 @@ $(function() {
 });
 
 
-},{}],347:[function(require,module,exports){
+},{}],349:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44874,7 +44994,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],348:[function(require,module,exports){
+},{}],350:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44948,7 +45068,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],349:[function(require,module,exports){
+},{}],351:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -45207,7 +45327,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":4,"component-tip":10}],350:[function(require,module,exports){
+},{"component-events":4,"component-tip":10}],352:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -45511,4 +45631,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[339]);
+},{}]},{},[341]);

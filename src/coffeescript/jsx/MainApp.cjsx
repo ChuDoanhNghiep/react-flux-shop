@@ -15,11 +15,14 @@ routes =
     <Route name="brandCollection" path="/" handler={brandCollection} />
     <Route name="productDetails" path="/product/:id" handler={productDetails} />
     <Route name="shoppingbagDetails" path="/shoppingbag" handler={shoppingbagDetails} />
+    <Route name="category" path="/:category" handler={brandCollection} />
+    <Route name="subCategory" path="/:category/:subCategory" handler={brandCollection} />
   </Route>
 
 
 ReactRouter.run routes, ReactRouter.HashLocation, (Root, state) ->
-  name = state.pathname
+  name = state.path
+  console.log state.path
   defaultID = "brand-collection"
   if name.indexOf("/product") is 0
     defaultID = "product-details"

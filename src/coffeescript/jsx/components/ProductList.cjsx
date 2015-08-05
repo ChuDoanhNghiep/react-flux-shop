@@ -31,11 +31,22 @@ ProductList = React.createClass
       viewType: "list"
 
   getInitialState: ->
-    return {viewType: "grid", products: [], filter: @props.selectedFilter}
+    console.log @props.category, @props.subCategory
+    rawData = []
+    if @props.category
+      rawData = ProductListAPI.getProductByCategory @props.category, @props.subCategory
+    else
+      rawData = ProductListAPI.getAllProduct()
+    console.log rawData
+    if @props.selectedSorter
+      rawData = ProductListAPI.getfilteredData rawData, @props.selectedSorter
 
-  componentWillMount: ->
-    @setState 
-      products: ProductListAPI.getProductListData @state.filter
+    # console.log rawData
+    return {viewType: "grid", products: rawData, filter: @props.selectedSorter}
+
+  # componentWillMount: ->
+  #   @setState 
+  #     products: ProductListAPI.getProductListData @state.filter
 
   componentDidMount: ->
     # ProductFilterStore.addChangeListener @handleChange
