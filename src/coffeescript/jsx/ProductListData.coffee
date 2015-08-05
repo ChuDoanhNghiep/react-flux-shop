@@ -7,6 +7,7 @@ module.exports =
         name: "Château Gruaud-Larose Larose de Gruaud Saint Julien 2006 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "DFS Selects: Wine"
         currency: "S$"
         price: 100.00

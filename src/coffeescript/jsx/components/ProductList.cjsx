@@ -31,13 +31,13 @@ ProductList = React.createClass
       viewType: "list"
 
   getInitialState: ->
-    console.log @props.category, @props.subCategory
+
     rawData = []
     if @props.category
       rawData = ProductListAPI.getProductByCategory @props.category, @props.subCategory
     else
       rawData = ProductListAPI.getAllProduct()
-    console.log rawData
+
     if @props.selectedSorter
       rawData = ProductListAPI.getfilteredData rawData, @props.selectedSorter
 

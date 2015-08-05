@@ -1,5 +1,6 @@
 _sortByOrder = require "lodash/collection/sortByOrder"
 _find = require "lodash/collection/find"
+_filter = require "lodash/collection/filter"
 _findIndex = require "lodash/array/findIndex"
 validator = require "./ObjValidator.coffee"
 
@@ -76,16 +77,16 @@ module.exports =
     _find data, (p) ->
       p.id is id
 
-  getProductByCategory: (category, type) ->
+  getProductByCategory: (categoryVal, typeVal) ->
     data = @getAllProduct()
 
-    if category and type
-      _find data, (p) ->
-        p.category is category and p.type is type
+    if categoryVal and typeVal
+       return _filter data, {"category": categoryVal.toLowerCase(), "type": typeVal.toLowerCase()}
         
-    else if category
-      _find data, (p) ->      
-        p.category is category
+    else if categoryVal
+      return _filter data, {"category": categoryVal.toLowerCase()}
+
+    return []
 
   updateProductInventory: (id, num) ->
     data = @getAllProduct()
