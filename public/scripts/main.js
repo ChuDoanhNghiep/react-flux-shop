@@ -41328,8 +41328,8 @@ HeaderShoppingbag = require("./components/HeaderShoppingbag.cjsx");
 React.render(React.createElement(HeaderShoppingbag, null), document.getElementById("react-shoppingbag"));
 
 
-},{"./components/HeaderShoppingbag.cjsx":317,"react":308}],310:[function(require,module,exports){
-var ProductListData, ReactRouter, Route, brandCollection, main, productDetails, routes, shoppingbagDetails;
+},{"./components/HeaderShoppingbag.cjsx":318,"react":308}],310:[function(require,module,exports){
+var ProductListActions, ProductListData, ReactRouter, Route, brandCollection, main, productDetails, routes, shoppingbagDetails;
 
 window.React = require("react");
 
@@ -41342,6 +41342,8 @@ brandCollection = require("./components/BrandCollection.cjsx");
 productDetails = require("./components/ProductDetails.cjsx");
 
 shoppingbagDetails = require("./components/ShoppingbagDetails.cjsx");
+
+ProductListActions = require("./actions/ProductListActions.cjsx");
 
 ReactRouter = require("react-router");
 
@@ -41376,20 +41378,20 @@ routes = React.createElement(Route, {
 ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
   var defaultID, name;
   name = state.path;
-  console.log(state.path);
   defaultID = "brand-collection";
   if (name.indexOf("/product") === 0) {
     defaultID = "product-details";
   } else if (name.indexOf("/shoppingbag") === 0) {
     defaultID = "shopping-bag";
   }
-  return React.render(React.createElement(Root, {
+  React.render(React.createElement(Root, {
     "pageID": defaultID
   }), document.getElementById("app-container"));
+  return ProductListActions.transition(state.params);
 });
 
 
-},{"./ProductListData.coffee":311,"./components/BrandCollection.cjsx":315,"./components/Main.cjsx":318,"./components/ProductDetails.cjsx":320,"./components/ShoppingbagDetails.cjsx":329,"react":308,"react-router":139}],311:[function(require,module,exports){
+},{"./ProductListData.coffee":311,"./actions/ProductListActions.cjsx":314,"./components/BrandCollection.cjsx":316,"./components/Main.cjsx":319,"./components/ProductDetails.cjsx":321,"./components/ShoppingbagDetails.cjsx":330,"react":308,"react-router":139}],311:[function(require,module,exports){
 module.exports = {
   init: function() {
     localStorage.clear();
@@ -41417,6 +41419,7 @@ module.exports = {
         name: "Babich Irongate Cabernet Merlot Franc 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Babich Wines Ltd",
         price: 200,
         size: 0.75,
@@ -41432,6 +41435,7 @@ module.exports = {
         name: "Mud House Marlborough Pinot Gris 2013 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Mud HOurs",
         price: 128.00,
         size: 0.75,
@@ -41447,6 +41451,7 @@ module.exports = {
         name: "Zinfandelic 2012 Sierra Foothills Old Vine Zinfandel 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Zinfandelic",
         price: 100.00,
         size: 0.75,
@@ -41462,6 +41467,7 @@ module.exports = {
         name: "Bottega Il Vino dell’Amore Petalo Moscato 0.2L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "white",
         brand: "Bottega",
         price: 163.00,
         size: 0.75,
@@ -41477,6 +41483,7 @@ module.exports = {
         name: "Wine Spots 2011 Napa Valley Cabernet Sauvignon 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Wine Spots",
         price: 110.00,
         size: 0.75,
@@ -41492,6 +41499,7 @@ module.exports = {
         name: "Frescobaldi Mormoreto 2010 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Frescobaldi",
         price: 134.00,
         size: 0.75,
@@ -41507,6 +41515,7 @@ module.exports = {
         name: "Tommasi Monte Croce Passito Bianco IGT 2010 0.375L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Tommasi",
         price: 70.00,
         size: 0.75,
@@ -41522,6 +41531,7 @@ module.exports = {
         name: "Yalumba Y Series South Australia Sangiovese Rose 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Yalumba",
         price: 29.00,
         size: 0.75,
@@ -41537,6 +41547,7 @@ module.exports = {
         name: "Silver Oak Napa Valley Cabernet Sauvignon 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "white",
         brand: "Silver Oak Cellars",
         price: 49.00,
         size: 0.75,
@@ -41552,6 +41563,7 @@ module.exports = {
         name: "Frescobaldi Nipozzano Riserva 0.75L",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "red",
         brand: "Frescobaldi",
         price: 400.00,
         size: 0.75,
@@ -41568,6 +41580,7 @@ module.exports = {
         name: "Moet & Chandon Grand Vintage 2003",
         image: "http://placehold.it/200",
         category: "wine",
+        type: "white",
         brand: "Moet & Chandon",
         price: 123.45,
         size: 0.75,
@@ -41715,6 +41728,99 @@ module.exports = {
         currency: "S$",
         inventory: 2,
         description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000022",
+        sku: "82029244638",
+        name: "Canadian club 6 year old 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "Canadian club",
+        price: 36.45,
+        type: "Canadian whisky",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 23,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000023",
+        sku: "82029212338",
+        name: "jameson irish whisky 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "jameson",
+        price: 39.45,
+        type: "irish whisky",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 23,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000024",
+        sku: "82029244638",
+        name: "bacardi superior 1L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "bacardi",
+        price: 31.45,
+        type: "rum",
+        size: 1,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 23,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "000000025",
+        sku: "235354",
+        name: "moet & chandon nectar imperial 0.75L",
+        image: "http://placehold.it/200",
+        category: "wine",
+        type: "champagne",
+        brand: "moet & chandon",
+        price: 70,
+        size: 0.75,
+        country: "france",
+        grape_varietal: "other",
+        region: "champagne",
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 12,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "000000026",
+        sku: "2353547675",
+        name: "inniskillin reserve cabernet franc icewine 0.375L",
+        image: "http://placehold.it/200",
+        category: "wine",
+        type: "dessert",
+        brand: "inniskillin",
+        price: 170,
+        size: 0.375,
+        country: "canada",
+        grape_varietal: "other",
+        region: "other",
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 12,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "000000027",
+        sku: "235354",
+        name: "Yalumba Y series south australia Sangioverse rose 0.75L",
+        image: "http://placehold.it/200",
+        category: "wine",
+        type: "rose",
+        brand: "Yalumba",
+        price: 20,
+        size: 0.75,
+        country: "Australia",
+        grape_varietal: "other",
+        region: "south australia",
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 12,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
       }
     ]));
   }
@@ -41746,7 +41852,7 @@ ProductDetailsActions = {
 module.exports = ProductDetailsActions;
 
 
-},{"../constants/ShopConstants.cjsx":335,"../dispatcher/AppDispatcher.cjsx":336}],313:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337}],313:[function(require,module,exports){
 var AppDispatcher, ProductFilterActions, ShopConstants;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41772,9 +41878,9 @@ ProductFilterActions = {
       data: data
     });
   },
-  setProductListFilter: function(data) {
+  setProductListSorter: function(data) {
     return AppDispatcher.handleViewAction({
-      actionType: ShopConstants.SET_FILTER,
+      actionType: ShopConstants.SET_SORTER,
       data: data
     });
   }
@@ -41783,7 +41889,26 @@ ProductFilterActions = {
 module.exports = ProductFilterActions;
 
 
-},{"../constants/ShopConstants.cjsx":335,"../dispatcher/AppDispatcher.cjsx":336}],314:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337}],314:[function(require,module,exports){
+var AppDispatcher, ProductListActions, ShopConstants;
+
+AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
+
+ShopConstants = require("../constants/ShopConstants.cjsx");
+
+ProductListActions = {
+  transition: function(data) {
+    return AppDispatcher.handleViewAction({
+      actionType: ShopConstants.TRANSITION,
+      data: data
+    });
+  }
+};
+
+module.exports = ProductListActions;
+
+
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337}],315:[function(require,module,exports){
 var AppDispatcher, ShopConstants, ShoppingbagActions;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -41814,7 +41939,7 @@ ShoppingbagActions = {
 module.exports = ShoppingbagActions;
 
 
-},{"../constants/ShopConstants.cjsx":335,"../dispatcher/AppDispatcher.cjsx":336}],315:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337}],316:[function(require,module,exports){
 var BrandCollection, ProductFilterRefine, ProductFilterSort, ProductList, ProductListCategoryMenu, React;
 
 React = require("react");
@@ -41829,19 +41954,21 @@ ProductListCategoryMenu = require("./ProductListCategoryMenu.cjsx");
 
 BrandCollection = React.createClass({displayName: "BrandCollection",
   render: function() {
-    console.log(this.props.params.category, this.props.params.subCategory);
     return React.createElement("div", {
       "id": "product-listing"
     }, React.createElement("div", {
       "className": "kiwi-grid"
     }, React.createElement("div", {
       "className": "kiwi-col l-2-7 m-1"
-    }, React.createElement(ProductListCategoryMenu, null), React.createElement("div", {
+    }, React.createElement(ProductListCategoryMenu, {
+      "category": this.props.params.category,
+      "subCategory": this.props.params.subCategory
+    }), React.createElement("div", {
       "className": "productsFilter expand-menu-adjust cfe-form"
     }, React.createElement("div", {
       "className": "menuwrap"
     }, React.createElement(ProductFilterSort, {
-      "selectedFilter": "shop_recommended"
+      "selectedSorter": "shop_recommended"
     }), React.createElement(ProductFilterRefine, {
       "category": this.props.params.category,
       "subCategory": this.props.params.subCategory
@@ -41858,7 +41985,7 @@ BrandCollection = React.createClass({displayName: "BrandCollection",
     }, React.createElement("div", {
       "className": "tooltip"
     }, React.createElement("p", null, "Message tooltip"))))), React.createElement(ProductList, {
-      "selectedSorter": "shop_recommended",
+      "defaultSorter": "shop_recommended",
       "category": this.props.params.category,
       "subCategory": this.props.params.subCategory
     }))));
@@ -41868,7 +41995,7 @@ BrandCollection = React.createClass({displayName: "BrandCollection",
 module.exports = BrandCollection;
 
 
-},{"./ProductFilterRefine.cjsx":321,"./ProductFilterSort.cjsx":322,"./ProductList.cjsx":323,"./ProductListCategoryMenu.cjsx":324,"react":308}],316:[function(require,module,exports){
+},{"./ProductFilterRefine.cjsx":322,"./ProductFilterSort.cjsx":323,"./ProductList.cjsx":324,"./ProductListCategoryMenu.cjsx":325,"react":308}],317:[function(require,module,exports){
 var Breadcrumb, React;
 
 React = require("react");
@@ -41894,7 +42021,7 @@ Breadcrumb = React.createClass({displayName: "Breadcrumb",
 module.exports = Breadcrumb;
 
 
-},{"react":308}],317:[function(require,module,exports){
+},{"react":308}],318:[function(require,module,exports){
 var HeaderShoppingbag, HeaderShoppingbagStore, React, getProductCount;
 
 React = require("react");
@@ -41938,7 +42065,7 @@ HeaderShoppingbag = React.createClass({displayName: "HeaderShoppingbag",
 module.exports = HeaderShoppingbag;
 
 
-},{"../stores/HeaderShoppingbagStore.cjsx":337,"react":308}],318:[function(require,module,exports){
+},{"../stores/HeaderShoppingbagStore.cjsx":338,"react":308}],319:[function(require,module,exports){
 var Breadcrumb, Main, React, ReactRouter, RouteHandler;
 
 React = require("react");
@@ -41972,7 +42099,7 @@ Main = React.createClass({displayName: "Main",
 module.exports = Main;
 
 
-},{"./Breadcrumb.cjsx":316,"react":308,"react-router":139}],319:[function(require,module,exports){
+},{"./Breadcrumb.cjsx":317,"react":308,"react-router":139}],320:[function(require,module,exports){
 var Product, React;
 
 React = require("react");
@@ -42024,7 +42151,7 @@ Product = React.createClass({displayName: "Product",
 module.exports = Product;
 
 
-},{"react":308}],320:[function(require,module,exports){
+},{"react":308}],321:[function(require,module,exports){
 var Notification, ProductDetails, ProductDetailsActions, ProductListAPI, QuantityChoice, React, ShoppingbagAPI, classNames, updateInventory;
 
 React = require("react");
@@ -42244,7 +42371,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
 module.exports = ProductDetails;
 
 
-},{"../actions/ProductDetailsActions.cjsx":312,"../utils/ProductListAPI.coffee":342,"../utils/ShoppingbagAPI.coffee":343,"./QuantityChoice.cjsx":326,"classnames":3,"react":308,"react-notification":113}],321:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":312,"../utils/ProductListAPI.coffee":343,"../utils/ShoppingbagAPI.coffee":344,"./QuantityChoice.cjsx":327,"classnames":3,"react":308,"react-notification":113}],322:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, React, RefineGroup, RefinerList, getRefinerList;
 
 React = require("react");
@@ -42339,7 +42466,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":338,"./RefineGroup.cjsx":327,"./RefinerList.cjsx":328,"react":308}],322:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":339,"./RefineGroup.cjsx":328,"./RefinerList.cjsx":329,"react":308}],323:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -42349,7 +42476,7 @@ ProductFilterActions = require("../actions/ProductFilterActions.cjsx");
 ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
   getInitialState: function() {
     return {
-      selectedValue: this.props.selectedFilter,
+      selectedValue: this.props.selectedSorter,
       selectedLabel: " Shop Recommended"
     };
   },
@@ -42358,7 +42485,7 @@ ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
       selectedValue: selected.value,
       selectedLabel: selected.label
     });
-    return ProductFilterActions.setProductListFilter(selected.value);
+    return ProductFilterActions.setProductListSorter(selected.value);
   },
   render: function() {
     var buttons, config;
@@ -42428,8 +42555,7 @@ ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
 module.exports = ProductFilterSort;
 
 
-},{"../actions/ProductFilterActions.cjsx":313,"react":308}],323:[function(require,module,exports){
-/** @jsx React.DOM */;
+},{"../actions/ProductFilterActions.cjsx":313,"react":308}],324:[function(require,module,exports){
 var Product, ProductList, ProductListAPI, ProductListStore, React;
 
 React = require("react");
@@ -42441,16 +42567,6 @@ Product = require("./Product.cjsx");
 ProductListStore = require("../stores/ProductListStore.cjsx");
 
 ProductList = React.createClass({displayName: "ProductList",
-  getProductList: function() {
-    var filter, refiners;
-    filter = ProductListStore.getSeletedProductFilter();
-    refiners = ProductListStore.getSeletedProductRefiners();
-    console.log(refiners);
-    return this.setState({
-      filter: filter,
-      products: ProductListAPI.getProductListData(filter, refiners)
-    });
-  },
   setGridView: function(event) {
     event.preventDefault();
     return this.setState({
@@ -42464,21 +42580,16 @@ ProductList = React.createClass({displayName: "ProductList",
     });
   },
   getInitialState: function() {
-    var rawData;
-    rawData = [];
-    if (this.props.category) {
-      rawData = ProductListAPI.getProductByCategory(this.props.category, this.props.subCategory);
-    } else {
-      rawData = ProductListAPI.getAllProduct();
-    }
-    if (this.props.selectedSorter) {
-      rawData = ProductListAPI.getfilteredData(rawData, this.props.selectedSorter);
-    }
     return {
       viewType: "grid",
-      products: rawData,
-      filter: this.props.selectedSorter
+      products: [],
+      sorter: this.props.selectedSorter
     };
+  },
+  componentWillMount: function() {
+    return this.setState({
+      products: ProductListStore.getProductList()
+    });
   },
   componentDidMount: function() {
     return ProductListStore.addChangeListener(this.handleChange);
@@ -42488,10 +42599,13 @@ ProductList = React.createClass({displayName: "ProductList",
   },
   handleChange: function() {
     console.log("product list change");
-    return this.getProductList();
+    return this.setState({
+      products: ProductListStore.getProductList()
+    });
   },
   render: function() {
     var elemClass, gridIconClass, items, listIconClass;
+    console.log(this.props.category, this.props.subCategory);
     elemClass = this.state.viewType + " " + "productsList";
     gridIconClass = this.state.viewType === "grid" ? "active" : "inactive";
     listIconClass = this.state.viewType === "list" ? "active" : "inactive";
@@ -42548,7 +42662,7 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":339,"../utils/ProductListAPI.coffee":342,"./Product.cjsx":319,"react":308}],324:[function(require,module,exports){
+},{"../stores/ProductListStore.cjsx":340,"../utils/ProductListAPI.coffee":343,"./Product.cjsx":320,"react":308}],325:[function(require,module,exports){
 var ProductListCategoryMenu, ProductListCategorySubMenu, React;
 
 React = require("react");
@@ -42561,6 +42675,14 @@ ProductListCategoryMenu = React.createClass({displayName: "ProductListCategoryMe
     listObj = window.productCategoryList;
     menulist = Object.keys(listObj).map((function(_this) {
       return function(item) {
+        if (_this.props.category === item) {
+          return React.createElement(ProductListCategorySubMenu, {
+            "title": item,
+            "list": listObj[item],
+            "current": true,
+            "active": _this.props.subCategory
+          });
+        }
         return React.createElement(ProductListCategorySubMenu, {
           "title": item,
           "list": listObj[item]
@@ -42578,25 +42700,33 @@ ProductListCategoryMenu = React.createClass({displayName: "ProductListCategoryMe
 module.exports = ProductListCategoryMenu;
 
 
-},{"./ProductListCategorySubMenu.cjsx":325,"react":308}],325:[function(require,module,exports){
-var ProductListCategorySubMenu, React;
+},{"./ProductListCategorySubMenu.cjsx":326,"react":308}],326:[function(require,module,exports){
+var ProductListCategorySubMenu, React, classNames;
 
 React = require("react");
 
+classNames = require("classnames");
+
 ProductListCategorySubMenu = React.createClass({displayName: "ProductListCategorySubMenu",
   render: function() {
-    var list, titleUrl;
+    var allTitleClass, list, titleUrl;
     list = this.props.list.map((function(_this) {
       return function(i) {
-        var url;
+        var titleClass, url;
         url = "#/" + _this.props.title + "/" + i;
+        titleClass = classNames("title", {
+          "current": _this.props.current && _this.props.active === i.toLowerCase()
+        });
         return React.createElement("a", {
           "href": url,
-          "className": "title"
+          "className": titleClass
         }, " ", i, " ");
       };
     })(this));
     titleUrl = "#/" + this.props.title;
+    allTitleClass = classNames("title", {
+      "current": this.props.current && !this.props.active
+    });
     return React.createElement("div", {
       "className": "list expandable expanded"
     }, React.createElement("div", {
@@ -42608,7 +42738,7 @@ ProductListCategorySubMenu = React.createClass({displayName: "ProductListCategor
       }
     }, list, React.createElement("a", {
       "href": titleUrl,
-      "className": "title"
+      "className": allTitleClass
     }, "All ", this.props.title)));
   }
 });
@@ -42616,7 +42746,7 @@ ProductListCategorySubMenu = React.createClass({displayName: "ProductListCategor
 module.exports = ProductListCategorySubMenu;
 
 
-},{"react":308}],326:[function(require,module,exports){
+},{"classnames":3,"react":308}],327:[function(require,module,exports){
 var QuantityChoice, React;
 
 React = require("react");
@@ -42647,7 +42777,7 @@ QuantityChoice = React.createClass({displayName: "QuantityChoice",
 module.exports = QuantityChoice;
 
 
-},{"react":308}],327:[function(require,module,exports){
+},{"react":308}],328:[function(require,module,exports){
 var ProductFilterActions, React, RefineGroup;
 
 React = require("react");
@@ -42730,7 +42860,7 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
 module.exports = RefineGroup;
 
 
-},{"../actions/ProductFilterActions.cjsx":313,"react":308}],328:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":313,"react":308}],329:[function(require,module,exports){
 var ProductFilterActions, React, RefinerList;
 
 React = require("react");
@@ -42770,7 +42900,7 @@ RefinerList = React.createClass({displayName: "RefinerList",
 module.exports = RefinerList;
 
 
-},{"../actions/ProductFilterActions.cjsx":313,"react":308}],329:[function(require,module,exports){
+},{"../actions/ProductFilterActions.cjsx":313,"react":308}],330:[function(require,module,exports){
 var React, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, ShoppingbagStore, calculateLabel, calculateSize, calculateTotalPrice, getCurrentState;
 
 React = require("react");
@@ -42961,7 +43091,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
 module.exports = ShoppingbagDetails;
 
 
-},{"../stores/ShoppingbagStore.cjsx":340,"./ShoppingbagEmpty.cjsx":330,"./ShoppingbagFooter.cjsx":331,"./ShoppingbagGroup.cjsx":332,"./ShoppingbagHeader.cjsx":333,"react":308}],330:[function(require,module,exports){
+},{"../stores/ShoppingbagStore.cjsx":341,"./ShoppingbagEmpty.cjsx":331,"./ShoppingbagFooter.cjsx":332,"./ShoppingbagGroup.cjsx":333,"./ShoppingbagHeader.cjsx":334,"react":308}],331:[function(require,module,exports){
 var React, ShoppingbagEmpty;
 
 React = require("react");
@@ -43008,7 +43138,7 @@ ShoppingbagEmpty = React.createClass({displayName: "ShoppingbagEmpty",
 module.exports = ShoppingbagEmpty;
 
 
-},{"react":308}],331:[function(require,module,exports){
+},{"react":308}],332:[function(require,module,exports){
 var React, ShoppingbagFooter;
 
 React = require("react");
@@ -43052,7 +43182,7 @@ ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
 module.exports = ShoppingbagFooter;
 
 
-},{"react":308}],332:[function(require,module,exports){
+},{"react":308}],333:[function(require,module,exports){
 var React, ShoppingbagGroup, ShoppingbagProduct, classNames, getTotalSize;
 
 React = require("react");
@@ -43126,7 +43256,7 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
 module.exports = ShoppingbagGroup;
 
 
-},{"./ShoppingbagProduct.cjsx":334,"classnames":3,"react":308}],333:[function(require,module,exports){
+},{"./ShoppingbagProduct.cjsx":335,"classnames":3,"react":308}],334:[function(require,module,exports){
 var React, ShoppingbagHeader, classNames;
 
 React = require("react");
@@ -43244,7 +43374,7 @@ ShoppingbagHeader = React.createClass({displayName: "ShoppingbagHeader",
 module.exports = ShoppingbagHeader;
 
 
-},{"classnames":3,"react":308}],334:[function(require,module,exports){
+},{"classnames":3,"react":308}],335:[function(require,module,exports){
 var QuantityChoice, React, ShoppingbagActions, ShoppingbagProduct;
 
 React = require("react");
@@ -43357,7 +43487,7 @@ ShoppingbagProduct = React.createClass({displayName: "ShoppingbagProduct",
 module.exports = ShoppingbagProduct;
 
 
-},{"../actions/ShoppingbagActions.cjsx":314,"./QuantityChoice.cjsx":326,"react":308}],335:[function(require,module,exports){
+},{"../actions/ShoppingbagActions.cjsx":315,"./QuantityChoice.cjsx":327,"react":308}],336:[function(require,module,exports){
 var keyMirror;
 
 keyMirror = require("react/lib/keyMirror");
@@ -43366,16 +43496,17 @@ module.exports = keyMirror({
   ADD_REFINER: "ADD_REFINER",
   REMOVE_REFINER: "REMOVE_REFINER",
   CLEAR_REFINER: "CLEAR_REFINER",
-  SET_FILTER: "SET_FILTER",
+  SET_SORTER: "SET_SORTER",
   ADD_TO_SHOPPINGBAG: "ADD_TO_SHOPPINGBAG",
   SELECT_QUANTITY: "SELECT_QUANTITY",
   INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY: "INCREASE_SHOPPINGBAG_PRODUCT_QUANTITY",
   DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY: "DECREASE_SHOPPINGBAG_PRODUCT_QUANTITY",
-  REMOVE_SHOPPINGBAG_PRODUCT: "REMOVE_SHOPPINGBAG_PRODUCT"
+  REMOVE_SHOPPINGBAG_PRODUCT: "REMOVE_SHOPPINGBAG_PRODUCT",
+  TRANSITION: "TRANSITION"
 });
 
 
-},{"react/lib/keyMirror":293}],336:[function(require,module,exports){
+},{"react/lib/keyMirror":293}],337:[function(require,module,exports){
 var AppDispatcher, Dispatcher;
 
 Dispatcher = require("flux").Dispatcher;
@@ -43392,7 +43523,7 @@ AppDispatcher.handleViewAction = function(action) {
 module.exports = AppDispatcher;
 
 
-},{"flux":46}],337:[function(require,module,exports){
+},{"flux":46}],338:[function(require,module,exports){
 var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, ShoppingbagAPI, addOne, addProduct, assign, minusOne, productCount, removeProduct;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43464,7 +43595,7 @@ AppDispatcher.register(function(payload) {
 module.exports = HeaderShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":335,"../dispatcher/AppDispatcher.cjsx":336,"../utils/ShoppingbagAPI.coffee":343,"events":1,"react/lib/Object.assign":179}],338:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337,"../utils/ShoppingbagAPI.coffee":344,"events":1,"react/lib/Object.assign":179}],339:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43533,8 +43664,8 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":335,"../dispatcher/AppDispatcher.cjsx":336,"events":1,"react/lib/Object.assign":179}],339:[function(require,module,exports){
-var AppDispatcher, EventEmitter, ProductListStore, ShopConstants, addProductRefiner, assign, removeAllProductRefiner, removeProductRefiner, selectedFilter, selectedRefiners, setProductListFilter;
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337,"events":1,"react/lib/Object.assign":179}],340:[function(require,module,exports){
+var AppDispatcher, EventEmitter, ProductListAPI, ProductListStore, ShopConstants, addProductRefiner, assign, productList, removeAllProductRefiner, removeProductRefiner, selectedRefiners, selectedSorter, setProductList, setProductListSorter, sortProductList;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
 
@@ -43544,12 +43675,16 @@ ShopConstants = require("../constants/ShopConstants.cjsx");
 
 assign = require("react/lib/Object.assign");
 
-selectedFilter = "";
+ProductListAPI = require("../utils/ProductListAPI.coffee");
+
+selectedSorter = "shop_recommended";
 
 selectedRefiners = {};
 
-setProductListFilter = function(filter) {
-  return selectedFilter = filter;
+productList = [];
+
+setProductListSorter = function(Sorter) {
+  return selectedSorter = Sorter;
 };
 
 addProductRefiner = function(refiner) {
@@ -43576,12 +43711,30 @@ removeAllProductRefiner = function(data) {
   return selectedRefiners = {};
 };
 
+setProductList = function(category, subCategory) {
+  if (category) {
+    productList = ProductListAPI.getProductByCategory(category, subCategory);
+  } else {
+    productList = ProductListAPI.getAllProduct();
+  }
+  if (selectedSorter) {
+    return productList = ProductListAPI.getfilteredData(productList, selectedSorter);
+  }
+};
+
+sortProductList = function() {
+  return productList = ProductListAPI.getfilteredData(productList, selectedSorter);
+};
+
 ProductListStore = assign({}, EventEmitter.prototype, {
-  getSeletedProductFilter: function() {
-    return selectedFilter;
+  getSeletedProductSorter: function() {
+    return selectedSorter;
   },
   getSeletedProductRefiners: function() {
     return selectedRefiners;
+  },
+  getProductList: function() {
+    return productList;
   },
   emitChange: function() {
     return this.emit("change");
@@ -43598,8 +43751,9 @@ AppDispatcher.register(function(payload) {
   var action;
   action = payload.action;
   switch (action.actionType) {
-    case ShopConstants.SET_FILTER:
-      setProductListFilter(action.data);
+    case ShopConstants.SET_SORTER:
+      setProductListSorter(action.data);
+      sortProductList();
       break;
     case ShopConstants.ADD_REFINER:
       addProductRefiner(action.data);
@@ -43609,6 +43763,10 @@ AppDispatcher.register(function(payload) {
       break;
     case ShopConstants.CLEAR_REFINER:
       removeAllProductRefiner(action.data);
+      break;
+    case ShopConstants.TRANSITION:
+      setProductList(action.data.category, action.data.subCategory);
+      ProductListStore.emitChange();
       break;
     default:
       return true;
@@ -43620,7 +43778,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":335,"../dispatcher/AppDispatcher.cjsx":336,"events":1,"react/lib/Object.assign":179}],340:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337,"../utils/ProductListAPI.coffee":343,"events":1,"react/lib/Object.assign":179}],341:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ShopConstants, ShoppingbagAPI, ShoppingbagStore, assign, removeItem, updateItem, updateItem2;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -43683,7 +43841,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":335,"../dispatcher/AppDispatcher.cjsx":336,"../utils/ShoppingbagAPI.coffee":343,"events":1,"react/lib/Object.assign":179}],341:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":336,"../dispatcher/AppDispatcher.cjsx":337,"../utils/ShoppingbagAPI.coffee":344,"events":1,"react/lib/Object.assign":179}],342:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -43708,7 +43866,7 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":102}],342:[function(require,module,exports){
+},{"lodash/lang/isArray":102}],343:[function(require,module,exports){
 var _filter, _find, _findIndex, _sortByOrder, refine, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
@@ -43795,9 +43953,8 @@ module.exports = {
     var data;
     data = this.getAllProduct();
     if (categoryVal && typeVal) {
-      return _filter(data, {
-        "category": categoryVal.toLowerCase(),
-        "type": typeVal.toLowerCase()
+      return _filter(data, function(p) {
+        return p.category === categoryVal.toLowerCase() && p.type.indexOf(typeVal.toLowerCase()) > -1;
       });
     } else if (categoryVal) {
       return _filter(data, {
@@ -43818,7 +43975,7 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":341,"lodash/array/findIndex":50,"lodash/collection/filter":52,"lodash/collection/find":53,"lodash/collection/sortByOrder":54}],343:[function(require,module,exports){
+},{"./ObjValidator.coffee":342,"lodash/array/findIndex":50,"lodash/collection/filter":52,"lodash/collection/find":53,"lodash/collection/sortByOrder":54}],344:[function(require,module,exports){
 var _findIndex;
 
 _findIndex = require("lodash/array/findIndex");
@@ -43877,7 +44034,7 @@ module.exports = {
 };
 
 
-},{"lodash/array/findIndex":50}],344:[function(require,module,exports){
+},{"lodash/array/findIndex":50}],345:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -43909,7 +44066,7 @@ require("./jsx/MainApp.cjsx");
 require("./jsx/HeaderApp.cjsx");
 
 
-},{"./jsx/HeaderApp.cjsx":309,"./jsx/MainApp.cjsx":310,"./modules/expandable-menu.coffee":345,"./modules/menu-dropdown.coffee":346,"./modules/menu-tabs.coffee":347,"./modules/mobile-menu.coffee":348,"./modules/popup.coffee":349,"./modules/product.coffee":350,"./modules/products-list.coffee":351,"./modules/refine-menu.coffee":352,"./modules/sticky-menu.coffee":353,"./modules/tooltip.coffee":354,"./pages/page.coffee":355,"jquery":49,"magnific-popup":112}],345:[function(require,module,exports){
+},{"./jsx/HeaderApp.cjsx":309,"./jsx/MainApp.cjsx":310,"./modules/expandable-menu.coffee":346,"./modules/menu-dropdown.coffee":347,"./modules/menu-tabs.coffee":348,"./modules/mobile-menu.coffee":349,"./modules/popup.coffee":350,"./modules/product.coffee":351,"./modules/products-list.coffee":352,"./modules/refine-menu.coffee":353,"./modules/sticky-menu.coffee":354,"./modules/tooltip.coffee":355,"./pages/page.coffee":356,"jquery":49,"magnific-popup":112}],346:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44025,7 +44182,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],346:[function(require,module,exports){
+},{}],347:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -44186,7 +44343,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],347:[function(require,module,exports){
+},{}],348:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44323,7 +44480,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],348:[function(require,module,exports){
+},{}],349:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44392,7 +44549,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],349:[function(require,module,exports){
+},{}],350:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44461,7 +44618,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],350:[function(require,module,exports){
+},{}],351:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -44938,7 +45095,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],351:[function(require,module,exports){
+},{}],352:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -44957,7 +45114,7 @@ $(function() {
 });
 
 
-},{}],352:[function(require,module,exports){
+},{}],353:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -45111,7 +45268,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],353:[function(require,module,exports){
+},{}],354:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -45185,7 +45342,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],354:[function(require,module,exports){
+},{}],355:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -45444,7 +45601,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":4,"component-tip":10}],355:[function(require,module,exports){
+},{"component-events":4,"component-tip":10}],356:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -45748,4 +45905,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[344]);
+},{}]},{},[345]);

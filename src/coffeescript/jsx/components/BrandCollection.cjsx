@@ -7,16 +7,16 @@ ProductListCategoryMenu = require "./ProductListCategoryMenu.cjsx"
 BrandCollection = React.createClass
 
   render: ->
-    console.log @props.params.category, @props.params.subCategory
 
     return      <div id="product-listing">
                   <div className="kiwi-grid">
                     <div className="kiwi-col l-2-7 m-1">
-                      <ProductListCategoryMenu />
+                      <ProductListCategoryMenu category={@props.params.category}
+                      subCategory={@props.params.subCategory} />
 
                       <div className="productsFilter expand-menu-adjust cfe-form">
                         <div className="menuwrap">
-                          <ProductFilterSort selectedFilter="shop_recommended" />
+                          <ProductFilterSort selectedSorter="shop_recommended" />
                           <ProductFilterRefine 
                             category={@props.params.category} 
                             subCategory={@props.params.subCategory} />
@@ -35,7 +35,7 @@ BrandCollection = React.createClass
                           </div>
                         </div>
                       </div>
-                      <ProductList selectedSorter="shop_recommended"
+                      <ProductList defaultSorter="shop_recommended"
                         category={@props.params.category} 
                         subCategory={@props.params.subCategory} />
                     </div>

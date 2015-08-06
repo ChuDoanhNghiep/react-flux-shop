@@ -24,6 +24,7 @@ module.exports =
         name: "Babich Irongate Cabernet Merlot Franc 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Babich Wines Ltd"
         price: 200
         size: 0.75
@@ -39,6 +40,7 @@ module.exports =
         name: "Mud House Marlborough Pinot Gris 2013 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Mud HOurs"
         price: 128.00
         size: 0.75
@@ -54,6 +56,7 @@ module.exports =
         name: "Zinfandelic 2012 Sierra Foothills Old Vine Zinfandel 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Zinfandelic"
         price: 100.00
         size: 0.75
@@ -69,6 +72,7 @@ module.exports =
         name: "Bottega Il Vino dell’Amore Petalo Moscato 0.2L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "white"
         brand: "Bottega"
         price: 163.00
         size: 0.75
@@ -84,6 +88,7 @@ module.exports =
         name: "Wine Spots 2011 Napa Valley Cabernet Sauvignon 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Wine Spots"
         price: 110.00
         size: 0.75
@@ -99,6 +104,7 @@ module.exports =
         name: "Frescobaldi Mormoreto 2010 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Frescobaldi"
         price: 134.00
         size: 0.75
@@ -114,6 +120,7 @@ module.exports =
         name: "Tommasi Monte Croce Passito Bianco IGT 2010 0.375L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Tommasi"
         price: 70.00
         size: 0.75
@@ -129,6 +136,7 @@ module.exports =
         name: "Yalumba Y Series South Australia Sangiovese Rose 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Yalumba"
         price: 29.00
         size: 0.75
@@ -144,6 +152,7 @@ module.exports =
         name: "Silver Oak Napa Valley Cabernet Sauvignon 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "white"
         brand: "Silver Oak Cellars"
         price: 49.00
         size: 0.75
@@ -159,6 +168,7 @@ module.exports =
         name: "Frescobaldi Nipozzano Riserva 0.75L"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "red"
         brand: "Frescobaldi"
         price: 400.00
         size: 0.75
@@ -175,6 +185,7 @@ module.exports =
         name: "Moet & Chandon Grand Vintage 2003"
         image: "http://placehold.it/200"
         category: "wine"
+        type: "white"
         brand: "Moet & Chandon"
         price: 123.45
         size: 0.75
@@ -322,5 +333,98 @@ module.exports =
         currency: "S$"
         inventory: 2
         description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
-     
+      ,
+        id: "00000022"
+        sku: "82029244638"
+        name: "Canadian club 6 year old 1L"
+        image: "http://placehold.it/200"
+        category: "spirit"
+        brand: "Canadian club"
+        price: 36.45
+        type: "Canadian whisky"
+        size: 1
+        shop_recommended: "true"
+        currency: "S$"
+        inventory: 23
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      ,
+        id: "00000023"
+        sku: "82029212338"
+        name: "jameson irish whisky 1L"
+        image: "http://placehold.it/200"
+        category: "spirit"
+        brand: "jameson"
+        price: 39.45
+        type: "irish whisky"
+        size: 1
+        shop_recommended: "true"
+        currency: "S$"
+        inventory: 23
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      ,
+        id: "00000024"
+        sku: "82029244638"
+        name: "bacardi superior 1L"
+        image: "http://placehold.it/200"
+        category: "spirit"
+        brand: "bacardi"
+        price: 31.45
+        type: "rum"
+        size: 1
+        shop_recommended: "true"
+        currency: "S$"
+        inventory: 23
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      ,
+        id: "000000025"
+        sku: "235354"
+        name: "moet & chandon nectar imperial 0.75L"
+        image: "http://placehold.it/200"
+        category: "wine"
+        type: "champagne"
+        brand: "moet & chandon"
+        price: 70
+        size: 0.75
+        country: "france"
+        grape_varietal: "other"
+        region: "champagne"
+        shop_recommended: "true"
+        currency: "S$"
+        inventory: 12
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      ,
+        id: "000000026"
+        sku: "2353547675"
+        name: "inniskillin reserve cabernet franc icewine 0.375L"
+        image: "http://placehold.it/200"
+        category: "wine"
+        type: "dessert"
+        brand: "inniskillin"
+        price: 170
+        size: 0.375
+        country: "canada"
+        grape_varietal: "other"
+        region: "other"
+        shop_recommended: "true"
+        currency: "S$"
+        inventory: 12
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      ,
+        id: "000000027"
+        sku: "235354"
+        name: "Yalumba Y series south australia Sangioverse rose 0.75L"
+        image: "http://placehold.it/200"
+        category: "wine"
+        type: "rose"
+        brand: "Yalumba"
+        price: 20
+        size: 0.75
+        country: "Australia"
+        grape_varietal: "other"
+        region: "south australia"
+        shop_recommended: "true"
+        currency: "S$"
+        inventory: 12
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+
     ]

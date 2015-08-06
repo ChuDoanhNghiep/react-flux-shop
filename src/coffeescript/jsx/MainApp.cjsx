@@ -5,6 +5,8 @@ brandCollection = require "./components/BrandCollection.cjsx"
 productDetails = require "./components/ProductDetails.cjsx"
 shoppingbagDetails = require "./components/ShoppingbagDetails.cjsx"
 
+ProductListActions = require "./actions/ProductListActions.cjsx"
+
 ReactRouter = require "react-router"
 Route = ReactRouter.Route
 
@@ -22,7 +24,6 @@ routes =
 
 ReactRouter.run routes, ReactRouter.HashLocation, (Root, state) ->
   name = state.path
-  console.log state.path
   defaultID = "brand-collection"
   if name.indexOf("/product") is 0
     defaultID = "product-details"
@@ -30,4 +31,6 @@ ReactRouter.run routes, ReactRouter.HashLocation, (Root, state) ->
     defaultID = "shopping-bag"
   
   React.render <Root pageID={defaultID} />, document.getElementById "app-container"
+
+  ProductListActions.transition state.params
 

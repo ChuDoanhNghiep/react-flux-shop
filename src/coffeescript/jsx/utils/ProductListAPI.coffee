@@ -81,7 +81,9 @@ module.exports =
     data = @getAllProduct()
 
     if categoryVal and typeVal
-       return _filter data, {"category": categoryVal.toLowerCase(), "type": typeVal.toLowerCase()}
+      # return _filter data, {"category": categoryVal.toLowerCase(), "type": typeVal.toLowerCase()}
+      return _filter data, (p) ->
+        p.category is categoryVal.toLowerCase() and  p.type.indexOf(typeVal.toLowerCase()) > -1
         
     else if categoryVal
       return _filter data, {"category": categoryVal.toLowerCase()}

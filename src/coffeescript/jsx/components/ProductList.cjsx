@@ -1,5 +1,3 @@
-# @cjsx React.DOM
-
 React = require "react"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 Product = require "./Product.cjsx"
@@ -7,18 +5,6 @@ Product = require "./Product.cjsx"
 ProductListStore = require "../stores/ProductListStore.cjsx"
 
 ProductList = React.createClass
-  
-  getProductList: ->
-    filter = ProductListStore.getSeletedProductFilter()
-    refiners = ProductListStore.getSeletedProductRefiners()
-    console.log refiners
-    @setState 
-      filter: filter
-      products: ProductListAPI.getProductListData filter, refiners
-
-  # getProductListFilter: ->
-    # @setState
-      # filter: ProductListStore.getSeletedProductFilter()
       
   setGridView: (event) ->
     event.preventDefault()
@@ -32,21 +18,11 @@ ProductList = React.createClass
 
   getInitialState: ->
 
-    rawData = []
-    if @props.category
-      rawData = ProductListAPI.getProductByCategory @props.category, @props.subCategory
-    else
-      rawData = ProductListAPI.getAllProduct()
+    return {viewType: "grid", products: [], sorter: @props.selectedSorter}
 
-    if @props.selectedSorter
-      rawData = ProductListAPI.getfilteredData rawData, @props.selectedSorter
-
-    # console.log rawData
-    return {viewType: "grid", products: rawData, filter: @props.selectedSorter}
-
-  # componentWillMount: ->
-  #   @setState 
-  #     products: ProductListAPI.getProductListData @state.filter
+  componentWillMount: ->
+    @setState 
+      products: ProductListStore.getProductList()
 
   componentDidMount: ->
     # ProductFilterStore.addChangeListener @handleChange
@@ -58,9 +34,12 @@ ProductList = React.createClass
 
   handleChange: ->
     console.log "product list change"
-    @getProductList()
+    @setState 
+      products: ProductListStore.getProductList()
 
   render: ->
+    console.log @props.category, @props.subCategory
+
     elemClass = @state.viewType + " " + "productsList"
     gridIconClass = if @state.viewType is "grid" then "active" else "inactive"
     listIconClass = if @state.viewType is "list" then "active" else "inactive"

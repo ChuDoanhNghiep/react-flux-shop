@@ -3,11 +3,14 @@ EventEmitter = require("events").EventEmitter
 ShopConstants = require "../constants/ShopConstants.cjsx"
 assign = require "react/lib/Object.assign"
 
-selectedFilter = ""
-selectedRefiners = {}
+ProductListAPI = require "../utils/ProductListAPI.coffee"
 
-setProductListFilter = (filter) ->
-  selectedFilter = filter
+selectedSorter = "shop_recommended"
+selectedRefiners = {}
+productList = []
+
+setProductListSorter = (Sorter) ->
+  selectedSorter = Sorter
 
 addProductRefiner = (refiner) ->
   categoryArray = selectedRefiners[refiner.categoryID]
@@ -27,12 +30,27 @@ removeProductRefiner = (refiner) ->
 removeAllProductRefiner = (data) ->
   selectedRefiners = {}
 
+setProductList = (category, subCategory) ->
+    if category
+      productList = ProductListAPI.getProductByCategory category, subCategory
+    else
+      productList = ProductListAPI.getAllProduct()
+
+    if selectedSorter
+      productList = ProductListAPI.getfilteredData productList, selectedSorter
+
+sortProductList = ->
+  productList = ProductListAPI.getfilteredData productList, selectedSorter
+
 ProductListStore = assign {}, EventEmitter.prototype,
-  getSeletedProductFilter: ->
-    selectedFilter
+  getSeletedProductSorter: ->
+    selectedSorter
 
   getSeletedProductRefiners: ->
     selectedRefiners
+
+  getProductList: ->
+    productList
 
   emitChange: ->
     @emit "change"
@@ -49,8 +67,9 @@ AppDispatcher.register (payload) ->
 
   switch action.actionType
 
-    when ShopConstants.SET_FILTER
-      setProductListFilter action.data
+    when ShopConstants.SET_SORTER
+      setProductListSorter action.data
+      sortProductList()
 
     when ShopConstants.ADD_REFINER
       addProductRefiner action.data
@@ -58,8 +77,13 @@ AppDispatcher.register (payload) ->
     when ShopConstants.REMOVE_REFINER
       removeProductRefiner action.data
 
-    when  ShopConstants.CLEAR_REFINER
+    when ShopConstants.CLEAR_REFINER
       removeAllProductRefiner action.data
+
+    when ShopConstants.TRANSITION
+      setProductList action.data.category, action.data.subCategory
+      
+      ProductListStore.emitChange()
 
     else
       return true

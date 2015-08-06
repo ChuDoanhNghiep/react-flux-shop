@@ -18,9 +18,9 @@ ProductFilterActions =
       actionType: ShopConstants.CLEAR_REFINER
       data: data
      
-  setProductListFilter: (data) ->
+  setProductListSorter: (data) ->
     AppDispatcher.handleViewAction
-      actionType: ShopConstants.SET_FILTER
+      actionType: ShopConstants.SET_SORTER
       data: data
 
 module.exports = ProductFilterActions

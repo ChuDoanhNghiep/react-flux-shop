@@ -10,8 +10,10 @@ ProductListCategoryMenu = React.createClass
     listObj = window.productCategoryList
 
     menulist = Object.keys(listObj).map (item) =>
-      return <ProductListCategorySubMenu title={item} list={listObj[item]} />
+      if @props.category is item
+        return <ProductListCategorySubMenu title={item} list={listObj[item]} current={true} active={@props.subCategory}/>
 
+      return <ProductListCategorySubMenu title={item} list={listObj[item]} />
 
     return  <div className="listCategories">
               <div className="menuwrap">

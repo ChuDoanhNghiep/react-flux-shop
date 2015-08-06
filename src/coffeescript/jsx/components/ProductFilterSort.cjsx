@@ -4,11 +4,11 @@ ProductFilterActions = require "../actions/ProductFilterActions.cjsx"
 ProductFilterSort = React.createClass
 
   getInitialState: ->
-    {selectedValue: @props.selectedFilter, selectedLabel: " Shop Recommended"}
+    {selectedValue: @props.selectedSorter, selectedLabel: " Shop Recommended"}
 
   handleChange: (selected) ->
     @setState {selectedValue: selected.value, selectedLabel: selected.label}
-    ProductFilterActions.setProductListFilter selected.value
+    ProductFilterActions.setProductListSorter selected.value
     # console.log selected.value
   
   render: ->
