@@ -4,10 +4,12 @@ ShopConstants = require "../constants/ShopConstants.cjsx"
 assign = require "react/lib/Object.assign"
 
 ProductListAPI = require "../utils/ProductListAPI.coffee"
+ProductRefinerExtractor = require "../utils/ProductRefinerExtractor.coffee"
 
 selectedSorter = "shop_recommended"
 selectedRefiners = {}
 productList = []
+productRefiners = {}
 
 setProductListSorter = (Sorter) ->
   selectedSorter = Sorter
@@ -42,6 +44,10 @@ setProductList = (category, subCategory) ->
 sortProductList = ->
   productList = ProductListAPI.getfilteredData productList, selectedSorter
 
+setProductRefiners = (category) ->
+  console.log "set refiners"
+  productRefiners = ProductRefinerExtractor productList, category
+
 ProductListStore = assign {}, EventEmitter.prototype,
   getSeletedProductSorter: ->
     selectedSorter
@@ -51,6 +57,9 @@ ProductListStore = assign {}, EventEmitter.prototype,
 
   getProductList: ->
     productList
+
+  getProductRefiners: ->
+    productRefiners
 
   emitChange: ->
     @emit "change"
@@ -82,6 +91,7 @@ AppDispatcher.register (payload) ->
 
     when ShopConstants.TRANSITION
       setProductList action.data.category, action.data.subCategory
+      setProductRefiners action.data.category
       
       ProductListStore.emitChange()
 

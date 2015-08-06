@@ -34,10 +34,12 @@ RefineGroup = React.createClass
 
   render: ->
 
-    lists = this.state.itemList.map (item) =>
+    lists = this.state.itemList.map (item, index) =>
+      itemId = @props.category + index
+
       return  <li className="refine"><label className="cfe">
-                <input type="checkbox" value={item.label} className="cfe-styled" id={item.id} onClick={this.handleClick} checked={item.id of @state.selectedItems } />
-                {item.label}
+                <input type="checkbox" value={item} className="cfe-styled" id={itemId} onClick={this.handleClick} checked={itemId of @state.selectedItems } />
+                {item}
               </label></li>
 
 
