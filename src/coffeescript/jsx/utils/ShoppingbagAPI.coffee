@@ -27,7 +27,7 @@ module.exports =
     all = @getShoppingbagProducts()
     idx = _findIndex all, (p) ->
       p.id is data.id
-    console.log idx
+      
     all.splice idx, 1
 
     localStorage.setItem "shoppingbagProducts", JSON.stringify(all)

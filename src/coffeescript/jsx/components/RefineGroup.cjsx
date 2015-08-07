@@ -7,8 +7,12 @@ RefineGroup = React.createClass
     selectedItems: @props.selectedRefiners
     itemList: @props.items
 
+  componentWillReceiveProps: ->
+    @setState
+      itemList: @props.items
+
   handleClick: (event) ->
-    item = {itemID: event.target.id, itemLabel:event.target.value, categoryID: @props.categoryID}
+    item = {itemID: event.target.id, itemLabel:event.target.value, category: @props.category}
 
     if event.target.id of @state.selectedItems
       ProductFilterActions.removeProductRefiner(item)
@@ -20,25 +24,22 @@ RefineGroup = React.createClass
     event.preventDefault()
     ProductFilterActions.clearProductRefiner {}
 
-    # idArray = Object.keys(@state.selectedItems)
-    # for id in idArray
-    #   ProductFilterActions.removeProductRefiner {itemID: id}
 
   handleInput: (event) ->
     input = event.target.value
-    console.log input
-    matchedList = this.props.items.filter (elem, index, array) ->
-      elem.label.toLowerCase().indexOf(input) > -1
-    console.log matchedList
+
+    matchedList = @props.items.filter (elem, index, array) ->
+      elem.toLowerCase().indexOf(input) > -1
+
     @setState {itemList: matchedList}
 
   render: ->
 
-    lists = this.state.itemList.map (item, index) =>
+    lists = @state.itemList.map (item, index) =>
       itemId = @props.category + index
 
-      return  <li className="refine"><label className="cfe">
-                <input type="checkbox" value={item} className="cfe-styled" id={itemId} onClick={this.handleClick} checked={itemId of @state.selectedItems } />
+      return  <li className="refine" key={item}><label className="cfe">
+                <input type="checkbox" value={item} className="cfe-styled" id={itemId} onChange={this.handleClick} checked={itemId of @state.selectedItems } />
                 {item}
               </label></li>
 

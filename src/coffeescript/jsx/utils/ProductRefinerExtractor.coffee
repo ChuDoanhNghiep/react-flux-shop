@@ -34,5 +34,5 @@ module.exports = (data, category) ->
     when "beer"
       props = ["brand"]
       extractor(data, props)
-  console.log listObj
+
   return listObj    

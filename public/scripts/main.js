@@ -42621,7 +42621,6 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
   },
   render: function() {
     var refinerGroups;
-    console.log(this.state.refinerList);
     refinerGroups = Object.keys(this.state.refinerList).map((function(_this) {
       return function(prop) {
         var items;
@@ -42639,7 +42638,8 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
           "items": items,
           "selectedRefiners": _this.state.selectedRefiners,
           "category": prop,
-          "categoryID": prop
+          "categoryID": prop,
+          "key": prop.id
         })));
       };
     })(this));
@@ -42806,7 +42806,6 @@ ProductList = React.createClass({displayName: "ProductList",
   },
   render: function() {
     var elemClass, gridIconClass, items, listIconClass;
-    console.log(this.props.category, this.props.subCategory);
     elemClass = this.state.viewType + " " + "productsList";
     gridIconClass = this.state.viewType === "grid" ? "active" : "inactive";
     listIconClass = this.state.viewType === "list" ? "active" : "inactive";
@@ -42881,12 +42880,14 @@ ProductListCategoryMenu = React.createClass({displayName: "ProductListCategoryMe
             "title": item,
             "list": listObj[item],
             "current": true,
-            "active": _this.props.subCategory
+            "active": _this.props.subCategory,
+            "key": item.id
           });
         }
         return React.createElement(ProductListCategorySubMenu, {
           "title": item,
-          "list": listObj[item]
+          "list": listObj[item],
+          "key": item.id
         });
       };
     })(this));
@@ -42992,12 +42993,17 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
       itemList: this.props.items
     };
   },
+  componentWillReceiveProps: function() {
+    return this.setState({
+      itemList: this.props.items
+    });
+  },
   handleClick: function(event) {
     var item;
     item = {
       itemID: event.target.id,
       itemLabel: event.target.value,
-      categoryID: this.props.categoryID
+      category: this.props.category
     };
     if (event.target.id in this.state.selectedItems) {
       return ProductFilterActions.removeProductRefiner(item);
@@ -43012,11 +43018,9 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
   handleInput: function(event) {
     var input, matchedList;
     input = event.target.value;
-    console.log(input);
     matchedList = this.props.items.filter(function(elem, index, array) {
-      return elem.label.toLowerCase().indexOf(input) > -1;
+      return elem.toLowerCase().indexOf(input) > -1;
     });
-    console.log(matchedList);
     return this.setState({
       itemList: matchedList
     });
@@ -43028,7 +43032,8 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
         var itemId;
         itemId = _this.props.category + index;
         return React.createElement("li", {
-          "className": "refine"
+          "className": "refine",
+          "key": item
         }, React.createElement("label", {
           "className": "cfe"
         }, React.createElement("input", {
@@ -43036,7 +43041,7 @@ RefineGroup = React.createClass({displayName: "RefineGroup",
           "value": item,
           "className": "cfe-styled",
           "id": itemId,
-          "onClick": _this.handleClick,
+          "onChange": _this.handleClick,
           "checked": itemId in _this.state.selectedItems
         }), item));
       };
@@ -43077,7 +43082,6 @@ RefinerList = React.createClass({displayName: "RefinerList",
     };
   },
   handleClick: function(itemID) {
-    console.log(itemID);
     return ProductFilterActions.removeProductRefiner({
       itemID: itemID
     });
@@ -43089,7 +43093,7 @@ RefinerList = React.createClass({displayName: "RefinerList",
         return React.createElement("div", {
           "className": "title selectedFilter",
           "data-target": item,
-          "key": item
+          "key": item.id
         }, _this.state.refiners[item], React.createElement("span", {
           "className": "close",
           "onClick": _this.handleClick.bind(null, item)
@@ -43868,7 +43872,7 @@ module.exports = ProductFilterStore;
 
 
 },{"../constants/ShopConstants.cjsx":341,"../dispatcher/AppDispatcher.cjsx":342,"events":1,"react/lib/Object.assign":184}],345:[function(require,module,exports){
-var AppDispatcher, EventEmitter, ProductListAPI, ProductListStore, ProductRefinerExtractor, ShopConstants, addProductRefiner, assign, productList, productRefiners, removeAllProductRefiner, removeProductRefiner, selectedRefiners, selectedSorter, setProductList, setProductListSorter, setProductRefiners, sortProductList;
+var AppDispatcher, EventEmitter, ProductListAPI, ProductListStore, ProductRefinerExtractor, ShopConstants, addProductRefiner, assign, productList, productRefiners, refineProductList, removeAllProductRefiner, removeProductRefiner, selectedRefiners, selectedSorter, setProductList, setProductListSorter, setProductRefiners, sortProductList;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
 
@@ -43896,17 +43900,17 @@ setProductListSorter = function(Sorter) {
 
 addProductRefiner = function(refiner) {
   var categoryArray;
-  categoryArray = selectedRefiners[refiner.categoryID];
+  categoryArray = selectedRefiners[refiner.category];
   if (categoryArray && categoryArray.length) {
     return categoryArray.push(refiner.itemLabel);
   } else {
-    return selectedRefiners[refiner.categoryID] = [].concat(refiner.itemLabel);
+    return selectedRefiners[refiner.category] = [].concat(refiner.itemLabel);
   }
 };
 
 removeProductRefiner = function(refiner) {
   var categoryArray, idx;
-  categoryArray = selectedRefiners[refiner.categoryID];
+  categoryArray = selectedRefiners[refiner.category];
   idx = categoryArray.indexOf(refiner.itemLabel);
   console.log(idx);
   if (idx > -1) {
@@ -43936,6 +43940,11 @@ sortProductList = function() {
 setProductRefiners = function(category) {
   console.log("set refiners");
   return productRefiners = ProductRefinerExtractor(productList, category);
+};
+
+refineProductList = function() {
+  console.log(selectedRefiners);
+  return productList = ProductListAPI.getProductListData(selectedSorter, selectedRefiners);
 };
 
 ProductListStore = assign({}, EventEmitter.prototype, {
@@ -43972,12 +43981,15 @@ AppDispatcher.register(function(payload) {
       break;
     case ShopConstants.ADD_REFINER:
       addProductRefiner(action.data);
+      refineProductList();
       break;
     case ShopConstants.REMOVE_REFINER:
       removeProductRefiner(action.data);
+      refineProductList();
       break;
     case ShopConstants.CLEAR_REFINER:
       removeAllProductRefiner(action.data);
+      refineProductList();
       break;
     case ShopConstants.TRANSITION:
       setProductList(action.data.category, action.data.subCategory);
@@ -44115,23 +44127,24 @@ sort = function(data, sorter) {
 };
 
 refine = function(data, refiners) {
-  var categoryID, i, j, len, len1, ref, ref1, refinedData, refiner, tmp;
+  var category, i, j, len, len1, ref, ref1, refinedData, refiner, tmp;
   refinedData = [];
   ref = Object.keys(refiners);
   for (i = 0, len = ref.length; i < len; i++) {
-    categoryID = ref[i];
-    if (refiners[categoryID].length) {
-      ref1 = refiners[categoryID];
+    category = ref[i];
+    if (refiners[category].length) {
+      ref1 = refiners[category];
       for (j = 0, len1 = ref1.length; j < len1; j++) {
         refiner = ref1[j];
         refiner = refiner.toLowerCase();
         tmp = data.filter(function(elem) {
-          return elem[categoryID].toLowerCase() === refiner;
+          return elem[category].toLowerCase() === refiner;
         });
         refinedData = refinedData.concat(tmp);
       }
     }
   }
+  console.log(refinedData);
   return refinedData;
 };
 
@@ -44157,6 +44170,9 @@ module.exports = {
     } else {
       return sort(data, sorter);
     }
+  },
+  getRefinedData: function(data, refiners) {
+    return refine(data, refiners);
   },
   getProductByID: function(id) {
     var data;
@@ -44237,7 +44253,6 @@ module.exports = function(data, category) {
         return extractor(data, props);
     }
   })();
-  console.log(listObj);
   return listObj;
 };
 
@@ -44275,7 +44290,6 @@ module.exports = {
     idx = _findIndex(all, function(p) {
       return p.id === data.id;
     });
-    console.log(idx);
     all.splice(idx, 1);
     return localStorage.setItem("shoppingbagProducts", JSON.stringify(all));
   },

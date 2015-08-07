@@ -26,7 +26,6 @@ calculateLabel = (wine, beer, spirit) ->
   wineSize = calculateSize(wine)
   beerSize = calculateSize(beer)
   spiritSize = calculateSize(spirit)
-  # console.log wineSize,beerSize,spiritSize
 
   if spirit.length
     if wineSize > 1 or beerSize > 1 or spiritSize > 1

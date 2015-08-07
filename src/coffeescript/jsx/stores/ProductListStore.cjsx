@@ -15,14 +15,14 @@ setProductListSorter = (Sorter) ->
   selectedSorter = Sorter
 
 addProductRefiner = (refiner) ->
-  categoryArray = selectedRefiners[refiner.categoryID]
+  categoryArray = selectedRefiners[refiner.category]
   if categoryArray and categoryArray.length
     categoryArray.push refiner.itemLabel
   else
-    selectedRefiners[refiner.categoryID] = [].concat refiner.itemLabel
+    selectedRefiners[refiner.category] = [].concat refiner.itemLabel
 
 removeProductRefiner = (refiner) ->
-  categoryArray = selectedRefiners[refiner.categoryID]
+  categoryArray = selectedRefiners[refiner.category]
 
   idx = categoryArray.indexOf refiner.itemLabel
   console.log idx
@@ -47,6 +47,10 @@ sortProductList = ->
 setProductRefiners = (category) ->
   console.log "set refiners"
   productRefiners = ProductRefinerExtractor productList, category
+
+refineProductList = () ->
+  console.log selectedRefiners
+  productList = ProductListAPI.getProductListData selectedSorter, selectedRefiners
 
 ProductListStore = assign {}, EventEmitter.prototype,
   getSeletedProductSorter: ->
@@ -82,12 +86,15 @@ AppDispatcher.register (payload) ->
 
     when ShopConstants.ADD_REFINER
       addProductRefiner action.data
+      refineProductList()
 
     when ShopConstants.REMOVE_REFINER
       removeProductRefiner action.data
+      refineProductList()
 
     when ShopConstants.CLEAR_REFINER
       removeAllProductRefiner action.data
+      refineProductList()
 
     when ShopConstants.TRANSITION
       setProductList action.data.category, action.data.subCategory

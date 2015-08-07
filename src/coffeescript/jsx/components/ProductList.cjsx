@@ -38,7 +38,6 @@ ProductList = React.createClass
       products: ProductListStore.getProductList()
 
   render: ->
-    console.log @props.category, @props.subCategory
 
     elemClass = @state.viewType + " " + "productsList"
     gridIconClass = if @state.viewType is "grid" then "active" else "inactive"

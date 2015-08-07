@@ -7,7 +7,6 @@ RefinerList = React.createClass
     {refiners: @props.refiners}
 
   handleClick: (itemID) ->
-    console.log itemID
 
     ProductFilterActions.removeProductRefiner {itemID: itemID}
 
@@ -15,7 +14,7 @@ RefinerList = React.createClass
   render: ->
 
     list = Object.keys(this.state.refiners).map (item) =>
-      return  <div className="title selectedFilter" data-target={item} key={item}>
+      return  <div className="title selectedFilter" data-target={item} key={item.id}>
                   {this.state.refiners[item]}
                 <span className="close" onClick={this.handleClick.bind(null,item)}>×</span>
               </div>

@@ -29,20 +29,20 @@ sort = (data, sorter) ->
 refine = (data, refiners) ->
   refinedData = []
 
-  for categoryID in Object.keys(refiners)
+  for category in Object.keys(refiners)
 
-    if refiners[categoryID].length
+    if refiners[category].length
 
-      for refiner in refiners[categoryID]
+      for refiner in refiners[category]
         refiner = refiner.toLowerCase()
 
         # console.log refiner
         tmp = data.filter (elem) ->
-          elem[categoryID].toLowerCase() is refiner
+          elem[category].toLowerCase() is refiner
 
         # console.log tmp
         refinedData = refinedData.concat tmp
-        # console.log refinedData
+  console.log refinedData
   return refinedData
 
 module.exports =
@@ -70,6 +70,9 @@ module.exports =
 
     else
       return sort(data, sorter)
+
+  getRefinedData: (data, refiners) ->
+    refine data, refiners
 
   getProductByID: (id) ->
     data = @getAllProduct()

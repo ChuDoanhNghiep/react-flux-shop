@@ -9,7 +9,6 @@ ProductFilterSort = React.createClass
   handleChange: (selected) ->
     @setState {selectedValue: selected.value, selectedLabel: selected.label}
     ProductFilterActions.setProductListSorter selected.value
-    # console.log selected.value
   
   render: ->
 

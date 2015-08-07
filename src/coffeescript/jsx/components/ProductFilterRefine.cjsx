@@ -34,32 +34,10 @@ ProductFilterRefine = React.createClass
       refinerList: ProductListStore.getProductRefiners()
 
   render: ->
-    # grapes = [
-    #     id: "grape1"
-    #     label:"Merlot"
-    #   , 
-    #     id: "grape2"
-    #     label: "Sangiovese"
-    #   , 
-    #     id: "grape3"
-    #     label: "Cabearnet Sauvignon"
-    #   , 
-    #     id: "grape4"
-    #     label: "pinot noir"
-    #   , 
-    #     id: "grape5"
-    #     label: "Sauvignon Blanc"
-    #   , 
-    #     id: "grape6"
-    #     label: "Bordeaux Red Blend"
-    #   ,
-    #     id: "grape7"
-    #     label: "riesling"
-    # ]
-    console.log @state.refinerList
+
     refinerGroups = Object.keys(@state.refinerList).map (prop) =>
       items = @state.refinerList[prop]
-
+      
       return  <div className="list submenu expandable expanded">
                 <div className="title">By {prop}</div>
                 <div className="content filters"  style={{display:"block"}}>
@@ -67,6 +45,7 @@ ProductFilterRefine = React.createClass
                     selectedRefiners={this.state.selectedRefiners}
                     category={prop}
                     categoryID={prop}
+                    key={prop.id}
                   />  
                 </div>
               </div>    
