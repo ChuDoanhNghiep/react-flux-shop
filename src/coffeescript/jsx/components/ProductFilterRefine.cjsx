@@ -34,21 +34,23 @@ ProductFilterRefine = React.createClass
       refinerList: ProductListStore.getProductRefiners()
 
   render: ->
-
-    refinerGroups = Object.keys(@state.refinerList).map (prop) =>
-      items = @state.refinerList[prop]
-      
-      return  <div className="list submenu expandable expanded">
-                <div className="title">By {prop}</div>
-                <div className="content filters"  style={{display:"block"}}>
-                  <RefineGroup items={items}
-                    selectedRefiners={this.state.selectedRefiners}
-                    category={prop}
-                    categoryID={prop}
-                    key={prop.id}
-                  />  
-                </div>
-              </div>    
+    refinerGroups = ""
+    
+    if @state.refinerList
+      refinerGroups = Object.keys(@state.refinerList).map (prop) =>
+        items = @state.refinerList[prop]
+        
+        return  <div className="list submenu expandable expanded">
+                  <div className="title">By {prop}</div>
+                  <div className="content filters"  style={{display:"block"}}>
+                    <RefineGroup items={items}
+                      selectedRefiners={this.state.selectedRefiners}
+                      category={prop}
+                      categoryID={prop}
+                      key={prop.id}
+                    />  
+                  </div>
+                </div>    
 
     return  <div className="list expandable refineResults">
               <div className="title menu-title kiwi-visible-m kiwi-visible-s">

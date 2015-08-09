@@ -42621,28 +42621,31 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
   },
   render: function() {
     var refinerGroups;
-    refinerGroups = Object.keys(this.state.refinerList).map((function(_this) {
-      return function(prop) {
-        var items;
-        items = _this.state.refinerList[prop];
-        return React.createElement("div", {
-          "className": "list submenu expandable expanded"
-        }, React.createElement("div", {
-          "className": "title"
-        }, "By ", prop), React.createElement("div", {
-          "className": "content filters",
-          "style": {
-            display: "block"
-          }
-        }, React.createElement(RefineGroup, {
-          "items": items,
-          "selectedRefiners": _this.state.selectedRefiners,
-          "category": prop,
-          "categoryID": prop,
-          "key": prop.id
-        })));
-      };
-    })(this));
+    refinerGroups = "";
+    if (this.state.refinerList) {
+      refinerGroups = Object.keys(this.state.refinerList).map((function(_this) {
+        return function(prop) {
+          var items;
+          items = _this.state.refinerList[prop];
+          return React.createElement("div", {
+            "className": "list submenu expandable expanded"
+          }, React.createElement("div", {
+            "className": "title"
+          }, "By ", prop), React.createElement("div", {
+            "className": "content filters",
+            "style": {
+              display: "block"
+            }
+          }, React.createElement(RefineGroup, {
+            "items": items,
+            "selectedRefiners": _this.state.selectedRefiners,
+            "category": prop,
+            "categoryID": prop,
+            "key": prop.id
+          })));
+        };
+      })(this));
+    }
     return React.createElement("div", {
       "className": "list expandable refineResults"
     }, React.createElement("div", {
@@ -42783,14 +42786,9 @@ ProductList = React.createClass({displayName: "ProductList",
   getInitialState: function() {
     return {
       viewType: "grid",
-      products: [],
+      products: ProductListStore.getProductList(),
       sorter: this.props.selectedSorter
     };
-  },
-  componentWillMount: function() {
-    return this.setState({
-      products: ProductListStore.getProductList()
-    });
   },
   componentDidMount: function() {
     return ProductListStore.addChangeListener(this.handleChange);
@@ -42806,6 +42804,7 @@ ProductList = React.createClass({displayName: "ProductList",
   },
   render: function() {
     var elemClass, gridIconClass, items, listIconClass;
+    console.log("render product list");
     elemClass = this.state.viewType + " " + "productsList";
     gridIconClass = this.state.viewType === "grid" ? "active" : "inactive";
     listIconClass = this.state.viewType === "list" ? "active" : "inactive";
@@ -43081,22 +43080,21 @@ RefinerList = React.createClass({displayName: "RefinerList",
       refiners: this.props.refiners
     };
   },
-  handleClick: function(itemID) {
-    return ProductFilterActions.removeProductRefiner({
-      itemID: itemID
-    });
+  handleClick: function(item) {
+    return ProductFilterActions.removeProductRefiner(item);
   },
   render: function() {
     var list;
     list = Object.keys(this.state.refiners).map((function(_this) {
-      return function(item) {
+      return function(itemID) {
+        var refiner;
+        refiner = _this.state.refiners[itemID];
         return React.createElement("div", {
           "className": "title selectedFilter",
-          "data-target": item,
-          "key": item.id
-        }, _this.state.refiners[item], React.createElement("span", {
+          "key": itemID
+        }, refiner.itemLabel, React.createElement("span", {
           "className": "close",
-          "onClick": _this.handleClick.bind(null, item)
+          "onClick": _this.handleClick.bind(null, refiner)
         }, "\u00d7"));
       };
     })(this));
@@ -43815,13 +43813,13 @@ assign = require("react/lib/Object.assign");
 
 selectedRefiners = {};
 
-addRefiner = function(itemID, itemLabel) {
-  selectedRefiners[itemID] = itemLabel;
+addRefiner = function(item) {
+  selectedRefiners[item.itemID] = item;
   return console.log(selectedRefiners);
 };
 
-removeRefiner = function(itemID) {
-  return delete selectedRefiners[itemID];
+removeRefiner = function(item) {
+  return delete selectedRefiners[item.itemID];
 };
 
 removeAllRefiner = function(empty) {
@@ -43853,12 +43851,15 @@ AppDispatcher.register(function(payload) {
   action = payload.action;
   switch (action.actionType) {
     case ShopConstants.ADD_REFINER:
-      addRefiner(action.data.itemID, action.data.itemLabel);
+      addRefiner(action.data);
       break;
     case ShopConstants.REMOVE_REFINER:
-      removeRefiner(action.data.itemID);
+      removeRefiner(action.data);
       break;
     case ShopConstants.CLEAR_REFINER:
+      removeAllRefiner(action.data);
+      break;
+    case ShopConstants.TRANSITION:
       removeAllRefiner(action.data);
       break;
     default:
@@ -43872,7 +43873,7 @@ module.exports = ProductFilterStore;
 
 
 },{"../constants/ShopConstants.cjsx":341,"../dispatcher/AppDispatcher.cjsx":342,"events":1,"react/lib/Object.assign":184}],345:[function(require,module,exports){
-var AppDispatcher, EventEmitter, ProductListAPI, ProductListStore, ProductRefinerExtractor, ShopConstants, addProductRefiner, assign, productList, productRefiners, refineProductList, removeAllProductRefiner, removeProductRefiner, selectedRefiners, selectedSorter, setProductList, setProductListSorter, setProductRefiners, sortProductList;
+var AppDispatcher, EventEmitter, ProductListAPI, ProductListStore, ProductRefinerExtractor, ShopConstants, addProductRefiner, assign, categoryProductList, filterProductList, productList, productRefiners, removeAllProductRefiner, removeProductRefiner, selectedRefiners, selectedSorter, setCategoryProductList, setProductListSorter, setProductRefiners, sortProductList;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
 
@@ -43891,6 +43892,8 @@ selectedSorter = "shop_recommended";
 selectedRefiners = {};
 
 productList = [];
+
+categoryProductList = [];
 
 productRefiners = {};
 
@@ -43922,29 +43925,29 @@ removeAllProductRefiner = function(data) {
   return selectedRefiners = {};
 };
 
-setProductList = function(category, subCategory) {
+setCategoryProductList = function(category, subCategory) {
   if (category) {
-    productList = ProductListAPI.getProductByCategory(category, subCategory);
+    productList = categoryProductList = ProductListAPI.getProductByCategory(category, subCategory);
   } else {
-    productList = ProductListAPI.getAllProduct();
+    productList = categoryProductList = ProductListAPI.getAllProduct();
   }
   if (selectedSorter) {
-    return productList = ProductListAPI.getfilteredData(productList, selectedSorter);
+    return sortProductList();
   }
 };
 
 sortProductList = function() {
-  return productList = ProductListAPI.getfilteredData(productList, selectedSorter);
+  return productList = ProductListAPI.getfilteredData(categoryProductList, selectedSorter);
 };
 
 setProductRefiners = function(category) {
   console.log("set refiners");
-  return productRefiners = ProductRefinerExtractor(productList, category);
+  return productRefiners = ProductRefinerExtractor(categoryProductList, category);
 };
 
-refineProductList = function() {
+filterProductList = function() {
   console.log(selectedRefiners);
-  return productList = ProductListAPI.getProductListData(selectedSorter, selectedRefiners);
+  return productList = ProductListAPI.getfilteredData(categoryProductList, selectedSorter, selectedRefiners);
 };
 
 ProductListStore = assign({}, EventEmitter.prototype, {
@@ -43981,19 +43984,20 @@ AppDispatcher.register(function(payload) {
       break;
     case ShopConstants.ADD_REFINER:
       addProductRefiner(action.data);
-      refineProductList();
+      filterProductList();
       break;
     case ShopConstants.REMOVE_REFINER:
       removeProductRefiner(action.data);
-      refineProductList();
+      filterProductList();
       break;
     case ShopConstants.CLEAR_REFINER:
       removeAllProductRefiner(action.data);
-      refineProductList();
+      filterProductList();
       break;
     case ShopConstants.TRANSITION:
-      setProductList(action.data.category, action.data.subCategory);
+      setCategoryProductList(action.data.category, action.data.subCategory);
       setProductRefiners(action.data.category);
+      removeAllProductRefiner();
       ProductListStore.emitChange();
       break;
     default:
@@ -44127,24 +44131,25 @@ sort = function(data, sorter) {
 };
 
 refine = function(data, refiners) {
-  var category, i, j, len, len1, ref, ref1, refinedData, refiner, tmp;
+  var refinedData;
   refinedData = [];
-  ref = Object.keys(refiners);
-  for (i = 0, len = ref.length; i < len; i++) {
-    category = ref[i];
-    if (refiners[category].length) {
-      ref1 = refiners[category];
-      for (j = 0, len1 = ref1.length; j < len1; j++) {
-        refiner = ref1[j];
-        refiner = refiner.toLowerCase();
-        tmp = data.filter(function(elem) {
-          return elem[category].toLowerCase() === refiner;
-        });
-        refinedData = refinedData.concat(tmp);
+  refinedData = data.filter(function(elem) {
+    var i, j, len, len1, name, ref, ref1, refiner;
+    ref = Object.keys(refiners);
+    for (i = 0, len = ref.length; i < len; i++) {
+      name = ref[i];
+      if (refiners[name].length) {
+        ref1 = refiners[name];
+        for (j = 0, len1 = ref1.length; j < len1; j++) {
+          refiner = ref1[j];
+          if (elem[name] && elem[name].toLowerCase() === refiner.toLowerCase()) {
+            return true;
+          }
+        }
       }
     }
-  }
-  console.log(refinedData);
+    return false;
+  });
   return refinedData;
 };
 

@@ -29,20 +29,14 @@ sort = (data, sorter) ->
 refine = (data, refiners) ->
   refinedData = []
 
-  for category in Object.keys(refiners)
+  refinedData = data.filter (elem) ->
+    for name in Object.keys(refiners)
+      if refiners[name].length
+        for refiner in refiners[name]
+          if elem[name] and elem[name].toLowerCase() is refiner.toLowerCase()
+            return true
+    return false
 
-    if refiners[category].length
-
-      for refiner in refiners[category]
-        refiner = refiner.toLowerCase()
-
-        # console.log refiner
-        tmp = data.filter (elem) ->
-          elem[category].toLowerCase() is refiner
-
-        # console.log tmp
-        refinedData = refinedData.concat tmp
-  console.log refinedData
   return refinedData
 
 module.exports =

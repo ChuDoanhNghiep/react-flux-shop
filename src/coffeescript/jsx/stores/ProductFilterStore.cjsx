@@ -5,12 +5,12 @@ assign = require "react/lib/Object.assign"
 
 selectedRefiners = {}
 
-addRefiner = (itemID, itemLabel) ->
-  selectedRefiners[itemID] = itemLabel
+addRefiner = (item) ->
+  selectedRefiners[item.itemID] = item
   console.log selectedRefiners
 
-removeRefiner = (itemID) ->
-  delete selectedRefiners[itemID]
+removeRefiner = (item) ->
+  delete selectedRefiners[item.itemID]
 
 removeAllRefiner = (empty) ->
   for key of selectedRefiners
@@ -36,12 +36,15 @@ AppDispatcher.register (payload) ->
   switch action.actionType
 
     when ShopConstants.ADD_REFINER
-      addRefiner(action.data.itemID, action.data.itemLabel)
+      addRefiner action.data
 
     when ShopConstants.REMOVE_REFINER
-      removeRefiner(action.data.itemID)
+      removeRefiner action.data
 
     when ShopConstants.CLEAR_REFINER
+      removeAllRefiner(action.data)
+
+    when ShopConstants.TRANSITION
       removeAllRefiner(action.data)
 
     else

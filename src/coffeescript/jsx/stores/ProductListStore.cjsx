@@ -9,6 +9,7 @@ ProductRefinerExtractor = require "../utils/ProductRefinerExtractor.coffee"
 selectedSorter = "shop_recommended"
 selectedRefiners = {}
 productList = []
+categoryProductList = []
 productRefiners = {}
 
 setProductListSorter = (Sorter) ->
@@ -32,25 +33,25 @@ removeProductRefiner = (refiner) ->
 removeAllProductRefiner = (data) ->
   selectedRefiners = {}
 
-setProductList = (category, subCategory) ->
+setCategoryProductList = (category, subCategory) ->
     if category
-      productList = ProductListAPI.getProductByCategory category, subCategory
+      productList = categoryProductList = ProductListAPI.getProductByCategory category, subCategory
     else
-      productList = ProductListAPI.getAllProduct()
+      productList = categoryProductList = ProductListAPI.getAllProduct()
 
     if selectedSorter
-      productList = ProductListAPI.getfilteredData productList, selectedSorter
+      sortProductList()
 
 sortProductList = ->
-  productList = ProductListAPI.getfilteredData productList, selectedSorter
+  productList = ProductListAPI.getfilteredData categoryProductList, selectedSorter
 
 setProductRefiners = (category) ->
   console.log "set refiners"
-  productRefiners = ProductRefinerExtractor productList, category
+  productRefiners = ProductRefinerExtractor categoryProductList, category
 
-refineProductList = () ->
+filterProductList = ->
   console.log selectedRefiners
-  productList = ProductListAPI.getProductListData selectedSorter, selectedRefiners
+  productList = ProductListAPI.getfilteredData categoryProductList, selectedSorter, selectedRefiners
 
 ProductListStore = assign {}, EventEmitter.prototype,
   getSeletedProductSorter: ->
@@ -86,19 +87,20 @@ AppDispatcher.register (payload) ->
 
     when ShopConstants.ADD_REFINER
       addProductRefiner action.data
-      refineProductList()
+      filterProductList()
 
     when ShopConstants.REMOVE_REFINER
       removeProductRefiner action.data
-      refineProductList()
+      filterProductList()
 
     when ShopConstants.CLEAR_REFINER
       removeAllProductRefiner action.data
-      refineProductList()
+      filterProductList()
 
     when ShopConstants.TRANSITION
-      setProductList action.data.category, action.data.subCategory
+      setCategoryProductList action.data.category, action.data.subCategory
       setProductRefiners action.data.category
+      removeAllProductRefiner()
       
       ProductListStore.emitChange()
 

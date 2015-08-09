@@ -18,11 +18,11 @@ ProductList = React.createClass
 
   getInitialState: ->
 
-    return {viewType: "grid", products: [], sorter: @props.selectedSorter}
+    return {viewType: "grid", products: ProductListStore.getProductList(), sorter: @props.selectedSorter}
 
-  componentWillMount: ->
-    @setState 
-      products: ProductListStore.getProductList()
+  # componentWillMount: ->
+  #   @setState 
+  #     products: ProductListStore.getProductList()
 
   componentDidMount: ->
     # ProductFilterStore.addChangeListener @handleChange
@@ -38,7 +38,7 @@ ProductList = React.createClass
       products: ProductListStore.getProductList()
 
   render: ->
-
+    console.log "render product list"
     elemClass = @state.viewType + " " + "productsList"
     gridIconClass = if @state.viewType is "grid" then "active" else "inactive"
     listIconClass = if @state.viewType is "list" then "active" else "inactive"
