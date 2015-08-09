@@ -1,0 +1,60 @@
+{
+  "name": "shoppingbag",
+  "version": "0.0.1",
+  "description": "Online shopping implemented with reactjs and flux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "shoppingbag",
+    "reactjs",
+    "flux"
+  ],
+  "author": "woodpig07@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "10.2.6",
+    "chalk": "^1.1.0",
+    "coffee-reactify": "^4.0.0",
+    "coffee-script": "^1.9.3",
+    "coffeeify": "^1.1.0",
+    "connect-livereload": "^0.5.3",
+    "express": "^4.13.1",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-coffeelint": "^0.5.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-if": "^1.2.5",
+    "gulp-jade": "^1.0.1",
+    "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-modernizr": "^1.0.0-alpha",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-react": "^3.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-streamify": "0.0.5",
+    "gulp-stylus": "^2.0.5",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.3.1",
+    "nib": "^1.1.0",
+    "open": "0.0.5",
+    "reactify": "^1.1.1",
+    "streamify": "^0.2.4",
+    "tiny-lr": "^0.1.6",
+    "vinyl-source-stream": "1.1.0",
+    "watchify": "3.2.3"
+  },
+  "dependencies": {
+    "classnames": "^2.1.3",
+    "component-tip": "^2.4.1",
+    "flux": "^2.0.3",
+    "jquery": "^1.11.1",
+    "lodash": "^3.10.0",
+    "magnific-popup": "^1.0.0",
+    "react": "^0.13.3",
+    "react-notification": "^2.0.0",
+    "react-router": "^0.13.3"
+  }
+}

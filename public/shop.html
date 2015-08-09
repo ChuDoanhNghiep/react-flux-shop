@@ -1,0 +1,667 @@
+<!DOCTYPE html><!--[if lt IE 7]>  <html class="ie ie6 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 7]>     <html class="ie ie7 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 8]>     <html class="ie ie8 lte9 lte8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9 lte9"> <![endif]-->
+<!--[if gt IE 9]>  <html class="ie gte9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-ie"><!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="title" content="DFS">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/vendor/modernizr/custom.min.js"></script><!--[if (gte IE 6)&(lte IE 8)]>
+    <script src="scripts/vendor/selectivizr/selectivizr-min.js"></script><![endif]-->
+    <script>
+      var productCategoryList = {
+        wine: ["red", "white", "dessert", "rose", "Champagne"],
+        spirit: ["cognac", "whisky", "vodka", "rum", "gin", "baijiu", "Tequila"],
+        beer: []
+      }
+    </script>
+  </head>
+  <body><!-- mobile menu -->
+    <div id="mobile-menu" class="mobile-left-menu expand-menu">
+      <div class="menuwrap">
+        <div class="list sign-in">
+          <div class="title"><a href="#">SIGN IN</a><span class="divider">|</span><a href="#">REGISTER</a></div>
+        </div>
+        <div class="list select-location-mobile">
+          <div class="title"><img src="./images/flags/flag-hongkong.png" alt="hongkong" width="22px" height="14px"/><a href="./landing.html" class="selected-location">
+               
+              You are visiting our<br/><strong>DEMO Airport San Francisco Store ></strong></a>
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title">
+            <div style="" class="icon-ourstores icon-prependInline">
+            </div>OUR STORES
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">Bali Airport Store</a><a href="#" class="title">Events and Promotions</a><a href="#" class="title">Stores Around the World</a><a href="#" class="title">Our Global Store Services</a><a href="#" class="title">Contact US</a></div>
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title">
+            <div style="" class="icon-featured icon-prependInline">
+            </div>OUR BRANDS
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">FEATURED BRANDS HOME</a><a href="#" class="title">Miu Miu</a><a href="#" class="title">Gucci</a><a href="#" class="title">Burberry</a><a href="#" class="title">Prada</a><a href="#" class="title">Louis Vuitton</a><a href="#" class="title">Chanel</a><a href="#" class="title">View More...</a></div>
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title">
+            <div style="" class="icon-women icon-prependInline">
+            </div>WOMEN
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">Women Home</a><a href="#" class="title">Featured Brands</a></div>
+            <div class="list submenu expandable">
+              <div class="title">FASHION</div>
+              <div class="content">
+                <div class="list submenu expandable">
+                  <div class="title">Bags</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Shoulder Bags</a><a href="#" class="title">Totes</a><a href="#" class="title">Clutches</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+                <div class="list submenu expandable">
+                  <div class="title">Wallets</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Wallets</a><a href="#" class="title">Wristlets</a></div>
+                  </div>
+                </div>
+                <div class="list submenu expandable">
+                  <div class="title">Accessories</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Sunglasses</a><a href="#" class="title">Belts</a><a href="#" class="title">Scarves</a><a href="#" class="title">Key Rings</a><a href="#" class="title">Wrinting Instruments</a></div>
+                  </div>
+                </div>
+                <div class="list submenu expandable">
+                  <div class="title">Luggage</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Suitcases</a></div>
+                  </div>
+                </div>
+                <div class="list submenu">
+                  <div class="title">Sale</div>
+                </div>
+              </div>
+            </div>
+            <div class="list submenu expandable">
+              <div class="title">WATCHES & JEWELRY</div>
+              <div class="content">
+                <div class="list submenu expandable">
+                  <div class="title">Watches</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Automatic</a><a href="#" class="title">Quartz</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+                <div class="list submenu expandable">
+                  <div class="title">Jewelry</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Rings</a><a href="#" class="title">Earrings</a><a href="#" class="title">Necklaces</a><a href="#" class="title">Bracelets</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title"> 
+            <div style="" class="icon-men icon-prependInline">
+            </div>MEN
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">men Home</a><a href="#" class="title">Featured Brands</a></div>
+            <div class="list submenu expandable">
+              <div class="title">FASHION</div>
+              <div class="content">
+                <div class="list submenu expandable">
+                  <div class="title">Bags & Briefcases</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Messenger Bags</a><a href="#" class="title">Totes</a><a href="#" class="title">Brief Cases</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+                <div class="list submenu">
+                  <div class="title">Belts</div>
+                </div>
+                <div class="list submenu">
+                  <div class="title">Wallets</div>
+                </div>
+                <div class="list submenu expandable">
+                  <div class="title">Accessories</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Sunglasses</a><a href="#" class="title">Ties</a><a href="#" class="title">Cufflinks</a><a href="#" class="title">Key Rings</a><a href="#" class="title">Wrinting Instruments</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+                <div class="list submenu expandable">
+                  <div class="title">Luggage</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Suitcases</a></div>
+                  </div>
+                </div>
+                <div class="list submenu">
+                  <div class="title">Sale</div>
+                </div>
+              </div>
+            </div>
+            <div class="list submenu expandable">
+              <div class="title">WATCHES & JEWELRY</div>
+              <div class="content">
+                <div class="list submenu expandable">
+                  <div class="title">Watches</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Automatic</a><a href="#" class="title">Quartz</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title"> 
+            <div style="" class="icon-beauty icon-prependInline">
+            </div>BEAUTY
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">Featured Brands</a></div>
+            <div class="list submenu expandable">
+              <div class="title">FOR HER</div>
+              <div class="content">
+                <div class="list submenu expandable">
+                  <div class="title">Skincare</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Moisturizer</a><a href="#" class="title">Cleanser</a><a href="#" class="title">Toner</a><a href="#" class="title">Eye Care</a><a href="#" class="title">Lip Care</a><a href="#" class="title">Whitening</a><a href="#" class="title">Anti-aging</a><a href="#" class="title">Sun Protection</a><a href="#" class="title">Body Products</a><a href="#" class="title">Hair Products</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+                <div class="list submenu expandable">
+                  <div class="title">Makeup</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Foundation</a><a href="#" class="title">Blusher</a><a href="#" class="title">Powder</a><a href="#" class="title">Eye Colour</a><a href="#" class="title">Mascara</a><a href="#" class="title">Lipstick</a><a href="#" class="title">Nails</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+                <div class="list submenu">
+                  <div class="title">Fragrance</div>
+                </div>
+              </div>
+            </div>
+            <div class="list submenu expandable">
+              <div class="title">FOR HIM</div>
+              <div class="content">
+                <div class="list submenu expandable">
+                  <div class="title">Skincare</div>
+                  <div class="content">
+                    <div class="submenu"><a href="#" class="title">Moisturizer</a><a href="#" class="title">Cleanser</a><a href="#" class="title">Eye Treatment</a><a href="#" class="title">Other</a></div>
+                  </div>
+                </div>
+                <div class="list submenu">
+                  <div class="title">Fragrance</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title"> 
+            <div style="" class="icon-wine icon-prependInline">
+            </div>WINE & SPIRITS
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">Featured Brands</a></div>
+            <div class="list submenu expandable">
+              <div class="title"> <a href="/subcategory.html" onclick="window.open('/subcategory.html','_blank')">WINE</a></div>
+              <div class="content">
+                <div class="submenu"><a href="#" class="title">Red</a><a href="#" class="title">White</a><a href="#" class="title">Dessert</a><a href="#" class="title">Champagne / Sparkling</a><a href="#" class="title">Rose</a><a href="#" class="title">Other Wines</a></div>
+              </div>
+            </div>
+            <div class="list submenu">
+              <div class="title">BEER</div>
+            </div>
+            <div class="list submenu expandable">
+              <div class="title">SPIRITS</div>
+              <div class="content">
+                <div class="submenu"><a href="#" class="title">Cognac</a><a href="#" class="title">Whiskey</a><a href="#" class="title">Vodka</a><a href="#" class="title">Baijiu</a><a href="#" class="title">Rum</a><a href="#" class="title">Gin</a><a href="#" class="title">Beer</a><a href="#" class="title">Tequila</a><a href="#" class="title">Other Spirits</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title"> 
+            <div style="" class="icon-travelguides icon-prependInline">
+            </div>TRAVEL GUIDES
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">GUAM</a><a href="#" class="title">HONG KONG</a><a href="#" class="title">MACAU</a><a href="#" class="title">NEW YORK</a><a href="#" class="title">OKINAWA</a><a href="#" class="title">SINGAPORE</a><a href="#" class="title">HAWAI</a></div>
+          </div>
+        </div>
+        <div class="list">
+          <div class="title"> 
+            <div style="" class="icon-tjournal icon-prependInline">
+            </div><strong>T</strong> JOURNAL
+          </div>
+        </div>
+        <div class="list expandable">
+          <div class="title"> 
+            <div style="" class="icon-ourstores icon-prependInline">
+            </div>OUR STORES
+          </div>
+          <div class="content">
+            <div class="submenu"><a href="#" class="title">SINGAPORE AIRPORT STORE</a><a href="#" class="title">EVENTS AND PROMOTIONS</a><a href="#" class="title">STORES AROUND THE WORLD</a><a href="#" class="title">OUR GLOBAL STORE SERVICES</a><a href="#" class="title">CONTACT US</a></div>
+          </div>
+        </div>
+        <div class="list secondary-menu">
+          <div class="title selected-language">
+            <div style="" class="icon-languages icon-prependInline">
+            </div><a href="#">ENGLISH</a>
+            <div class="content language-list"><a href="#" class="title">简体中文</a><a href="#" class="title">日本語</a></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- END mobile menu -->
+    <div class="global-wrap">
+      <header class="main-header">
+        <div class="area-container"><!-- select location -->
+          <div class="location">
+            <div class="visiting kiwi-hidden-m kiwi-hidden-s"> <img src="./images/flags/flag-hongkong.png" alt="hongkong" width="22px" height="14px" class="icon-appendInline"/>You are visiting our <a href="./landing.html" data-mfp-src="#select-location-modal" data-effect="mfp-fade-in" class="link"> <span>T Galleria Hong Kong Store</span></a>
+              <div class="locationPopupWrap">
+                <div class="arrow"></div>
+                <div id="home-popup" class="locationPopup desktop">
+                  <div class="img"><img src="http://placehold.it/150x100" style="width:150px;height:100px"></div>
+                  <div class="text"><strong class="uppercase">YOU ARE VISITING OUR T Galleria Hong Kong Store.</strong>
+                    <p>Visiting another location? Please click on the flag.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kiwi-visible-s kiwi-visible-m">
+              <div id="mobile-popup" class="locationPopup mobile">
+                <div class="close">
+                  <div style="" class="icon-banner-close">
+                  </div>
+                </div>
+                <div class="text"><a href="./landing.html" data-mfp-src="#select-location-modal" class="link"><i class="icon margin-left-5"></i>
+                    <div class="store">
+                      <div class="uppercase">You are visiting our <strong>Airport Singapore Store</strong></div>Visiting another location
+                    </div></a></div>
+              </div>
+            </div>
+          </div><!-- END select location -->    
+          <div class="mobile-menu"><a href="#" toggle="fashion-mobile-left-menu"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAkCAMAAADxcOlCAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0QkVCODVEQUVFQjExMUUzQjZEM0Y4RUNGQjBENDQ5OSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0QkVCODVEQkVFQjExMUUzQjZEM0Y4RUNGQjBENDQ5OSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjRCRUI4NUQ4RUVCMTExRTNCNkQzRjhFQ0ZCMEQ0NDk5IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjRCRUI4NUQ5RUVCMTExRTNCNkQzRjhFQ0ZCMEQ0NDk5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+1ZAssQAAAEhQTFRF////AAAAmZmZq6urx8fHlJSUbm5unp6e8fHx7+/v/v7+oaGhZ2dnyMjIlZWVb29vkJCQrKysm5ubioqKu7u7oKCgjIyMvb29Eqm+qgAAAFtJREFUeNrs1DcSgDAMRNHFZORMuv9NKRgOsHJDodf/RrMj7G4kuQsbFFY+Wf4eqQ5xhIEUbnQKFn2RTxMpecBW/kYqZ+lJRWywTVGUmSTRfnnTL8/VkWp+BBgAtYoJ1QjxulAAAAAASUVORK5CYII=" class="icon"></a></div>
+          <div class="sticky-menu"><a href="#" toggle="sticky-header-menu"><img src="./images/icons/hamburger_icon_white_2x.png" style="width:24px;" class="icon"></a>
+            <div class="arrow">         </div>
+          </div>
+          <div class="header-logo"><a href="#"><img src="http://placehold.it/50x50" class="icon"></a></div>
+          <div class="register-menu fashion menu-tabs">
+            <div class="tabs list">
+              <div class="li tab sign-in kiwi-hidden-m kiwi-hidden-s">
+                <div class="title text"> <a href="/register-sign-in.html">Sign in</a></div>
+                <div class="content against-left"> <a href="/register-sign-in.html" class="button black">LOG IN</a>
+                  <div class="line-with">
+                    <div class="text">OR LOG IN WITH</div>
+                  </div>
+                  <div class="share-btn"><a href="#">
+                      <div style="" class="icon-twitter">
+                      </div></a><a href="#">
+                      <div style="" class="icon-facebook">
+                      </div></a><a href="#">
+                      <div style="" class="icon-weibo">
+                      </div></a></div>
+                </div>
+              </div>
+              <div class="li register kiwi-hidden-m kiwi-hidden-s">
+                <div class="title text"> <a href="#">Register</a></div>
+              </div>
+              <div class="li tab wishlist">
+                <div class="title img"><a href="./my-wishlist.html"><i class="icon icon-heart-base64"></i></a></div>
+                <div class="content against-right">
+                  <p>Sign in to see your Wish List</p><a class="button black">Sign in</a>
+                </div>
+              </div>
+              <div id="react-shoppingbag" class="li tab shopping-bag"></div>
+              <div class="li tab desktop-searchbox kiwi-hidden-m kiwi-hidden-s"><span class="placeholderWrap">&nbsp Search</span>
+                <input placeholder=" Search" type="search" name="search" class="search_text">
+              </div>
+              <div class="li tab desktop-search kiwi-hidden-m kiwi-hidden-s">
+                <div class="img"><a href="#"><i class="icon icon-search-base64"></i></a></div>
+              </div>
+              <div class="li tab search">
+                <div class="title img"><a href="#"><i class="icon icon-search-base64"></i></a></div>
+              </div>
+              <div class="searchbox"><span class="placeholderWrap">&nbsp Search</span>
+                <input placeholder=" Search" type="search" name="search" class="search_text">
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="area-container">
+        <div class="logoWrap"> 
+          <div class="logo t-galleria"><a href="#"><img src="http://placehold.it/160x78"></a></div>
+        </div><!-- desktop menu -->
+        <div id="desktop-menu" class="desktop kiwi-hidden-m kiwi-hidden-s">
+          <div class="menuwrap">
+            <div class="fashion menu-tabs">
+              <div class="navs tabs list">
+                <div class="li tab preorder-tabs">
+                  <div data-tip="data-tip" data-tip-position="top" class="li tab label">
+                    <div style="" class="icon-shoppingbag-white icon-prependInline">
+                    </div>Shop:
+                    <div class="tooltip">You can now shop items from our wines and spirits online and pick them upon your arrival to Singapore Airport</div>
+                  </div>
+                  <div class="li tab nav"><a href="#" class="title uppercase">WINE & SPIRITS</a>
+                    <div style="left: 0;" class="content">
+                      <div>
+                        <div class="links padding"><a href="#" class="display-block hover-black-bg padding uppercase">WINE & SPIRITS HOME</a>
+                          <div class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">FEATURED BRANDS</a>
+                          <div style="margin-bottom: 10px;" class="divider line light"></div>
+                          <div class="img"><a href="#"><img src="http://placehold.it/258x236" width="258" height="236"/></a></div>
+                        </div>
+                        <div style="width:147px" class="links"><a href="#" class="display-block hover-black-bg padding menu-header uppercase">WINE<span class="arrow">››</span></a>
+                          <div style="margin-bottom: 10px;" class="divider line light"></div>
+                          <div style="margin-bottom: 12px;" class="links sublinks"><a href="#" class="display-block">Red</a><a href="#" class="display-block">White</a><a href="#" class="display-block">Dessert</a><a href="#" class="display-block">Champagne / Sparkling</a><a href="#" class="display-block">Rose</a><a href="#" class="display-block">Other Wines</a><br/></div><a href="#" class="display-block hover-black-bg padding uppercase">BEER<span class="arrow">››</span></a>
+                          <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        </div>
+                        <div style="width:130px" class="links"><a href="#" class="display-block hover-black-bg padding menu-header uppercase">SPIRITS<span class="arrow">››</span></a>
+                          <div style="margin-bottom: 10px;" class="divider line light"></div>
+                          <div class="links sublinks"><a href="#" class="display-block">Cognac</a><a href="#" class="display-block">Whiskey</a><a href="#" class="display-block">Vodka</a><a href="#" class="display-block">Baijiu</a><a href="#" class="display-block">Rum</a><a href="#" class="display-block">Gin</a><a href="#" class="display-block">Tequila</a><a href="#" class="display-block">Other Spirits</a></div>
+                        </div>
+                        <div style="width:254px; margin-right: 4px;" class="links">
+                          <div href="#" class="display-block menu-header uppercase">DISCOVER MODE</div>
+                          <div style="margin-bottom: 10px;" class="divider line light"></div>
+                          <div class="sublinks links discover-mode">
+                            <div href="#" class="display-block title">Gift Guide</div><a href="#" class="display-block">Mother's Day Gift Guide</a><a href="#" class="display-block">Bestsellers</a>
+                            <div href="#" style="margin-top:17px;" class="display-block title">Editorials</div><a href="#" class="display-block">New Arrivals</a><a href="#" class="display-block">Iron Chef Morimoto's Trips & Tips</a><a href="#" class="display-block">T Galleria Red Collection</a><a href="#" class="display-block">Behind The Scenes: T Galleria's SS 2014 Campaign</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="li tab nav"><a href="#" class="title uppercase">OUR BRANDS</a>
+                  <div style="left: 0;" class="content no-padding">
+                    <div style="overflow: hidden" class="overflow-hidden">
+                      <div style="width: 260px;" class="links"><a href="#" class="display-block hover-black-bg padding uppercase">FEATURED BRANDS HOME</a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div><a href="#" class="category-link brands">Miu Miu</a><a href="#" class="category-link brands">Gucci</a><a href="#" class="category-link brands">Burberry</a><a href="#" class="category-link brands">Prada</a><a href="#" class="category-link brands">Louis Vuitton</a><a href="#" class="category-link brands">Chanel</a><a href="#" class="category-link brands">View More...</a>
+                      </div>
+                      <div style="float: left;width: 248px;" class="menu-picture featured-brand"><a href="#"><img src="http://placehold.it/248x368" width="248" height="368"/></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="li tab nav"><a href="#" class="title uppercase">WOMEN</a>
+                  <div style="left: 0;" class="content">
+                    <div>
+                      <div class="links padding full-width"><a href="#" class="display-block hover-black-bg padding uppercase">WOMEN HOME</a>
+                        <div class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">FEATURED BRANDS</a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="img"><a href="#"><img src="http://placehold.it/176x257" width="176" height="257"/></a></div>
+                      </div>
+                      <div class="links"><a href="#" class="display-block hover-black-bg padding menu-header uppercase">FASHION<span class="arrow">››</span></a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="links sublinks"><a href="#" class="display-block">Bags</a><a href="#" class="display-block">Wallets</a><a href="#" class="display-block">Accessories</a><a href="#" class="display-block">Shoes</a><br/></div><a href="#" class="display-block hover-black-bg menu-header uppercase">WATCHES & JEWELRY<span class="arrow">››</span></a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="links sublinks"><a href="#" class="display-block">Watches</a><a href="#" class="display-block">Jewelry</a></div>
+                      </div>
+                      <div style="width:254px; margin-right: 4px;" class="links">
+                        <div href="#" class="display-block menu-header uppercase">DISCOVER MODE</div>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="sublinks links discover-mode">
+                          <div href="#" class="display-block title">Gift Guide</div><a href="#" class="display-block">Mother's Day Gift Guide</a><a href="#" class="display-block">Bestsellers</a>
+                          <div href="#" style="margin-top:17px;" class="display-block title">Editorials</div><a href="#" class="display-block">New Arrivals</a><a href="#" class="display-block">Iron Chef Morimoto's Trips & Tips</a><a href="#" class="display-block">T Galleria Red Collection</a><a href="#" class="display-block">Behind The Scenes: T Galleria's SS 2014 Campaign</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="li tab nav"><a href="#" class="title uppercase">MEN</a>
+                  <div style="left: 0;" class="content">
+                    <div>
+                      <div class="links padding full-width"><a href="#" class="display-block hover-black-bg padding uppercase">MEN HOME</a>
+                        <div class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">FEATURED BRANDS</a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="img"><a href="#"><img src="http://placehold.it/176x257" width="176" height="257"/></a></div>
+                      </div>
+                      <div class="links"><a href="#" class="display-block hover-black-bg padding menu-header uppercase">FASHION<span class="arrow">››</span></a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="links sublinks"><a href="#" class="display-block">Bags & Briefcases</a><a href="#" class="display-block">Shoes</a><a href="#" class="display-block">Belts</a><a href="#" class="display-block">Wallets</a><a href="#" class="display-block">Accessories</a><br/></div><a href="#" class="display-block hover-black-bg menu-header">WATCHES & JEWELRY<span class="arrow">››</span></a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="links sublinks"><a href="#" class="display-block">Watches</a></div>
+                      </div>
+                      <div style="width:254px; margin-right: 4px;" class="links">
+                        <div href="#" class="display-block menu-header uppercase">DISCOVER MODE</div>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="sublinks links discover-mode">
+                          <div href="#" class="display-block title">Gift Guide</div><a href="#" class="display-block">Mother's Day Gift Guide</a><a href="#" class="display-block">Bestsellers</a>
+                          <div href="#" style="margin-top:17px;" class="display-block title">Editorials</div><a href="#" class="display-block">New Arrivals</a><a href="#" class="display-block">Iron Chef Morimoto's Trips & Tips</a><a href="#" class="display-block">T Galleria Red Collection</a><a href="#" class="display-block">Behind The Scenes: T Galleria's SS 2014 Campaign</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="li tab nav"><a href="#" class="title uppercase">BEAUTY</a>
+                  <div style="left: 0;" class="content">
+                    <div>
+                      <div class="links padding full-width"><a href="#" class="display-block hover-black-bg padding uppercase">BEAUTY HOME</a>
+                        <div class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">FEATURED BRANDS</a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="img"><a href="#"><img src="http://placehold.it/176x257" width="176" height="257"/></a></div>
+                      </div>
+                      <div class="links"><a href="#" class="display-block hover-black-bg padding menu-header uppercase">BEAUTY FOR HER<span class="arrow">››</span></a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="links sublinks"><a href="#" class="display-block">Skincare</a><a href="#" class="display-block">Makeup</a><a href="#" class="display-block">Fragrance</a><br/></div><a href="#" class="display-block hover-black-bg menu-header uppercase">BEAUTY FOR HIM<span class="arrow">››</span></a>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="links sublinks"><a href="#" class="display-block">Skincare</a><a href="#" class="display-block">Fragrance</a></div>
+                      </div>
+                      <div style="width:254px; margin-right: 4px;" class="links">
+                        <div href="#" class="display-block menu-header uppercase">DISCOVER MODE</div>
+                        <div style="margin-bottom: 10px;" class="divider line light"></div>
+                        <div class="sublinks links discover-mode">
+                          <div href="#" class="display-block title">Gift Guide</div><a href="#" class="display-block">Mother's Day Gift Guide</a><a href="#" class="display-block">Bestsellers</a>
+                          <div href="#" style="margin-top:17px;" class="display-block title">Editorials</div><a href="#" class="display-block">New Arrivals</a><a href="#" class="display-block">Iron Chef Morimoto's Trips & Tips</a><a href="#" class="display-block">T Galleria Red Collection</a><a href="#" class="display-block">Behind The Scenes: T Galleria's SS 2014 Campaign</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="li tab nav"><a href="#" class="title uppercase">TRAVEL GUIDES</a>
+                  <div style="right: 0;" class="content no-padding">
+                    <div>
+                      <div style="width: 260px;height: 330px;" class="links discover-mode"><a href="#" class="display-block hover-black-bg padding uppercase">TRAVEL GUIDES HOME</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">GUAM</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">HONG KONG</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">MACAU</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">NEW YORK</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">OKINAWA</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">SINGAPORE</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">HAWAI</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div>
+                      </div>
+                      <div style="float: left;width: 248px;" class="menu-picture travel"><a href="#"><img src="http://placehold.it/248x368" width="248" height="368"/></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="li tab nav t-journal"><a href="#" class="title uppercase"><strong>T</strong>&nbsp;JOURNAL</a></div>
+                <div class="li tab nav"><a href="#" class="title uppercase">OUR STORES</a>
+                  <div style="right: 0;" class="content no-padding">
+                    <div>
+                      <div style="width: 260px;height: 330px;" class="links discover-mode"><a href="#" class="display-block hover-black-bg padding uppercase">SINGAPORE AIRPORT STORE</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">EVENTS AND PROMOTIONS</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">STORES AROUND THE WORLD</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="#" class="display-block hover-black-bg padding uppercase">OUR GLOBAL STORE SERVICES</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div><a href="http://www.bing.com" target="_blank" class="display-block hover-black-bg padding uppercase">CONTACT US</a>
+                        <div style="margin-bottom: 5px;" class="divider line light"></div>
+                      </div>
+                      <div style="float: left;width: 248px;" class="menu-picture travel"><a href="#"><img src="http://placehold.it/248x368" width="248" height="368"/></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- END desktop menu -->
+      </div>
+      <main id="app-container"></main>
+      <div class="area-container mobile-full-width"><!-- promotions -->
+        <div class="promotions black">
+          <div class="kiwi-grid">
+            <div class="kiwi-col l-1-3 m-1-2 s-1">
+              <div class="promotion">
+                <div class="promo"><a href="#"><img src="./images/promotion-1.png" class="fade-in scale"/></a></div>
+                <div class="bottom">
+                  <div class="title"><a href="#">DFS EXCLUSIVES</a></div>
+                  <div class="detail uppercase"><a href="#">DISCOVER THE COLLECTION</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="kiwi-col l-1-3 m-1-2 s-1">
+              <div class="promotion">
+                <div class="promo"><a href="#"><img src="./images/promotion-1.png" class="fade-in scale"/></a></div>
+                <div class="bottom">
+                  <div class="title"><a href="#">OUR STORES</a></div>
+                  <div class="detail uppercase"><a href="#">FIND YOURS</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="kiwi-col l-1-3 m-1 s-1">
+              <div class="promotion">
+                <div class="promo"><a href="#"><img src="./images/promotion-1.png" class="fade-in scale"/></a></div>
+                <div class="bottom">
+                  <div class="title"><a href="#">THE INTERVIEW: ROLAND MOURET</a></div>
+                  <div class="detail uppercase"><a href="#">READ NOW</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- END promotions -->
+      </div>
+      <footer>
+        <div class="area-container">
+          <div class="footer">
+            <div class="main-footer kiwi-hidden-s kiwi-hidden-m">
+              <div class="footer-heading">
+                <div class="kiwi-grid">
+                  <div class="main-col kiwi-col footer-left">
+                    <div class="kiwi-grid">
+                      <div class="kiwi-col l-1-3">
+                        <section class="list links expandable">
+                          <div class="title">ABOUT US</div>
+                          <div class="arrowWrap">
+                            <div class="arrow-down-footer"></div>
+                          </div>
+                        </section>
+                      </div>
+                      <div class="kiwi-col l-1-3">
+                        <section class="list links expandable">
+                          <div class="title">SHOP AT DEMO</div>
+                          <div class="arrowWrap">
+                            <div class="arrow-down-footer"></div>
+                          </div>
+                        </section>
+                      </div>
+                      <div class="kiwi-col l-1-3">
+                        <section class="list links expandable">
+                          <div class="title"> <img src="./images/icons/contact_globe_black_2x.png" style="width:16px;height:16px" class="icon-globe">ENGLISH</div>
+                          <div class="arrowWrap">
+                            <div class="arrow-down-footer"></div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="main-col kiwi-col footer-right">
+                    <div class="kiwi-grid">
+                      <div class="kiwi-col relative">
+                        <div class="title">FOLLOW US</div>
+                        <div class="arrowWrap">
+                          <div class="arrow-down-footer"></div>
+                        </div>
+                      </div>
+                      <div class="kiwi-col follow-us"><a href="#"><img src="./images/icons/facebook_black_2x.png" style="height:20px" class="i-dark-facebook noHover"/><img src="./images/icons/facebook_gray_2x.png" style="height:20px" class="i-gray-facebook hover"/></a><a href="#"><img src="./images/icons/instagram_black_2x.png" style="height:20px" class="i-dark-instagram noHover"/><img src="./images/icons/instagram_gray_2x.png" style="height:20px" class="i-gray-instagram hover"/></a><a href="#"><img src="./images/icons/sina_black_2x.png" style="height:20px" class="i-dark-sina noHover"/><img src="./images/icons/sina_gray_2x.png" style="height:20px" class="i-gray-sina hover"/></a><a href="#"><img src="./images/icons/youtube_black_2x.png" style="height:20px" class="i-dark-youtube noHover"/><img src="./images/icons/youtube_gray_2x.png" style="height:20px" class="i-gray-youtube hover"/></a><a href="#"><img src="./images/icons/youku_black_2x.png" style="height:20px" class="i-dark-youku noHover"/><img src="./images/icons/youku_gray_2x.png" style="height:20px" class="i-gray-youku hover"/></a></div>
+                      <div style="width:85px;height:25px;" class="kiwi-col facebook-like"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="footer-content closed">
+                <div class="kiwi-grid">
+                  <div class="main-col kiwi-col footer-left">
+                    <div class="kiwi-grid">
+                      <div class="kiwi-col l-1-3">
+                        <section class="list links expandable">
+                          <div class="content"><a href="#" class="link">Our History</a><a href="#" class="link">DEMO Group</a><a href="#" class="link">DEMO Airport</a><a href="#" class="link">T SHOP By DEMO</a><a href="#" class="link">Careers</a><a href="#" class="link">Press Room</a></div>
+                        </section>
+                      </div>
+                      <div class="kiwi-col l-1-3">
+                        <section class="list links expandable">
+                          <div class="content"><a href="#" class="link">The DEMO Experience</a><a href="#" class="link">How to Pre-Order Online</a><a href="#" class="link">Frequently Asked Questions</a><a href="#" class="link">Contact Us</a></div>
+                        </section>
+                      </div>
+                      <div class="kiwi-col l-1-3">
+                        <section class="list links expandable">
+                          <div class="content language"><a href="#" class="link site-language">English</a><a href="#" class="link">简体中文</a><a href="#" class="link">日本語</a></div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="main-col kiwi-col footer-right">
+                    <div class="subscribe">
+                      <section>
+                        <div class="title">Subscribe To DEMO Newsletter</div>
+                        <p>Be the first to hear about our new arrivals, special offers and upcoming events.</p><a href="#" class="button grey">SUBSCRIBE</a>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+                <div class="area-copyright">
+                  <div class="section terms-privacy"><a href="#" class="reverse">Terms & Conditions </a><span class="text-divider">|</span><a href="#" class="reverse">Privacy Policy</a><span class="text-divider">|</span><a href="#" class="reverse">Sitemap</a></div>
+                  <div class="section copyright">© 2014 <a href="#" class="reverse">DEMO Group Ltd.</a>, ICP 12037391-4 &nbsp<span>Exclusive promotions and events only at T SHOP by DEMO Hong Kong. View the latest calendar for up...<a href="#" class="reverse">read more </a></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="keep-in-touch kiwi-visible-s kiwi-visible-m">
+              <section>
+                <div class="title">STAY IN TOUCH</div>
+                <div class="stay-touch"><a href="#"><img src="./images/icons/facebook_black_2x.png" style="height:20px" class="i-dark-facebook noHover"/><img src="./images/icons/facebook_gray_2x.png" style="height:20px" class="i-gray-facebook hover"/></a><a href="#"><img src="./images/icons/instagram_black_2x.png" style="height:20px" class="i-dark-instagram noHover"/><img src="./images/icons/instagram_gray_2x.png" style="height:20px" class="i-gray-instagram hover"/></a><a href="#"><img src="./images/icons/sina_black_2x.png" style="height:20px" class="i-dark-sina noHover"/><img src="./images/icons/sina_gray_2x.png" style="height:20px" class="i-gray-sina hover"/></a><a href="#"><img src="./images/icons/youtube_black_2x.png" style="height:20px" class="i-dark-youtube noHover"/><img src="./images/icons/youtube_gray_2x.png" style="height:20px" class="i-gray-youtube hover"/></a><a href="#"><img src="./images/icons/youku_black_2x.png" style="height:20px" class="i-dark-youku noHover"/><img src="./images/icons/youku_gray_2x.png" style="height:20px" class="i-gray-youku hover"/></a></div>
+              </section>
+              <section>
+                <p>Be the first to hear about our new arrivals, special promotions and exclusive events.</p><a class="button gray expand"> <img src="./images/icons/email_gray.png" style="height:20px;">Subscribe</a>
+              </section>
+            </div>
+            <div class="line-divider kiwi-visible-s kiwi-visible-m"></div>
+            <div class="main-footer kiwi-visible-s kiwi-visible-m accordion-menu">
+              <div class="kiwi-grid">
+                <div class="main-col kiwi-col l-1-2 m-1 s-1">
+                  <div class="kiwi-grid">
+                    <div class="kiwi-col l-1-2 s-1 m-1">
+                      <section class="list links expandable">
+                        <div class="title">About Us</div>
+                        <div class="content"><a href="#" class="link">Our History</a><a href="#" class="link">DEMO Group</a><a href="#" class="link">DEMO Airport</a><a href="#" class="link">T SHOP By DEMO</a><a href="#" class="link">Careers</a><a href="#" class="link">Press Room</a></div>
+                      </section>
+                    </div>
+                    <div class="kiwi-col l-1-2 s-1 m-1">
+                      <section class="list links expandable">
+                        <div class="title">Why Shop at DEMO</div>
+                        <div class="content"><a href="#" class="link">The DEMO Experience</a><a href="#" class="link">How to Order Online</a><a href="#" class="link">Frequently Asked Questions</a><a href="#" class="link">Contact Us</a></div>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mobile-copyright kiwi-visible-s kiwi-visible-m"><!-- mobile footer copyright -->
+              <div class="section description">Exclusive promotions and events only at T SHOP by DEMO Hong Kong. View the latest calendar for up... <a href="#" class="reverse">read more</a></div>
+              <div class="section languages"><a href="#" class="reverse">English</a><a href="#" class="reverse">简体中文 </a><a href="#" class="reverse">日本語</a></div>
+              <div class="section terms-privacy"><a href="#" class="reverse">Terms & Conditions </a><a href="#" class="reverse">Privacy Policy</a><a href="#" class="reverse">Site Map</a></div>
+              <div class="section copyright">© 2014 <a href="#" class="reverse">DEMO Group Ltd.</a></div><!-- END mobile footer copyright -->
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

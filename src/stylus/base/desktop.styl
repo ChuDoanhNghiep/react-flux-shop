@@ -1,0 +1,197 @@
+$height = 46px
+$heightMenu =
+  height $height
+  line-height 39px
+$font = 
+  font-family font-family-preorder
+  font-size 14px
+  font-weight 200
+
+$preorder-tabs 
+  .preorder-tabs
+    background color-preorder
+    height 38px
+
+    .label
+      color #fff
+      {$font}
+      height 46px
+      line-height 41px
+      padding 0 4px 0 12px
+      text-transform uppercase
+
+    .li.tab.nav
+      >a.title
+        border-color transparent
+        color #fff
+      &:hover
+        >a.title
+          border-top border-black
+          border-left border-black
+          border-right border-black
+          color color-primary
+
+          &:hover
+            color color-secondary
+
+
+#desktop-menu
+  *
+    box-sizing border-box
+
+  .fashion.menu-tabs
+    list-style none
+    margin 0
+    padding 0
+    position relative
+
+    >.navs
+      display table
+      margin-left auto
+      margin-right auto
+      .tab
+        position static
+      .nav
+        >.title
+          border-top border-transparent
+          border-left border-transparent
+          border-right border-transparent
+
+          {$font}
+          padding 0 10px
+          {$heightMenu}
+        &.active
+          >.title
+            border-top border-black
+            border-left border-black
+            border-right border-black
+            box-shadow -1px -1px 0 0px #fff
+            position relative
+            z-index 2
+
+        &.t-journal
+          &.active
+            >.title
+              border-top border-white
+              border-left border-white
+              border-right border-white
+              height 40px
+
+        >.content
+          border border-black
+          box-sizing content-box !important
+          font-family font-family-default
+          font-size 12px
+          font-weight 300
+          line-height 1.45em
+          padding 24px 18px 14px
+          top $height - 1
+          max-width 944px
+          z-index 1
+          &.no-padding
+            padding 0
+
+            .links
+              margin 24px 18px 14px
+              padding-right 50px
+          
+          .divider
+            margin 0
+
+          a.display-block
+            clear left
+            display block
+
+            &.color-red
+              color color-action
+
+          .links
+            float left
+            line-height 1.6em
+            margin-right 50px
+
+            .display-block
+              line-height 1em
+              padding 14px 0 14px 3px
+              &:first-child
+                margin-top -14px
+              &.double-padding
+                padding-top 35px
+
+            .category-link
+              clear left
+              display block
+              line-height 1em
+              padding 5px
+            
+            .arrow
+              color #C0C0C0
+              margin-left 5px
+
+            .sublinks
+              margin-right 0
+              .display-block
+                &:first-child
+                  margin-top 0
+
+              .display-block
+                padding 9px 0 9px 3px
+
+
+            &.margin-right
+              margin-right 20px
+
+            &.padding
+              border-right border-default
+              margin-right 30px
+              padding-right 18px
+
+            &.discover-mode
+              .block
+                margin-bottom 7px
+
+              a.display-block
+                padding-bottom 12px
+                padding-top 12px
+                // text-transform uppercase
+
+            // &.full-width
+            //   width 198px
+
+    .menu-picture
+      &.featured-brand
+      &.travel
+        height 356px
+        margin-left -30px
+        margin-bottom 0
+
+    @extend $preorder-tabs
+
+.no-touch
+  #desktop-menu
+    .fashion.menu-tabs
+      >.navs
+        .nav
+          &:hover
+            >.title
+              border-top border-black
+              border-left border-black
+              border-right border-black
+              box-shadow -1px -1px 0 0px #fff
+              position relative
+              z-index 2              
+          &.t-journal
+            &:hover
+              >.title
+                border-top border-white
+                border-left border-white
+                border-right border-white
+                height 40px
+
+.lte8
+  #desktop-menu
+    .fashion.menu-tabs
+      >.navs
+        >.nav
+          >.content
+            border border-black

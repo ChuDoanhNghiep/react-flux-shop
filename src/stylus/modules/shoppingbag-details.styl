@@ -1,0 +1,192 @@
+.shoppingBag-page
+  margin-top -25px
+  @media mq-s
+    margin-top 0
+
+  .ShoppingBag
+    width auto
+    max-width 850px
+    margin 0 auto
+
+    .ShoppingBagHeader
+      .img
+        margin-bottom -1px
+        margin-right 24px
+        @media mq-s
+          margin-right 4px
+
+      .desc
+        float none
+        text-align left
+
+    .ShoppingBagLimit
+      width auto
+
+    .ShoppingBagOption
+      width 130px
+      @media mq-m
+        width auto
+
+    .groupWrap
+      max-height none
+      overflow hidden
+
+    .purchaseLimits
+      .desc
+        margin 12px 0 12px 10px
+
+
+    .ShoppingBagProduct
+      width 100%
+      padding-right 17px
+      @media mq-s
+        padding 15px 0px
+      @media screen and (max-width:550px)
+        padding-bottom 55px
+      .details
+        float none
+        padding-left 100px
+        width auto
+        @media mq-s
+          margin-bottom 30px
+          padding-left 65px
+
+      .detailsWrap
+        margin-right 15px
+        @media mq-s
+          margin-right 50px
+
+      .size
+        float none
+        font-weight normal
+      .qt
+        float none
+        font-weight normal
+        margin-bottom 15px
+        .minus
+        .plus
+          font-weight bold
+
+      .price
+        &.before-discount
+          margin-bottom 5px
+
+        &.after-discount
+          margin-top 10px
+
+      .out-stock
+        border 1px solid #000
+        color #000
+        display inline-block
+        font-weight bold
+        min-width 170px
+        padding 9px 24px
+        text-transform uppercase
+        text-align center
+        @media mq-s
+          left 15px
+          position absolute
+          right 15px
+
+
+      .extra
+        border 1px solid lighten(color-action, 30)
+        color color-action
+        display inline-block
+        font-weight bold
+        min-width 170px
+        padding 9px
+        text-transform uppercase
+        text-align center
+        @media mq-min-m
+          max-width 60%
+        @media mq-s
+          left 15px
+          position absolute
+          right 15px
+
+    .ShoppingBagPriceWrap
+      line-height initial
+      margin-top 6px
+      right 0px
+      @media mq-s
+        margin-top -5em
+        right 0
+      @media screen and (max-width:500px)
+        position static
+        margin-top -10px
+    .button.checkout
+      width 100%
+
+    .ShoppingBagFooter
+      @media mq-s
+        .total-confirmation
+          .title
+            float none
+
+      .ShoppingBagPriceWrap
+        right -6px
+        margin-top 0
+      .ShoppingBagPriceTotalWrap
+        right -15px
+        .tool-tip
+          position absolute
+      .continue-shopping
+        @media mq-s
+          display block
+          float none
+          margin-right 0
+          margin-top 0
+          text-align center
+
+.shoppingBag-page
+  .allowanceOptionWrap
+    margin-left 100px
+    @media mq-m
+      margin-left 0
+    >.l-1-3
+      width auto
+      @media mq-m
+        min-width 33%
+        
+/*******************************************************************************
+                              Empty Shopping Bag
+*******************************************************************************/
+.shoppingBag-page
+  border-bottom border-default
+  padding 10px 70px 0 70px !important
+  text-align center
+  margin-bottom 15px
+  @media mq-s
+    padding 0 !important
+
+  .steps
+    margin 40px auto
+    max-width 100%
+    width 360px
+    clearfix()
+    .step
+      float left
+      width 100px
+      margin 10px
+      line-height 1.2em
+
+      .picto
+        border 1px solid color-mine-shaft
+        border-radius 50px
+        display inline-block
+        font-weight bold
+        margin-bottom 15px
+        padding 8px 11px
+
+  .learn-more
+    margin-bottom 30px
+
+.lte9
+  .shoppingBag-page
+    .steps
+      .step
+        .picto
+          background url('../../img/icon/shopping-bag-empty-step-ie.png') no-repeat 50% 50%
+          border none
+          padding 9px 12px

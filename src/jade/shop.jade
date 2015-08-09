@@ -1,0 +1,19 @@
+extends templates/master
+include includes/mixins
+
+//- block variables
+//-   include ../../inc/variables
+
+
+prepend body
+  +Menu('mobile')
+
+append menu
+  +Menu('desktop')
+
+block content
+  main#app-container
+
+  .area-container.mobile-full-width
+    include ./modules/promotions
+
