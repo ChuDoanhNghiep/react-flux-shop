@@ -40,9 +40,9 @@ ProductFilterRefine = React.createClass
       refinerGroups = Object.keys(@state.refinerList).map (prop) =>
         items = @state.refinerList[prop]
         
-        return  <div className="list submenu expandable expanded">
+        return  <div className="list submenu expandable">
                   <div className="title">By {prop}</div>
-                  <div className="content filters"  style={{display:"block"}}>
+                  <div className="content filters">
                     <RefineGroup items={items}
                       selectedRefiners={this.state.selectedRefiners}
                       category={prop}
@@ -60,7 +60,7 @@ ProductFilterRefine = React.createClass
               <div className="content">
                 <div className="list selectedFilters">
                     <div className="title menu-title desktop kiwi-hidden-m kiwi-hidden-s">REFINE RESULTS</div>
-                    <div className="content"  style={{display:"block"}}>
+                    <div className="content">
                       <RefinerList refiners={this.state.selectedRefiners} />
                     </div>
                 </div>

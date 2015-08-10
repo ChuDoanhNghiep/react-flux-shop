@@ -44217,6 +44217,21 @@ ProductList = require("./ProductList.cjsx");
 ProductListCategoryMenu = require("./ProductListCategoryMenu.cjsx");
 
 BrandCollection = React.createClass({displayName: "BrandCollection",
+  componentDidMount: function() {
+    return new Expand($('.expand-menu-adjust'), {
+      "class": 'expanded',
+      cb: function(el) {
+        var p;
+        if (el.hasClass('expanded')) {
+          p = el.offset().top - 55;
+          $("html,body").animate({
+            scrollTop: p
+          }, 500, "linear");
+        }
+      },
+      collapseOthers: false
+    });
+  },
   render: function() {
     return React.createElement("div", {
       "id": "product-listing"
@@ -44683,14 +44698,11 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
           var items;
           items = _this.state.refinerList[prop];
           return React.createElement("div", {
-            "className": "list submenu expandable expanded"
+            "className": "list submenu expandable"
           }, React.createElement("div", {
             "className": "title"
           }, "By ", prop), React.createElement("div", {
-            "className": "content filters",
-            "style": {
-              display: "block"
-            }
+            "className": "content filters"
           }, React.createElement(RefineGroup, {
             "items": items,
             "selectedRefiners": _this.state.selectedRefiners,
@@ -44712,10 +44724,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
     }, React.createElement("div", {
       "className": "title menu-title desktop kiwi-hidden-m kiwi-hidden-s"
     }, "REFINE RESULTS"), React.createElement("div", {
-      "className": "content",
-      "style": {
-        display: "block"
-      }
+      "className": "content"
     }, React.createElement(RefinerList, {
       "refiners": this.state.selectedRefiners
     }))), refinerGroups));
@@ -44784,27 +44793,21 @@ ProductFilterSort = React.createClass({displayName: "ProductFilterSort",
       };
     })(this));
     return React.createElement("div", {
-      "className": "list expandable refineResults expanded"
+      "className": "list expandable refineResults"
     }, React.createElement("div", {
       "className": "title menu-title kiwi-visible-m kiwi-visible-s"
     }, "SORT BY"), React.createElement("div", {
-      "className": "content",
-      "style": {
-        display: "block"
-      }
+      "className": "content"
     }, React.createElement("div", {
       "className": "list selectedFilters"
     }, React.createElement("div", {
       "className": "title menu-title desktop kiwi-hidden-m kiwi-hidden-s"
     }, "SORT BY")), React.createElement("div", {
-      "className": "list submenu expandable sorting-desktop expanded"
+      "className": "list submenu expandable sorting-desktop"
     }, React.createElement("div", {
       "className": "title"
     }, " ", this.state.selectedLabel, " "), React.createElement("div", {
-      "className": "content",
-      "style": {
-        display: "block"
-      }
+      "className": "content"
     }, React.createElement("ul", {
       "className": "submenu"
     }, buttons)))));
@@ -44929,6 +44932,9 @@ React = require("react");
 ProductListCategorySubMenu = require("./ProductListCategorySubMenu.cjsx");
 
 ProductListCategoryMenu = React.createClass({displayName: "ProductListCategoryMenu",
+  componentDidMount: function() {
+    return new Expand($(".listCategories"));
+  },
   render: function() {
     var listObj, menulist;
     listObj = window.productCategoryList;
@@ -44989,14 +44995,12 @@ ProductListCategorySubMenu = React.createClass({displayName: "ProductListCategor
       "current": this.props.current && !this.props.active
     });
     return React.createElement("div", {
-      "className": "list expandable expanded"
+      "className": "list expandable",
+      "ref": "expandable"
     }, React.createElement("div", {
       "className": "title"
     }, this.props.title), React.createElement("div", {
-      "className": "content submenu",
-      "style": {
-        display: "block"
-      }
+      "className": "content submenu"
     }, list, React.createElement("a", {
       "href": titleUrl,
       "className": allTitleClass

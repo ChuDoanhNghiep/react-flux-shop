@@ -44,19 +44,19 @@ ProductFilterSort = React.createClass
 
               </li>
 
-    return  <div className="list expandable refineResults expanded">
+    return  <div className="list expandable refineResults">
               <div className="title menu-title kiwi-visible-m kiwi-visible-s">
                 SORT BY
               </div>
-              <div className="content" style={{display:"block"}}>
+              <div className="content">
 
                 <div className="list selectedFilters">
                   <div className="title menu-title desktop kiwi-hidden-m kiwi-hidden-s">SORT BY</div>
                 </div>
 
-                <div className="list submenu expandable sorting-desktop expanded">
+                <div className="list submenu expandable sorting-desktop">
                   <div className="title"> {this.state.selectedLabel} </div>
-                    <div className="content" style={{display:"block"}}>
+                    <div className="content">
                       <ul className="submenu">
                         {buttons}
                       </ul>

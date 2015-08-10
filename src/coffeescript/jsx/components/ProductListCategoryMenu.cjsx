@@ -3,8 +3,9 @@ ProductListCategorySubMenu = require "./ProductListCategorySubMenu.cjsx"
 
 ProductListCategoryMenu = React.createClass
 
-  # getInitialState: ->
+  componentDidMount: ->
 
+    return new Expand $(".listCategories")
 
   render: ->
     listObj = window.productCategoryList

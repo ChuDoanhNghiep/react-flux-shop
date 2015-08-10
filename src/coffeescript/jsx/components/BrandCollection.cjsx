@@ -6,6 +6,19 @@ ProductListCategoryMenu = require "./ProductListCategoryMenu.cjsx"
 
 BrandCollection = React.createClass
 
+  componentDidMount: ->
+
+    return new Expand $('.expand-menu-adjust'), {
+      class: 'expanded'
+      cb: (el)->
+        if el.hasClass('expanded')
+          p = el.offset().top - 55
+          $ "html,body"
+            .animate {scrollTop: p}, 500,"linear"
+        return
+      collapseOthers: false
+    }  
+
   render: ->
 
     return      <div id="product-listing">
