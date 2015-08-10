@@ -8635,3 +8635,16 @@ input.placeholder {
 .productsList {
   margin-top: 10px;
 }
+.product-enter {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+}
+.product-enter.product-enter-active {
+  opacity: 1;
+  -ms-filter: none;
+  -webkit-filter: none;
+          filter: none;
+  -webkit-transition: opacity 300ms ease-in;
+  transition: opacity 300ms ease-in;
+}

@@ -1,4 +1,6 @@
-React = require "react"
+React = require "react/addons"
+# Addons = require "react/addons"
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 Product = require "./Product.cjsx"
 # ProductFilterStore = require "../stores/ProductFilterStore.cjsx"
@@ -44,7 +46,7 @@ ProductList = React.createClass
     listIconClass = if @state.viewType is "list" then "active" else "inactive"
 
     items = @state.products.map (product) =>
-      return <Product key={product.objectID} product={product} />
+      return <Product key={product.id} product={product} />
 
     return  <section className={elemClass}>
         <header className="kiwi-hidden-m kiwi-hidden-s">
@@ -64,7 +66,9 @@ ProductList = React.createClass
         </header>
         <div className="kiwi-grid">
           <div className="products">
-            {items}
+            <ReactCSSTransitionGroup transitionName="product" transitionLeave={false}>
+              {items}
+            </ReactCSSTransitionGroup>
           </div>
         </div>
       </section>
