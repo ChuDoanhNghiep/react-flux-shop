@@ -1,6 +1,5 @@
-React = require "react/addons"
-# Addons = require "react/addons"
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+React = require "react"
+TimeoutTransitionGroup = require "../helper/timeout-transition-group.js"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 Product = require "./Product.cjsx"
 # ProductFilterStore = require "../stores/ProductFilterStore.cjsx"
@@ -66,9 +65,9 @@ ProductList = React.createClass
         </header>
         <div className="kiwi-grid">
           <div className="products">
-            <ReactCSSTransitionGroup transitionName="product" transitionLeave={false}>
+            <TimeoutTransitionGroup transitionName="product" enterTimeout={300} leaveTimeout={0}>
               {items}
-            </ReactCSSTransitionGroup>
+            </TimeoutTransitionGroup>
           </div>
         </div>
       </section>

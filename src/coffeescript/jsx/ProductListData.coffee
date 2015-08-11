@@ -264,20 +264,6 @@ module.exports =
         inventory: 2
         description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
       ,
-        id: "00000017"
-        sku: "192323234638"
-        name: "Shui jing fang red fortune 0.5L"
-        image: "http://placehold.it/200"
-        category: "spirit"
-        brand: "shui jing fang"
-        price: 623.45
-        type: "Baijiu"
-        size: 0.5
-        shop_recommended: "true"
-        currency: "S$"
-        inventory: 2
-        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
-      ,
         id: "00000018"
         sku: "232423244638"
         name: "Chatelle napoleon 1L"
@@ -426,5 +412,18 @@ module.exports =
         currency: "S$"
         inventory: 12
         description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
-
+      ,
+        id: "00000028"
+        sku: "192323234638"
+        name: "Shui jing fang red fortune 0.5L"
+        image: "http://placehold.it/200"
+        category: "spirit"
+        brand: "shui jing fang"
+        price: 623.45
+        type: "Baijiu"
+        size: 0.5
+        shop_recommended: "true"
+        currency: "S$"
+        inventory: 2
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
     ]

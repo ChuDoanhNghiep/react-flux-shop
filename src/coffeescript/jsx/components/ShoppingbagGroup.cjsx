@@ -1,4 +1,5 @@
 React = require "react"
+TimeoutTransitionGroup = require "../helper/timeout-transition-group.js"
 ShoppingbagProduct = require "./ShoppingbagProduct.cjsx"
 classNames = require "classnames"
 
@@ -17,8 +18,8 @@ ShoppingbagGroup = React.createClass
     quota: @props.quota
 
   render: ->
-    items = @state.products.map (product) =>
-      return <ShoppingbagProduct key={product.objectID} product={product} />
+    items = @props.products.map (product) =>
+      return <ShoppingbagProduct key={product.id} product={product} />
 
     totalSize = getTotalSize @state.products
 
@@ -39,7 +40,10 @@ ShoppingbagGroup = React.createClass
                   </div>
                 </div>
               </div>
+              <TimeoutTransitionGroup transitionName="shoppingbagProduct" enterTimeout={10} leaveTimeout={300}>
               {items}
+              </TimeoutTransitionGroup>
+
             </div>
 
 module.exports = ShoppingbagGroup

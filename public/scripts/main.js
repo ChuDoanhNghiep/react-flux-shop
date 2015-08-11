@@ -43923,20 +43923,6 @@ module.exports = {
         inventory: 2,
         description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
       }, {
-        id: "00000017",
-        sku: "192323234638",
-        name: "Shui jing fang red fortune 0.5L",
-        image: "http://placehold.it/200",
-        category: "spirit",
-        brand: "shui jing fang",
-        price: 623.45,
-        type: "Baijiu",
-        size: 0.5,
-        shop_recommended: "true",
-        currency: "S$",
-        inventory: 2,
-        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
-      }, {
         id: "00000018",
         sku: "232423244638",
         name: "Chatelle napoleon 1L",
@@ -44084,6 +44070,20 @@ module.exports = {
         shop_recommended: "true",
         currency: "S$",
         inventory: 12,
+        description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
+      }, {
+        id: "00000028",
+        sku: "192323234638",
+        name: "Shui jing fang red fortune 0.5L",
+        image: "http://placehold.it/200",
+        category: "spirit",
+        brand: "shui jing fang",
+        price: 623.45,
+        type: "Baijiu",
+        size: 0.5,
+        shop_recommended: "true",
+        currency: "S$",
+        inventory: 2,
         description: "Integer quis magna purus. Duis ut velit magna. In hac habitasse platea dictumst. Nullam ac blandit nisl. Cras eget mi erat. Nunc congue dolor felis, nec cursus elit rutrum eu."
       }
     ]));
@@ -44344,7 +44344,7 @@ HeaderShoppingbag = React.createClass({displayName: "HeaderShoppingbag",
 module.exports = HeaderShoppingbag;
 
 
-},{"../stores/HeaderShoppingbagStore.cjsx":361,"react":331}],342:[function(require,module,exports){
+},{"../stores/HeaderShoppingbagStore.cjsx":362,"react":331}],342:[function(require,module,exports){
 var Breadcrumb, Main, React, ReactRouter, RouteHandler;
 
 React = require("react");
@@ -44650,7 +44650,7 @@ ProductDetails = React.createClass({displayName: "ProductDetails",
 module.exports = ProductDetails;
 
 
-},{"../actions/ProductDetailsActions.cjsx":335,"../utils/ProductListAPI.coffee":366,"../utils/ShoppingbagAPI.coffee":368,"./QuantityChoice.cjsx":350,"classnames":3,"react":331,"react-notification":118}],345:[function(require,module,exports){
+},{"../actions/ProductDetailsActions.cjsx":335,"../utils/ProductListAPI.coffee":367,"../utils/ShoppingbagAPI.coffee":369,"./QuantityChoice.cjsx":350,"classnames":3,"react":331,"react-notification":118}],345:[function(require,module,exports){
 var ProductFilterRefine, ProductFilterStore, ProductListStore, React, RefineGroup, RefinerList;
 
 React = require("react");
@@ -44734,7 +44734,7 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
 module.exports = ProductFilterRefine;
 
 
-},{"../stores/ProductFilterStore.cjsx":362,"../stores/ProductListStore.cjsx":363,"./RefineGroup.cjsx":351,"./RefinerList.cjsx":352,"react":331}],346:[function(require,module,exports){
+},{"../stores/ProductFilterStore.cjsx":363,"../stores/ProductListStore.cjsx":364,"./RefineGroup.cjsx":351,"./RefinerList.cjsx":352,"react":331}],346:[function(require,module,exports){
 var ProductFilterActions, ProductFilterSort, React;
 
 React = require("react");
@@ -44818,11 +44818,11 @@ module.exports = ProductFilterSort;
 
 
 },{"../actions/ProductFilterActions.cjsx":336,"react":331}],347:[function(require,module,exports){
-var Product, ProductList, ProductListAPI, ProductListStore, React, ReactCSSTransitionGroup;
+var Product, ProductList, ProductListAPI, ProductListStore, React, TimeoutTransitionGroup;
 
-React = require("react/addons");
+React = require("react");
 
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+TimeoutTransitionGroup = require("../helper/timeout-transition-group.js");
 
 ProductListAPI = require("../utils/ProductListAPI.coffee");
 
@@ -44914,9 +44914,10 @@ ProductList = React.createClass({displayName: "ProductList",
       "className": "kiwi-grid"
     }, React.createElement("div", {
       "className": "products"
-    }, React.createElement(ReactCSSTransitionGroup, {
+    }, React.createElement(TimeoutTransitionGroup, {
       "transitionName": "product",
-      "transitionLeave": false
+      "enterTimeout": 300.,
+      "leaveTimeout": 0.
     }, items))));
   }
 });
@@ -44924,7 +44925,7 @@ ProductList = React.createClass({displayName: "ProductList",
 module.exports = ProductList;
 
 
-},{"../stores/ProductListStore.cjsx":363,"../utils/ProductListAPI.coffee":366,"./Product.cjsx":343,"react/addons":159}],348:[function(require,module,exports){
+},{"../helper/timeout-transition-group.js":361,"../stores/ProductListStore.cjsx":364,"../utils/ProductListAPI.coffee":367,"./Product.cjsx":343,"react":331}],348:[function(require,module,exports){
 var ProductListCategoryMenu, ProductListCategorySubMenu, React;
 
 React = require("react");
@@ -45360,7 +45361,7 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
 module.exports = ShoppingbagDetails;
 
 
-},{"../stores/ShoppingbagStore.cjsx":364,"./ShoppingbagEmpty.cjsx":354,"./ShoppingbagFooter.cjsx":355,"./ShoppingbagGroup.cjsx":356,"./ShoppingbagHeader.cjsx":357,"react":331}],354:[function(require,module,exports){
+},{"../stores/ShoppingbagStore.cjsx":365,"./ShoppingbagEmpty.cjsx":354,"./ShoppingbagFooter.cjsx":355,"./ShoppingbagGroup.cjsx":356,"./ShoppingbagHeader.cjsx":357,"react":331}],354:[function(require,module,exports){
 var React, ShoppingbagEmpty;
 
 React = require("react");
@@ -45452,9 +45453,11 @@ module.exports = ShoppingbagFooter;
 
 
 },{"react":331}],356:[function(require,module,exports){
-var React, ShoppingbagGroup, ShoppingbagProduct, classNames, getTotalSize;
+var React, ShoppingbagGroup, ShoppingbagProduct, TimeoutTransitionGroup, classNames, getTotalSize;
 
 React = require("react");
+
+TimeoutTransitionGroup = require("../helper/timeout-transition-group.js");
 
 ShoppingbagProduct = require("./ShoppingbagProduct.cjsx");
 
@@ -45482,10 +45485,10 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
   },
   render: function() {
     var imgUrl, items, label, totalSize;
-    items = this.state.products.map((function(_this) {
+    items = this.props.products.map((function(_this) {
       return function(product) {
         return React.createElement(ShoppingbagProduct, {
-          "key": product.objectID,
+          "key": product.id,
           "product": product
         });
       };
@@ -45518,14 +45521,18 @@ ShoppingbagGroup = React.createClass({displayName: "ShoppingbagGroup",
       "className": "link"
     }, React.createElement("a", {
       "className": "link"
-    }, "Buy ", this.state.category, " now")))), items);
+    }, "Buy ", this.state.category, " now")))), React.createElement(TimeoutTransitionGroup, {
+      "transitionName": "shoppingbagProduct",
+      "enterTimeout": 10.,
+      "leaveTimeout": 300.
+    }, items));
   }
 });
 
 module.exports = ShoppingbagGroup;
 
 
-},{"./ShoppingbagProduct.cjsx":358,"classnames":3,"react":331}],357:[function(require,module,exports){
+},{"../helper/timeout-transition-group.js":361,"./ShoppingbagProduct.cjsx":358,"classnames":3,"react":331}],357:[function(require,module,exports){
 var React, ShoppingbagHeader, classNames;
 
 React = require("react");
@@ -45793,6 +45800,249 @@ module.exports = AppDispatcher;
 
 
 },{"flux":46}],361:[function(require,module,exports){
+/**
+ * The CSSTransitionGroup component uses the 'transitionend' event, which
+ * browsers will not send for any number of reasons, including the
+ * transitioning node not being painted or in an unfocused tab.
+ *
+ * This TimeoutTransitionGroup instead uses a user-defined timeout to determine
+ * when it is a good time to remove the component. Currently there is only one
+ * timeout specified, but in the future it would be nice to be able to specify
+ * separate timeouts for enter and leave, in case the timeouts for those
+ * animations differ. Even nicer would be some sort of inspection of the CSS to
+ * automatically determine the duration of the animation or transition.
+ *
+ * This is adapted from Facebook's CSSTransitionGroup which is in the React
+ * addons and under the Apache 2.0 License.
+ */
+
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var React = require('react/addons');
+
+var ReactTransitionGroup = React.addons.TransitionGroup;
+
+var TICK = 17;
+
+/**
+ * EVENT_NAME_MAP is used to determine which event fired when a
+ * transition/animation ends, based on the style property used to
+ * define that event.
+ */
+var EVENT_NAME_MAP = {
+    transitionend: {
+        'transition': 'transitionend',
+        'WebkitTransition': 'webkitTransitionEnd',
+        'MozTransition': 'mozTransitionEnd',
+        'OTransition': 'oTransitionEnd',
+        'msTransition': 'MSTransitionEnd'
+    },
+
+    animationend: {
+        'animation': 'animationend',
+        'WebkitAnimation': 'webkitAnimationEnd',
+        'MozAnimation': 'mozAnimationEnd',
+        'OAnimation': 'oAnimationEnd',
+        'msAnimation': 'MSAnimationEnd'
+    }
+};
+
+var endEvents = [];
+
+(function detectEvents() {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    var testEl = document.createElement('div');
+    var style = testEl.style;
+
+    // On some platforms, in particular some releases of Android 4.x, the
+    // un-prefixed "animation" and "transition" properties are defined on the
+    // style object but the events that fire will still be prefixed, so we need
+    // to check if the un-prefixed events are useable, and if not remove them
+    // from the map
+    if (!('AnimationEvent' in window)) {
+        delete EVENT_NAME_MAP.animationend.animation;
+    }
+
+    if (!('TransitionEvent' in window)) {
+        delete EVENT_NAME_MAP.transitionend.transition;
+    }
+
+    for (var baseEventName in EVENT_NAME_MAP) {
+        if (EVENT_NAME_MAP.hasOwnProperty(baseEventName)) {
+            var baseEvents = EVENT_NAME_MAP[baseEventName];
+            for (var styleName in baseEvents) {
+                if (styleName in style) {
+                    endEvents.push(baseEvents[styleName]);
+                    break;
+                }
+            }
+        }
+    }
+})();
+
+function animationSupported() {
+    return endEvents.length !== 0;
+}
+
+/**
+ * Functions for element class management to replace dependency on jQuery
+ * addClass, removeClass and hasClass
+ */
+function addClass(element, className) {
+    if (element.classList) {
+        element.classList.add(className);
+    } else if (!hasClass(element, className)) {
+        element.className = element.className + ' ' + className;
+    }
+    return element;
+}
+function removeClass(element, className) {
+    if (hasClass(className)) {
+        if (element.classList) {
+            element.classList.remove(className);
+        } else {
+            element.className = (' ' + element.className + ' ').replace(' ' + className + ' ', ' ').trim();
+        }
+    }
+    return element;
+}
+function hasClass(element, className) {
+    if (element.classList) {
+        return element.classList.contains(className);
+    } else {
+        return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
+    }
+}
+
+var TimeoutTransitionGroupChild = React.createClass({
+    displayName: 'TimeoutTransitionGroupChild',
+
+    transition: function transition(animationType, finishCallback) {
+        var node = this.getDOMNode();
+        var className = this.props.name + '-' + animationType;
+        var activeClassName = className + '-active';
+
+        var endListener = function endListener() {
+            removeClass(node, className);
+            removeClass(node, activeClassName);
+
+            // Usually this optional callback is used for informing an owner of
+            // a leave animation and telling it to remove the child.
+            finishCallback && finishCallback();
+        };
+
+        if (!animationSupported()) {
+            endListener();
+        } else {
+            if (animationType === 'enter') {
+                this.animationTimeout = setTimeout(endListener, this.props.enterTimeout);
+            } else if (animationType === 'leave') {
+                this.animationTimeout = setTimeout(endListener, this.props.leaveTimeout);
+            }
+        }
+
+        addClass(node, className);
+
+        // Need to do this to actually trigger a transition.
+        this.queueClass(activeClassName);
+    },
+
+    queueClass: function queueClass(className) {
+        this.classNameQueue.push(className);
+
+        if (!this.timeout) {
+            this.timeout = setTimeout(this.flushClassNameQueue, TICK);
+        }
+    },
+
+    flushClassNameQueue: function flushClassNameQueue() {
+        if (this.isMounted()) {
+            this.classNameQueue.forEach((function (name) {
+                addClass(this.getDOMNode(), name);
+            }).bind(this));
+        }
+        this.classNameQueue.length = 0;
+        this.timeout = null;
+    },
+
+    componentWillMount: function componentWillMount() {
+        this.classNameQueue = [];
+    },
+
+    componentWillUnmount: function componentWillUnmount() {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
+        if (this.animationTimeout) {
+            clearTimeout(this.animationTimeout);
+        }
+    },
+
+    componentWillEnter: function componentWillEnter(done) {
+        if (this.props.enter) {
+            this.transition('enter', done);
+        } else {
+            done();
+        }
+    },
+
+    componentWillLeave: function componentWillLeave(done) {
+        if (this.props.leave) {
+            this.transition('leave', done);
+        } else {
+            done();
+        }
+    },
+
+    render: function render() {
+        return React.Children.only(this.props.children);
+    }
+});
+
+var TimeoutTransitionGroup = React.createClass({
+    displayName: 'TimeoutTransitionGroup',
+
+    propTypes: {
+        enterTimeout: React.PropTypes.number.isRequired,
+        leaveTimeout: React.PropTypes.number.isRequired,
+        transitionName: React.PropTypes.string.isRequired,
+        transitionEnter: React.PropTypes.bool,
+        transitionLeave: React.PropTypes.bool
+    },
+
+    getDefaultProps: function getDefaultProps() {
+        return {
+            transitionEnter: true,
+            transitionLeave: true
+        };
+    },
+
+    _wrapChild: function _wrapChild(child) {
+        return React.createElement(
+            TimeoutTransitionGroupChild,
+            {
+                enterTimeout: this.props.enterTimeout,
+                leaveTimeout: this.props.leaveTimeout,
+                name: this.props.transitionName,
+                enter: this.props.transitionEnter,
+                leave: this.props.transitionLeave },
+            child
+        );
+    },
+
+    render: function render() {
+        return React.createElement(ReactTransitionGroup, _extends({}, this.props, {
+            childFactory: this._wrapChild }));
+    }
+});
+
+module.exports = TimeoutTransitionGroup;
+},{"react/addons":159}],362:[function(require,module,exports){
 var AppDispatcher, EventEmitter, HeaderShoppingbagStore, ShopConstants, ShoppingbagAPI, addOne, addProduct, assign, minusOne, productCount, removeProduct;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -45864,7 +46114,7 @@ AppDispatcher.register(function(payload) {
 module.exports = HeaderShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"../utils/ShoppingbagAPI.coffee":368,"events":1,"react/lib/Object.assign":187}],362:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"../utils/ShoppingbagAPI.coffee":369,"events":1,"react/lib/Object.assign":187}],363:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductFilterStore, ShopConstants, addRefiner, assign, removeAllRefiner, removeRefiner, selectedRefiners;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -45936,7 +46186,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductFilterStore;
 
 
-},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"events":1,"react/lib/Object.assign":187}],363:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"events":1,"react/lib/Object.assign":187}],364:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ProductListAPI, ProductListStore, ProductRefinerExtractor, ShopConstants, addProductRefiner, assign, categoryProductList, filterProductList, productList, productRefiners, removeAllProductRefiner, removeProductRefiner, selectedRefiners, selectedSorter, setCategoryProductList, setProductListSorter, setProductRefiners, sortProductList;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -46074,7 +46324,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ProductListStore;
 
 
-},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"../utils/ProductListAPI.coffee":366,"../utils/ProductRefinerExtractor.coffee":367,"events":1,"react/lib/Object.assign":187}],364:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"../utils/ProductListAPI.coffee":367,"../utils/ProductRefinerExtractor.coffee":368,"events":1,"react/lib/Object.assign":187}],365:[function(require,module,exports){
 var AppDispatcher, EventEmitter, ShopConstants, ShoppingbagAPI, ShoppingbagStore, assign, removeItem, updateItem, updateItem2;
 
 AppDispatcher = require("../dispatcher/AppDispatcher.cjsx");
@@ -46137,7 +46387,7 @@ AppDispatcher.register(function(payload) {
 module.exports = ShoppingbagStore;
 
 
-},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"../utils/ShoppingbagAPI.coffee":368,"events":1,"react/lib/Object.assign":187}],365:[function(require,module,exports){
+},{"../constants/ShopConstants.cjsx":359,"../dispatcher/AppDispatcher.cjsx":360,"../utils/ShoppingbagAPI.coffee":369,"events":1,"react/lib/Object.assign":187}],366:[function(require,module,exports){
 
 /*
 * check if an object is in below structure
@@ -46162,7 +46412,7 @@ module.exports = function(obj) {
 };
 
 
-},{"lodash/lang/isArray":107}],366:[function(require,module,exports){
+},{"lodash/lang/isArray":107}],367:[function(require,module,exports){
 var _filter, _find, _findIndex, _sortByOrder, refine, sort, validator;
 
 _sortByOrder = require("lodash/collection/sortByOrder");
@@ -46276,7 +46526,7 @@ module.exports = {
 };
 
 
-},{"./ObjValidator.coffee":365,"lodash/array/findIndex":50,"lodash/collection/filter":53,"lodash/collection/find":54,"lodash/collection/sortByOrder":55}],367:[function(require,module,exports){
+},{"./ObjValidator.coffee":366,"lodash/array/findIndex":50,"lodash/collection/filter":53,"lodash/collection/find":54,"lodash/collection/sortByOrder":55}],368:[function(require,module,exports){
 
 /*
 * find available refiners from list of products, based on category
@@ -46326,7 +46576,7 @@ module.exports = function(data, category) {
 };
 
 
-},{"lodash/array/indexOf":51}],368:[function(require,module,exports){
+},{"lodash/array/indexOf":51}],369:[function(require,module,exports){
 var _findIndex;
 
 _findIndex = require("lodash/array/findIndex");
@@ -46384,7 +46634,7 @@ module.exports = {
 };
 
 
-},{"lodash/array/findIndex":50}],369:[function(require,module,exports){
+},{"lodash/array/findIndex":50}],370:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
 require("magnific-popup");
@@ -46416,7 +46666,7 @@ require("./jsx/MainApp.cjsx");
 require("./jsx/HeaderApp.cjsx");
 
 
-},{"./jsx/HeaderApp.cjsx":332,"./jsx/MainApp.cjsx":333,"./modules/expandable-menu.coffee":370,"./modules/menu-dropdown.coffee":371,"./modules/menu-tabs.coffee":372,"./modules/mobile-menu.coffee":373,"./modules/popup.coffee":374,"./modules/product.coffee":375,"./modules/products-list.coffee":376,"./modules/refine-menu.coffee":377,"./modules/sticky-menu.coffee":378,"./modules/tooltip.coffee":379,"./pages/page.coffee":380,"jquery":49,"magnific-popup":117}],370:[function(require,module,exports){
+},{"./jsx/HeaderApp.cjsx":332,"./jsx/MainApp.cjsx":333,"./modules/expandable-menu.coffee":371,"./modules/menu-dropdown.coffee":372,"./modules/menu-tabs.coffee":373,"./modules/mobile-menu.coffee":374,"./modules/popup.coffee":375,"./modules/product.coffee":376,"./modules/products-list.coffee":377,"./modules/refine-menu.coffee":378,"./modules/sticky-menu.coffee":379,"./modules/tooltip.coffee":380,"./pages/page.coffee":381,"jquery":49,"magnific-popup":117}],371:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -46532,7 +46782,7 @@ global.Expand = ExpandableMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],371:[function(require,module,exports){
+},{}],372:[function(require,module,exports){
 (function (global){
 var CustomSelect, DropdownMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -46693,7 +46943,7 @@ global.CustomSelect = CustomSelect;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],372:[function(require,module,exports){
+},{}],373:[function(require,module,exports){
 (function (global){
 var MenuTabs,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -46830,7 +47080,7 @@ global.MenuTabs = MenuTabs;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],373:[function(require,module,exports){
+},{}],374:[function(require,module,exports){
 (function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -46899,7 +47149,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],374:[function(require,module,exports){
+},{}],375:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -46968,7 +47218,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],375:[function(require,module,exports){
+},{}],376:[function(require,module,exports){
 (function (global){
 var Product, ProductEvents, ProductFeatures, ProductLoader, pageFunctions,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -47445,7 +47695,7 @@ global.Product = Product;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],376:[function(require,module,exports){
+},{}],377:[function(require,module,exports){
 $(function() {
   var ieOnResize, product;
   product = new Product($('.product'));
@@ -47464,7 +47714,7 @@ $(function() {
 });
 
 
-},{}],377:[function(require,module,exports){
+},{}],378:[function(require,module,exports){
 (function (global){
 var RefineMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -47618,7 +47868,7 @@ global.RefineMenu = RefineMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],378:[function(require,module,exports){
+},{}],379:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -47692,7 +47942,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],379:[function(require,module,exports){
+},{}],380:[function(require,module,exports){
 (function (global){
 var Tip, Tooltip,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -47951,7 +48201,7 @@ global.Tooltip = Tooltip;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"component-events":4,"component-tip":10}],380:[function(require,module,exports){
+},{"component-events":4,"component-tip":10}],381:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
@@ -48255,4 +48505,4 @@ $(function() {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[369]);
+},{}]},{},[370]);

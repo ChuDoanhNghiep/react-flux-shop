@@ -19,6 +19,28 @@
   &.product-enter-active
     opacity   1
     transition  opacity 300ms ease-in
+    
+.product-leave
+  opacity     1
+  
+  &.product-leave-active
+    opacity   0
+    // transition  opacity 0ms ease
+
+.shoppingbagProduct-enter
+  height   0
+  transition height  10ms ease-out
+  
+  &.shoppingbagProduct-enter-active
+    height   auto
+        
+.shoppingbagProduct-leave
+  height    165px
+  transition  height 300ms ease-out
+  
+  &.shoppingbagProduct-leave-active
+    height   0
+  
 
     
     
