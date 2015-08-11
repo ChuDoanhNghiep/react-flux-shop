@@ -8675,3 +8675,29 @@ input.placeholder {
 .shoppingbagProduct-leave.shoppingbagProduct-leave-active {
   height: 0;
 }
+.shoppingbagDetails-enter {
+  opacity: 0.01;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+  filter: alpha(opacity=1);
+  -webkit-transition: opacity 300ms ease;
+  transition: opacity 300ms ease;
+}
+.shoppingbagDetails-enter.shoppingbagDetails-enter-active {
+  opacity: 1;
+  -ms-filter: none;
+  -webkit-filter: none;
+          filter: none;
+}
+.shoppingbagDetails-leave {
+  opacity: 1;
+  -ms-filter: none;
+  -webkit-filter: none;
+          filter: none;
+  -webkit-transition: opacity 500ms ease;
+  transition: opacity 500ms ease;
+}
+.shoppingbagDetails-leave.shoppingbagDetails-leave-active {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+}

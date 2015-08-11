@@ -43647,11 +43647,12 @@ ReactRouter.run(routes, ReactRouter.HashLocation, function(Root, state) {
     defaultID = "product-details";
   } else if (name.indexOf("/shoppingbag") === 0) {
     defaultID = "shopping-bag";
+  } else {
+    ProductListActions.transition(state.params);
   }
-  React.render(React.createElement(Root, {
+  return React.render(React.createElement(Root, {
     "pageID": defaultID
   }), document.getElementById("app-container"));
-  return ProductListActions.transition(state.params);
 });
 
 
@@ -45171,9 +45172,11 @@ module.exports = RefinerList;
 
 
 },{"../actions/ProductFilterActions.cjsx":336,"react":331}],353:[function(require,module,exports){
-var React, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, ShoppingbagStore, calculateLabel, calculateSize, calculateTotalPrice, getCurrentState;
+var React, ShoppingbagDetails, ShoppingbagEmpty, ShoppingbagFooter, ShoppingbagGroup, ShoppingbagHeader, ShoppingbagStore, TimeoutTransitionGroup, calculateLabel, calculateSize, calculateTotalPrice, getCurrentState;
 
 React = require("react");
+
+TimeoutTransitionGroup = require("../helper/timeout-transition-group.js");
 
 ShoppingbagEmpty = require("./ShoppingbagEmpty.cjsx");
 
@@ -45305,63 +45308,73 @@ ShoppingbagDetails = React.createClass({displayName: "ShoppingbagDetails",
     return this.setState(getCurrentState());
   },
   render: function() {
-    var beer, beerQuota, label, spirit, spiritQuota, wine, wineQuota;
-    if (this.state.addedProducts && this.state.addedProducts.length) {
-      wine = this.state.addedProducts.filter(function(product) {
-        return product.category.toLowerCase() === "wine";
-      });
-      beer = this.state.addedProducts.filter(function(product) {
-        return product.category.toLowerCase() === "beer";
-      });
-      spirit = this.state.addedProducts.filter(function(product) {
-        return product.category.toLowerCase() === "spirit";
-      });
-      label = calculateLabel(wine, beer, spirit);
-      wineQuota = 1;
-      beerQuota = 1;
-      spiritQuota = 1;
-      if (label.type === 2) {
-        wineQuota = 2;
-        spiritQuota = 0;
-      } else if (label.type === 3) {
-        beerQuota = 2;
-        spiritQuota = 0;
-      }
-      return React.createElement("div", {
-        "className": "shoppingBag-page"
-      }, React.createElement("section", {
-        "className": "ShoppingBag ShoppingBagPage"
-      }, React.createElement(ShoppingbagHeader, {
-        "label": label
-      }), React.createElement("div", {
-        "className": "ShoppingBag groupWrap"
-      }, React.createElement(ShoppingbagGroup, {
-        "category": "wine",
-        "products": wine,
-        "quota": wineQuota
-      }), React.createElement(ShoppingbagGroup, {
-        "category": "spirit",
-        "products": spirit,
-        "quota": spiritQuota
-      }), React.createElement(ShoppingbagGroup, {
-        "category": "beer",
-        "products": beer,
-        "quota": beerQuota
-      })), React.createElement(ShoppingbagFooter, {
-        "total": this.state.total
-      })));
-    } else {
-      return React.createElement("div", {
-        "className": "shoppingBag-page"
-      }, React.createElement(ShoppingbagEmpty, null));
-    }
+    var addedProducts, key;
+    addedProducts = (function(_this) {
+      return function() {
+        var beer, beerQuota, label, spirit, spiritQuota, wine, wineQuota;
+        if (_this.state.addedProducts && _this.state.addedProducts.length) {
+          wine = _this.state.addedProducts.filter(function(product) {
+            return product.category.toLowerCase() === "wine";
+          });
+          beer = _this.state.addedProducts.filter(function(product) {
+            return product.category.toLowerCase() === "beer";
+          });
+          spirit = _this.state.addedProducts.filter(function(product) {
+            return product.category.toLowerCase() === "spirit";
+          });
+          label = calculateLabel(wine, beer, spirit);
+          wineQuota = 1;
+          beerQuota = 1;
+          spiritQuota = 1;
+          if (label.type === 2) {
+            wineQuota = 2;
+            spiritQuota = 0;
+          } else if (label.type === 3) {
+            beerQuota = 2;
+            spiritQuota = 0;
+          }
+          return React.createElement("section", {
+            "className": "ShoppingBag ShoppingBagPage"
+          }, React.createElement(ShoppingbagHeader, {
+            "label": label
+          }), React.createElement("div", {
+            "className": "ShoppingBag groupWrap"
+          }, React.createElement(ShoppingbagGroup, {
+            "category": "wine",
+            "products": wine,
+            "quota": wineQuota
+          }), React.createElement(ShoppingbagGroup, {
+            "category": "spirit",
+            "products": spirit,
+            "quota": spiritQuota
+          }), React.createElement(ShoppingbagGroup, {
+            "category": "beer",
+            "products": beer,
+            "quota": beerQuota
+          })), React.createElement(ShoppingbagFooter, {
+            "total": _this.state.total
+          }));
+        } else {
+          return React.createElement(ShoppingbagEmpty, null);
+        }
+      };
+    })(this)();
+    key = this.state.addedProducts && this.state.addedProducts.length ? "hasProducts" : "hasNoProducts";
+    return React.createElement(TimeoutTransitionGroup, {
+      "transitionName": "shoppingbagDetails",
+      "enterTimeout": 500.,
+      "leaveTimeout": 1000.
+    }, React.createElement("div", {
+      "className": "shoppingBag-page",
+      "key": key
+    }, addedProducts));
   }
 });
 
 module.exports = ShoppingbagDetails;
 
 
-},{"../stores/ShoppingbagStore.cjsx":365,"./ShoppingbagEmpty.cjsx":354,"./ShoppingbagFooter.cjsx":355,"./ShoppingbagGroup.cjsx":356,"./ShoppingbagHeader.cjsx":357,"react":331}],354:[function(require,module,exports){
+},{"../helper/timeout-transition-group.js":361,"../stores/ShoppingbagStore.cjsx":365,"./ShoppingbagEmpty.cjsx":354,"./ShoppingbagFooter.cjsx":355,"./ShoppingbagGroup.cjsx":356,"./ShoppingbagHeader.cjsx":357,"react":331}],354:[function(require,module,exports){
 var React, ShoppingbagEmpty;
 
 React = require("react");

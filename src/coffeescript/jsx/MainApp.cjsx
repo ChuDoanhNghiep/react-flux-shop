@@ -29,8 +29,10 @@ ReactRouter.run routes, ReactRouter.HashLocation, (Root, state) ->
     defaultID = "product-details"
   else if name.indexOf("/shoppingbag") is 0
     defaultID = "shopping-bag"
-  
+  else
+    ProductListActions.transition state.params
+
   React.render <Root pageID={defaultID} />, document.getElementById "app-container"
 
-  ProductListActions.transition state.params
+
 

@@ -41,6 +41,16 @@
   &.shoppingbagProduct-leave-active
     height   0
   
-
+.shoppingbagDetails-enter
+  opacity 0.01
+  transition opacity 300ms ease 
+  
+  &.shoppingbagDetails-enter-active
+    opacity   1
     
-    
+.shoppingbagDetails-leave
+  opacity 1
+  transition opacity 500ms ease 
+  
+  &.shoppingbagDetails-leave-active
+    opacity   0    

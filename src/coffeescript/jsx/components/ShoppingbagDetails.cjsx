@@ -1,4 +1,5 @@
 React = require "react"
+TimeoutTransitionGroup = require "../helper/timeout-transition-group.js"
 ShoppingbagEmpty = require "./ShoppingbagEmpty.cjsx"
 ShoppingbagHeader = require "./ShoppingbagHeader.cjsx"
 ShoppingbagFooter = require "./ShoppingbagFooter.cjsx"
@@ -73,41 +74,46 @@ ShoppingbagDetails = React.createClass
     @setState getCurrentState()
 
   render: ->
-    if @state.addedProducts and @state.addedProducts.length
+    addedProducts = do =>
+      if @state.addedProducts and @state.addedProducts.length
 
-      wine = @state.addedProducts.filter (product) ->
-        product.category.toLowerCase() is "wine"
-      beer = @state.addedProducts.filter (product) ->
-        product.category.toLowerCase() is "beer"
-      spirit = @state.addedProducts.filter (product) ->
-        product.category.toLowerCase() is "spirit"
+        wine = @state.addedProducts.filter (product) ->
+          product.category.toLowerCase() is "wine"
+        beer = @state.addedProducts.filter (product) ->
+          product.category.toLowerCase() is "beer"
+        spirit = @state.addedProducts.filter (product) ->
+          product.category.toLowerCase() is "spirit"
 
-      label = calculateLabel wine, beer, spirit
+        label = calculateLabel wine, beer, spirit
 
-      wineQuota = 1
-      beerQuota = 1
-      spiritQuota = 1
-      if label.type is 2
-        wineQuota = 2
-        spiritQuota = 0
-      else if label.type is 3
-        beerQuota = 2
-        spiritQuota = 0 
+        wineQuota = 1
+        beerQuota = 1
+        spiritQuota = 1
+        if label.type is 2
+          wineQuota = 2
+          spiritQuota = 0
+        else if label.type is 3
+          beerQuota = 2
+          spiritQuota = 0 
 
-      return <div className="shoppingBag-page">
-                <section className="ShoppingBag ShoppingBagPage">
-                  <ShoppingbagHeader label={label} />
-                  <div className="ShoppingBag groupWrap">
-                    <ShoppingbagGroup category="wine" products={wine} quota={wineQuota} />
-                    <ShoppingbagGroup category="spirit" products={spirit} quota={spiritQuota} />
-                    <ShoppingbagGroup category="beer" products={beer} quota={beerQuota} />
-                  </div>
-                  <ShoppingbagFooter total={this.state.total} />
-                </section>
-              </div>
-    else
-      return <div className="shoppingBag-page"> 
-                <ShoppingbagEmpty />           
-              </div>      
+        return  <section className="ShoppingBag ShoppingBagPage">
+                    <ShoppingbagHeader label={label} />
+                    <div className="ShoppingBag groupWrap">
+                      <ShoppingbagGroup category="wine" products={wine} quota={wineQuota} />
+                      <ShoppingbagGroup category="spirit" products={spirit} quota={spiritQuota} />
+                      <ShoppingbagGroup category="beer" products={beer} quota={beerQuota} />
+                    </div>
+                    <ShoppingbagFooter total={this.state.total} />
+                  </section>
+      else
+        return <ShoppingbagEmpty />  
+
+    key = if @state.addedProducts and @state.addedProducts.length then "hasProducts" else "hasNoProducts"
+
+    return  <TimeoutTransitionGroup transitionName="shoppingbagDetails" enterTimeout={500} leaveTimeout={1000}>
+               <div className="shoppingBag-page" key={key}> 
+                  {addedProducts}
+                </div> 
+            </TimeoutTransitionGroup>         
 
 module.exports = ShoppingbagDetails
