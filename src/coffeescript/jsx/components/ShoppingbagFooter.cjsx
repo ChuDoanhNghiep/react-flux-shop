@@ -1,6 +1,9 @@
-React = require "react"
+React = require "react/addons"
+PureRenderMixin = React.addons.PureRenderMixin
 
 ShoppingbagFooter = React.createClass
+
+    mixins: [PureRenderMixin]
 
     render: ->
 

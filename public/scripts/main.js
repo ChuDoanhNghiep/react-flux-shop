@@ -44692,7 +44692,6 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
   },
   render: function() {
     var refinerGroups;
-    refinerGroups = "";
     if (this.state.refinerList) {
       refinerGroups = Object.keys(this.state.refinerList).map((function(_this) {
         return function(prop) {
@@ -44713,22 +44712,22 @@ ProductFilterRefine = React.createClass({displayName: "ProductFilterRefine",
           })));
         };
       })(this));
+      return React.createElement("div", {
+        "className": "list expandable refineResults"
+      }, React.createElement("div", {
+        "className": "title menu-title kiwi-visible-m kiwi-visible-s"
+      }, "REFINE RESULTS "), React.createElement("div", {
+        "className": "content"
+      }, React.createElement("div", {
+        "className": "list selectedFilters"
+      }, React.createElement("div", {
+        "className": "title menu-title desktop kiwi-hidden-m kiwi-hidden-s"
+      }, "REFINE RESULTS"), React.createElement(RefinerList, {
+        "refiners": this.state.selectedRefiners
+      })), refinerGroups));
+    } else {
+      return React.createElement("div", null);
     }
-    return React.createElement("div", {
-      "className": "list expandable refineResults"
-    }, React.createElement("div", {
-      "className": "title menu-title kiwi-visible-m kiwi-visible-s"
-    }, "REFINE RESULTS "), React.createElement("div", {
-      "className": "content"
-    }, React.createElement("div", {
-      "className": "list selectedFilters"
-    }, React.createElement("div", {
-      "className": "title menu-title desktop kiwi-hidden-m kiwi-hidden-s"
-    }, "REFINE RESULTS"), React.createElement("div", {
-      "className": "content"
-    }, React.createElement(RefinerList, {
-      "refiners": this.state.selectedRefiners
-    }))), refinerGroups));
   }
 });
 
@@ -45141,20 +45140,15 @@ React = require("react");
 ProductFilterActions = require("../actions/ProductFilterActions.cjsx");
 
 RefinerList = React.createClass({displayName: "RefinerList",
-  getInitialState: function() {
-    return {
-      refiners: this.props.refiners
-    };
-  },
   handleClick: function(item) {
     return ProductFilterActions.removeProductRefiner(item);
   },
   render: function() {
     var list;
-    list = Object.keys(this.state.refiners).map((function(_this) {
+    list = Object.keys(this.props.refiners).map((function(_this) {
       return function(itemID) {
         var refiner;
-        refiner = _this.state.refiners[itemID];
+        refiner = _this.props.refiners[itemID];
         return React.createElement("div", {
           "className": "title selectedFilter",
           "key": itemID
@@ -45375,11 +45369,14 @@ module.exports = ShoppingbagDetails;
 
 
 },{"../helper/timeout-transition-group.js":361,"../stores/ShoppingbagStore.cjsx":365,"./ShoppingbagEmpty.cjsx":354,"./ShoppingbagFooter.cjsx":355,"./ShoppingbagGroup.cjsx":356,"./ShoppingbagHeader.cjsx":357,"react":331}],354:[function(require,module,exports){
-var React, ShoppingbagEmpty;
+var PureRenderMixin, React, ShoppingbagEmpty;
 
 React = require("react");
 
+PureRenderMixin = React.addons.PureRenderMixin;
+
 ShoppingbagEmpty = React.createClass({displayName: "ShoppingbagEmpty",
+  mixins: [PureRenderMixin],
   render: function() {
     return React.createElement("div", null, React.createElement("h2", null, "Your Shopping Bag"), React.createElement("p", null, "You can currently Shop and Collect items from our Wines and Spirits and Beauty Collections."), React.createElement("div", {
       "className": "steps"
@@ -45422,11 +45419,14 @@ module.exports = ShoppingbagEmpty;
 
 
 },{"react":331}],355:[function(require,module,exports){
-var React, ShoppingbagFooter;
+var PureRenderMixin, React, ShoppingbagFooter;
 
-React = require("react");
+React = require("react/addons");
+
+PureRenderMixin = React.addons.PureRenderMixin;
 
 ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
+  mixins: [PureRenderMixin],
   render: function() {
     return React.createElement("div", {
       "className": "ShoppingBagFooter"
@@ -45465,7 +45465,7 @@ ShoppingbagFooter = React.createClass({displayName: "ShoppingbagFooter",
 module.exports = ShoppingbagFooter;
 
 
-},{"react":331}],356:[function(require,module,exports){
+},{"react/addons":159}],356:[function(require,module,exports){
 var React, ShoppingbagGroup, ShoppingbagProduct, TimeoutTransitionGroup, classNames, getTotalSize;
 
 React = require("react");

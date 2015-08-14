@@ -1,7 +1,10 @@
 React = require "react"
+PureRenderMixin = React.addons.PureRenderMixin
 
 ShoppingbagEmpty = React.createClass
-    
+  
+  mixins: [PureRenderMixin]
+
   render: ->
 
     return <div>
