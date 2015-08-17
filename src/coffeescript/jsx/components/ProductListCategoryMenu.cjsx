@@ -5,7 +5,11 @@ ProductListCategoryMenu = React.createClass
 
   componentDidMount: ->
 
-    return new Expand $(".listCategories")
+    window.expandableListCategories = new Expand $(".listCategories")
+
+  componentWillUnmount: ->
+
+    window.expandableListCategories.destructor()
 
   render: ->
     listObj = window.productCategoryList

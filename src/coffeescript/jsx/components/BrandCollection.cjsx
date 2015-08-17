@@ -8,7 +8,7 @@ BrandCollection = React.createClass
 
   componentDidMount: ->
 
-    return new Expand $('.expand-menu-adjust'), {
+    window.expandableFilterMenu = new Expand $('.expand-menu-adjust'), {
       class: 'expanded'
       cb: (el)->
         if el.hasClass('expanded')
@@ -18,6 +18,10 @@ BrandCollection = React.createClass
         return
       collapseOthers: false
     }  
+
+  componentWillUnmount: ->
+
+    window.expandableFilterMenu.destructor()
 
   render: ->
 

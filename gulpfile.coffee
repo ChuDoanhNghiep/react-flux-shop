@@ -1,4 +1,5 @@
 # Dependencies
+path = require "path"
 gulp = require "gulp"
 watch = require "gulp-watch"
 uglify = require "gulp-uglify"
@@ -135,8 +136,13 @@ gulp.task "livereload", ->
     config.build + "styles/**/*.css"
     config.build + "*.html"
   ], (event) ->
-    gulp.src event.path, {read: false}
-    .pipe livereload(lr)
+    fileName = path.relative __dirname, event.path
+    lr.changed {
+      body:
+        files: [fileName]
+    }
+    # gulp.src event.path, {read: false}
+    # .pipe livereload(lr)
     console.log chalk.yellow "server reloaded!"
 
 # test server

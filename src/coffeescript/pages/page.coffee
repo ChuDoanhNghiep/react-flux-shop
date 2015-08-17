@@ -28,7 +28,7 @@ $ ->
     accordionMenus.destructor el
 
   menuTabs = new MenuTabs $('.fashion.menu-tabs')
-  dropDown = new DropdownMenu $(".menu-dropdown")
+  # dropDown = new DropdownMenu $(".menu-dropdown")
   # customSelect = new CustomSelect $(".custom-select")
   # cf = new CustomFormElements()
   # preorderMenuTooltip = new Tooltip $('.preorder-tabs ')
@@ -84,14 +84,14 @@ $ ->
         .find '.arrow, .locationPopup'
         .stop true, false
         .fadeOut speed
-    .find '.link'
-    .magnificPopup
-      type: 'inline'
-      removalDelay: 500
-      disableOn: 961
-      callbacks:
-        beforeOpen: ()->
-           this.st.mainClass = this.st.el.attr('data-effect')
+    # .find '.link'
+    # .magnificPopup
+    #   type: 'inline'
+    #   removalDelay: 500
+    #   disableOn: 961
+    #   callbacks:
+    #     beforeOpen: ()->
+    #        this.st.mainClass = this.st.el.attr('data-effect')
 
 
   do ->
