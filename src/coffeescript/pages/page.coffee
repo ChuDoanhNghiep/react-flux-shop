@@ -27,31 +27,12 @@ $ ->
     el.removeClass 'accordion-menu'
     accordionMenus.destructor el
 
-  menuTabs = new MenuTabs $('.fashion.menu-tabs')
-  # dropDown = new DropdownMenu $(".menu-dropdown")
-  # customSelect = new CustomSelect $(".custom-select")
-  # cf = new CustomFormElements()
-  # preorderMenuTooltip = new Tooltip $('.preorder-tabs ')
-  # preorderTip = new Tooltip $('.SelectLocation')
-
   ua = navigator.userAgent
   isIOS = if ua.match(/iPhone|iPad|iPod/i) then true else false
   isAndroid = if ua.match(/Android/i) and not ua.match(/Chrome/i) then true else false
 
   # detect if IE including IE 10/11
   isIE = ua.indexOf('MSIE') isnt -1 or navigator.appVersion.indexOf('Trident/') > 0
-
-  # detect site language
-  lang = $ 'html'
-    .attr 'lang'
-
-  # change header placeholder text according to site language
-  searchPHText = ' Search'
-  switch lang
-    # when 'en' then search-text = ' Search'
-    when 'zh-cn' then searchPHText = ' 搜索'
-    when 'ja-jp' then searchPHText = '検索'
-    else searchPHText = searchPHText
 
 
   # Open/close left menu mobile
@@ -84,15 +65,6 @@ $ ->
         .find '.arrow, .locationPopup'
         .stop true, false
         .fadeOut speed
-    # .find '.link'
-    # .magnificPopup
-    #   type: 'inline'
-    #   removalDelay: 500
-    #   disableOn: 961
-    #   callbacks:
-    #     beforeOpen: ()->
-    #        this.st.mainClass = this.st.el.attr('data-effect')
-
 
   do ->
     mSearchbox = $ '.register-menu .searchbox input.search_text'
@@ -147,7 +119,7 @@ $ ->
 
   do ->
     tranPoint = 200
-    # isFullpageIframe = document.getElementById 'iframePdf'
+
     setStickyHeader = (passTranPoint, isDesktopView)->
       if passTranPoint  
         $ 'header.main-header'
@@ -163,27 +135,6 @@ $ ->
         st =  $(this).scrollTop() > tranPoint
         w = $(window).width() > 960
         setStickyHeader(st, w)
-
-        # if st  
-        #   $ 'header.main-header'
-        #     .addClass 'sticky-header'
-        # else if w
-        #   $ '.main-header'
-        #     .removeClass 'sticky-header'
-        #   if stickyMenu.isOpened()
-        #     stickyMenu.close() 
-
-    # when it's fullpage iframe
-    $ window
-      .load ()->
-        $ '#dfsframe'
-          .contents()
-          .scroll ()->
-            st = $('#dfsframe').contents().find('body').scrollTop() > tranPoint
-            w = $(window).width() > 960
-            setStickyHeader(st, w)
-            return
-        return
 
     return
 

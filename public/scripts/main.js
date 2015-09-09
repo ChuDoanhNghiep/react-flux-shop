@@ -41951,29 +41951,16 @@ var slice = [].slice;
 
 $(function() {
   "use strict";
-  var accordionMenus, expandMenu, isAndroid, isIE, isIOS, lang, menuTabs, mobileMenu, searchPHText, stickyMenu, ua;
+  var accordionMenus, expandMenu, isAndroid, isIE, isIOS, mobileMenu, stickyMenu, ua;
   accordionMenus = new Expand($('.accordion-menu'));
   window.destructAccordion = function(el) {
     el.removeClass('accordion-menu');
     return accordionMenus.destructor(el);
   };
-  menuTabs = new MenuTabs($('.fashion.menu-tabs'));
   ua = navigator.userAgent;
   isIOS = ua.match(/iPhone|iPad|iPod/i) ? true : false;
   isAndroid = ua.match(/Android/i) && !ua.match(/Chrome/i) ? true : false;
   isIE = ua.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0;
-  lang = $('html').attr('lang');
-  searchPHText = ' Search';
-  switch (lang) {
-    case 'zh-cn':
-      searchPHText = ' 搜索';
-      break;
-    case 'ja-jp':
-      searchPHText = '検索';
-      break;
-    default:
-      searchPHText = searchPHText;
-  }
   mobileMenu = new MobileMenu($('.mobile-left-menu'));
   expandMenu = new Expand($('.expand-menu'), {
     "class": 'expanded',
@@ -42062,14 +42049,6 @@ $(function() {
       st = $(this).scrollTop() > tranPoint;
       w = $(window).width() > 960;
       return setStickyHeader(st, w);
-    });
-    $(window).load(function() {
-      $('#dfsframe').contents().scroll(function() {
-        var st, w;
-        st = $('#dfsframe').contents().find('body').scrollTop() > tranPoint;
-        w = $(window).width() > 960;
-        setStickyHeader(st, w);
-      });
     });
   })();
   (function() {
