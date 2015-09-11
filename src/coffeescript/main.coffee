@@ -2,7 +2,6 @@
 window.$ = window.jQuery = require "jquery"
 
 # Modules
-require "./modules/menu-tabs.coffee"
 require "./modules/expandable-menu.coffee"
 require "./modules/mobile-menu.coffee"
 require "./modules/sticky-menu.coffee"

@@ -6,12 +6,10 @@ uglify = require "gulp-uglify"
 source = require "vinyl-source-stream"
 browserify = require "browserify"
 watchify = require "watchify"
-# reactify = require "reactify"
 streamify = require "gulp-streamify"
 jade = require "gulp-jade"
 stylus = require "gulp-stylus"
 coffeelint = require "gulp-coffeelint"
-coffeeify = require "coffeeify"
 coffee_reactify = require "coffee-reactify"
 plumber = require "gulp-plumber"
 gulpif = require "gulp-if"
@@ -20,7 +18,6 @@ minifyCss = require "gulp-minify-css"
 rename = require "gulp-rename"
 chalk = require "chalk"
 notify = require "gulp-notify"
-# modernizr = require "gulp-modernizr"
 
 express = require "express"
 connect = require "connect-livereload"
@@ -36,7 +33,7 @@ config =
   port: 9000
   build: "./public/"
   src: "./src/"
-  production: false
+  production: true
 
 handleErrors = (err...) ->
   args = err
@@ -120,7 +117,7 @@ gulp.task "stylus", ->
     "include css": true
   .pipe autoprefixer "last 1 version", "> 1%"
   .pipe gulpif config.production, minifyCss()
-  .pipe rename "main.css"
+  .pipe gulpif config.production, rename("main.min.css")
   .pipe gulp.dest config.build + "styles"  
 
 gulp.task "stylusWatch", ->
