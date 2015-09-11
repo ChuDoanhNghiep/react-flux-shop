@@ -41430,8 +41430,6 @@ module.exports = {
 },{"lodash/array/findIndex":8}],327:[function(require,module,exports){
 window.$ = window.jQuery = require("jquery");
 
-require("./modules/menu-tabs.coffee");
-
 require("./modules/expandable-menu.coffee");
 
 require("./modules/mobile-menu.coffee");
@@ -41447,7 +41445,7 @@ require("./jsx/MainApp.cjsx");
 require("./jsx/HeaderApp.cjsx");
 
 
-},{"./jsx/HeaderApp.cjsx":289,"./jsx/MainApp.cjsx":290,"./modules/expandable-menu.coffee":328,"./modules/menu-tabs.coffee":329,"./modules/mobile-menu.coffee":330,"./modules/popup.coffee":331,"./modules/sticky-menu.coffee":332,"./pages/page.coffee":333,"jquery":7}],328:[function(require,module,exports){
+},{"./jsx/HeaderApp.cjsx":289,"./jsx/MainApp.cjsx":290,"./modules/expandable-menu.coffee":328,"./modules/mobile-menu.coffee":329,"./modules/popup.coffee":330,"./modules/sticky-menu.coffee":331,"./pages/page.coffee":332,"jquery":7}],328:[function(require,module,exports){
 (function (global){
 var ExpandableMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -41565,143 +41563,6 @@ global.Expand = ExpandableMenu;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],329:[function(require,module,exports){
 (function (global){
-var MenuTabs,
-  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-MenuTabs = (function() {
-  var onDesktop;
-
-  onDesktop = !Modernizr.touch;
-
-  MenuTabs.prototype.tabs = null;
-
-  MenuTabs.prototype["class"] = {
-    active: 'active'
-  };
-
-  function MenuTabs(el) {
-    var $el;
-    this.el = el;
-    this.onClickTabTitle = bind(this.onClickTabTitle, this);
-    this.onMouseLeaveTab = bind(this.onMouseLeaveTab, this);
-    this.onMouseLeaveTabContent = bind(this.onMouseLeaveTabContent, this);
-    this.onMouseEnterTabContent = bind(this.onMouseEnterTabContent, this);
-    this.onMouseLeaveTabTitle = bind(this.onMouseLeaveTabTitle, this);
-    this.onMouseEnterTabTitle = bind(this.onMouseEnterTabTitle, this);
-    if (this.el.__initFashionMenuTabs) {
-      return;
-    }
-    this.el.__initFashionMenuTabs = true;
-    $el = $(this.el);
-    $el.on({
-      'mouseenter': this.onMouseEnterTabContent,
-      'mouseleave': this.onMouseLeaveTabContent
-    }, '.tab >.content').on({
-      'click': this.onClickTabTitle,
-      'mouseenter': this.onMouseEnterTabTitle,
-      'mouseleave': this.onMouseLeaveTabTitle
-    }, '.tab >.title').on('mouseleave', '.tab', this.onMouseLeaveTab);
-    this.tabs = $el.find('.tabs > .tab');
-  }
-
-  MenuTabs.prototype.onMouseEnterTabTitle = function(enter) {
-    var tab;
-    tab = $(enter.currentTarget).parent();
-    tab.trigger('openTab');
-    this.hideDividerAround(tab);
-    return this.toggleTab(tab);
-  };
-
-  MenuTabs.prototype.onMouseLeaveTabTitle = function(leave) {
-    var tab;
-    if (!onDesktop) {
-      return;
-    }
-    tab = $(leave.currentTarget).parent();
-    this.showDividerAround(tab);
-    return this.toggleTab(tab);
-  };
-
-  MenuTabs.prototype.onMouseEnterTabContent = function(enter) {
-    var tab;
-    tab = $(enter.currentTarget).parent();
-    return this.hideDividerAround(tab);
-  };
-
-  MenuTabs.prototype.onMouseLeaveTabContent = function(leave) {
-    var tab;
-    if (!onDesktop) {
-      return;
-    }
-    tab = $(leave.currentTarget).parent();
-    this.showDividerAround(tab);
-    return $(tab).find('input').blur();
-  };
-
-  MenuTabs.prototype.onMouseLeaveTab = function(leave) {
-    var tab;
-    tab = $(leave.currentTarget);
-    return tab.trigger('closeTab');
-  };
-
-  MenuTabs.prototype.onClickTabTitle = function(click) {
-    var tab, title;
-    if (onDesktop) {
-      return;
-    }
-    stopEvent(click);
-    title = click.currentTarget;
-    tab = $(title).parent();
-    return this.toggleTab(tab);
-  };
-
-  MenuTabs.prototype.isActiveTab = function(tab) {
-    return $(tab).hasClass(this["class"].active);
-  };
-
-  MenuTabs.prototype.toggleTab = function(tab) {
-    if (this.isActiveTab(tab)) {
-      return this.deactivateTab(tab);
-    } else {
-      return this.activateTab(tab);
-    }
-  };
-
-  MenuTabs.prototype.activateTab = function(tab) {
-    this.tabs.each((function(_this) {
-      return function(index, element) {
-        return _this.deactivateTab(element);
-      };
-    })(this));
-    return $(tab).addClass(this["class"].active);
-  };
-
-  MenuTabs.prototype.deactivateTab = function(tab) {
-    return $(tab).removeClass(this["class"].active);
-  };
-
-  MenuTabs.prototype.hideDividerAround = function(tab) {
-    tab = $(tab);
-    tab.prev('.divider').length && tab.prev('.divider').hide();
-    return tab.next('.divider').length && tab.next('.divider').hide();
-  };
-
-  MenuTabs.prototype.showDividerAround = function(tab) {
-    tab = $(tab);
-    tab.prev('.divider').length && tab.prev('.divider').show();
-    return tab.next('.divider').length && tab.next('.divider').show();
-  };
-
-  return MenuTabs;
-
-})();
-
-global.MenuTabs = MenuTabs;
-
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],330:[function(require,module,exports){
-(function (global){
 var MobileMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -41769,7 +41630,7 @@ global.MobileMenu = MobileMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],331:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
 (function (global){
 var Popup,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -41838,7 +41699,7 @@ global.Popup = Popup;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],332:[function(require,module,exports){
+},{}],331:[function(require,module,exports){
 (function (global){
 var StickyMenu,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -41912,7 +41773,7 @@ global.StickyMenu = StickyMenu;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],333:[function(require,module,exports){
+},{}],332:[function(require,module,exports){
 (function (global){
 var slice = [].slice;
 
