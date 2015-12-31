@@ -8,7 +8,7 @@ module.exports =
         image: "http://placehold.it/200"
         category: "wine"
         type: "red"
-        brand: "DFS Selects: Wine"
+        brand: "Shop Selects: Wine"
         currency: "S$"
         price: 100.00
         size: 0.75
@@ -215,7 +215,7 @@ module.exports =
         name: "Somersby Cider 0.33L x3"
         image: "http://placehold.it/200"
         category: "beer"
-        brand: "DFS Selects: Beer"
+        brand: "Shop Selects: Beer"
         price: 153.45
         size: 1
         shop_recommended: "true"
@@ -228,7 +228,7 @@ module.exports =
         name: "Hoegaarden 0.33L X 3"
         image: "http://placehold.it/200"
         category: "beer"
-        brand: "DFS selects: Beer"
+        brand: "Shop selects: Beer"
         price: 223.45
         size: 1
         shop_recommended: "true"

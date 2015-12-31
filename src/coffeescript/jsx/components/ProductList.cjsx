@@ -1,4 +1,5 @@
 React = require "react"
+classNames = require "classnames"
 TimeoutTransitionGroup = require "../helper/timeout-transition-group.js"
 ProductListAPI = require "../utils/ProductListAPI.coffee"
 Product = require "./Product.cjsx"
@@ -39,10 +40,11 @@ ProductList = React.createClass
       products: ProductListStore.getProductList()
 
   render: ->
-    console.log "render product list"
+ 
     elemClass = @state.viewType + " " + "productsList"
     gridIconClass = if @state.viewType is "grid" then "active" else "inactive"
     listIconClass = if @state.viewType is "list" then "active" else "inactive"
+    noProductClass = classNames "no-product", {"show": @state.products.length is 0}
 
     items = @state.products.map (product) =>
       return <Product key={product.id} product={product} />
@@ -69,6 +71,9 @@ ProductList = React.createClass
               {items}
             </TimeoutTransitionGroup>
           </div>
+        </div>
+        <div className={noProductClass}>
+          There is no product to display.
         </div>
       </section>
 
