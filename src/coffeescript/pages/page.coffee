@@ -1,3 +1,6 @@
+# Legacy coffee code goes here
+# Should be scripts for non-reactjs dom
+
 do->
   root = global
 
@@ -34,6 +37,8 @@ $ ->
   # detect if IE including IE 10/11
   isIE = ua.indexOf('MSIE') isnt -1 or navigator.appVersion.indexOf('Trident/') > 0
 
+  # for search box placeholder text
+  searchPHText = 'Search'
 
   # Open/close left menu mobile
   mobileMenu = new MobileMenu $('.mobile-left-menu')
