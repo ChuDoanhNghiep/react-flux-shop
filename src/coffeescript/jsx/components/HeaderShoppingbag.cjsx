@@ -24,7 +24,10 @@ HeaderShoppingbag = React.createClass
 
 
     return  <div className="title img">
-            <a href="#/shoppingbag"><i className="icon icon-shoppingbag-white-base64"></i></a>
+            <a href="#/shoppingbag">
+              <svg className="icon-svg icon-cart" dangerouslySetInnerHTML={{__html:'<use xlink:href="#icon-cart"></use>'}}>
+              </svg>
+            </a>
               {num}
             </div>
 

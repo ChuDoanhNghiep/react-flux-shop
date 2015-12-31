@@ -123,8 +123,8 @@ ProductDetails = React.createClass
                       <div className="kiwi-col l-1-2 m-1">
                         <div className="action addToShoppingbag" onClick={this.shoppingbagClick}>
                           <a className={shoppingbagBtnClass}>
-                            <div className="icon-shoppingbag-white icon-prependInline">
-                            </div>
+                            <svg className="icon-svg icon-cart icon-prependInline" dangerouslySetInnerHTML={{__html:'<use xlink:href="#icon-cart"></use>'}}>
+                            </svg>
                             {this.state.shoppingbagBtn}
                           </a>
                         </div>
@@ -135,9 +135,12 @@ ProductDetails = React.createClass
                           onClick={this.handleNotification}/>
                       </div>
                       <div className="kiwi-col l-1-2 m-1">
-                        <div className="action addToWishlist"><a data-tip="Save to Wish List to create your personal list of products and gifts" data-tip-position="top" className="button black expand">
-                            <div className="icon-heart-base64 icon icon-prependInline">
-                            </div>Add to wish list</a></div>
+                        <div className="action addToWishlist">
+                          <a data-tip="Save to Wish List to create your personal list of products and gifts" data-tip-position="top" className="button black expand">
+                            <svg className="icon-svg icon-heart icon-prependInline" dangerouslySetInnerHTML={{__html:'<use xlink:href="#icon-heart"></use>'}}>
+                            </svg>
+                            Add to wish list
+                          </a></div>
                       </div>
                     </div>
                   </div>

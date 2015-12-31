@@ -8,6 +8,10 @@ mixin socialIcon(value)
   img(class="i-dark-"+value+" noHover", src="./images/icons/"+value+"_black_2x.png", style="height:20px")
   img(class="i-gray-"+value+" hover", src="./images/icons/"+value+"_gray_2x.png", style="height:20px")
 
+mixin icon-svg(className)
+  svg(class="icon-svg "+className)
+    use(xlink:href="#"+className)
+
 mixin flag(value)
   - var classes = attributes.class ? attributes.class : ''
   //- div(class="icon-flag-"+value)
@@ -64,222 +68,10 @@ mixin menu-mobile(current)
             br
             strong DEMO Store >
 
-      //- OUR STORES
-      .list.expandable
-        .title
-          +icon('ourstores icon-prependInline')
-          //- .icon-women.icon-prependInline
-          | OUR STORES
-        .content
-          .submenu
-            a.title(href="#") Events and Promotions
-            a.title(href="#") Stores Around the World
-            a.title(href="#") Our Global Store Services
-            a.title(href="#") Contact US
-
-      //- OUR BRANDS
-      .list.expandable
-        .title
-          //- .icon-featuredc
-          +icon('featured icon-prependInline')
-          | OUR BRANDS
-        .content
-          .submenu
-            a.title(href="#") FEATURED BRANDS HOME
-            a.title(href="#") Burberry
-            a.title(href="#") Prada
-            a.title(href="#") Louis Vuitton
-            a.title(href="#") Chanel
-            a.title(href="#") View More...
-      
-      //- WOMEN
-      .list.expandable
-        .title
-          +icon('women icon-prependInline')
-          //- .icon-women.icon-prependInline
-          | WOMEN
-        .content
-          .submenu
-            a.title(href="#") Women Home
-            a.title(href="#") Featured Brands
-
-          //- FASHION
-          .list.submenu.expandable
-            .title FASHION
-            .content
-              .list.submenu.expandable
-                .title Bags
-                .content
-                  .submenu
-                    a.title(href="#") Shoulder Bags
-                    a.title(href="#") Totes
-                    a.title(href="#") Clutches
-                    a.title(href="#") Other
-              .list.submenu.expandable
-                .title Wallets
-                .content
-                  .submenu
-                    a.title(href="#") Wallets
-                    a.title(href="#") Wristlets
-              .list.submenu.expandable
-                .title Accessories
-                .content
-                  .submenu
-                    a.title(href="#") Sunglasses
-                    a.title(href="#") Belts
-                    a.title(href="#") Scarves
-                    a.title(href="#") Key Rings
-                    a.title(href="#") Wrinting Instruments
-              .list.submenu.expandable
-                .title Luggage
-                .content
-                  .submenu
-                    a.title(href="#") Suitcases
-              .list.submenu
-                .title Sale
-          
-          //- WATCHES & JEWELRY
-          .list.submenu.expandable
-            .title WATCHES & JEWELRY
-            .content
-              .list.submenu.expandable
-                .title Watches
-                .content
-                  .submenu
-                    a.title(href="#") Automatic
-                    a.title(href="#") Quartz
-                    a.title(href="#") Other
-              .list.submenu.expandable
-                .title Jewelry
-                .content
-                  .submenu
-                    a.title(href="#") Rings
-                    a.title(href="#") Earrings
-                    a.title(href="#") Necklaces
-                    a.title(href="#") Bracelets
-                    a.title(href="#") Other
-      
-      //- MEN
-      .list.expandable
-        .title 
-          +icon('men icon-prependInline')
-          //- .icon-men.icon-prependInline
-          | MEN
-        .content
-          .submenu
-            a.title(href="#") men Home
-            a.title(href="#") Featured Brands
-
-          //- FASHION
-          .list.submenu.expandable
-            .title FASHION
-            .content
-              .list.submenu.expandable
-                .title Bags & Briefcases
-                .content
-                  .submenu
-                    a.title(href="#") Messenger Bags
-                    a.title(href="#") Totes
-                    a.title(href="#") Brief Cases
-                    a.title(href="#") Other
-              .list.submenu
-                .title Belts
-              .list.submenu
-                .title Wallets
-              .list.submenu.expandable
-                .title Accessories
-                .content
-                  .submenu
-                    a.title(href="#") Sunglasses
-                    a.title(href="#") Ties
-                    a.title(href="#") Cufflinks
-                    a.title(href="#") Key Rings
-                    a.title(href="#") Wrinting Instruments
-                    a.title(href="#") Other
-              .list.submenu.expandable
-                .title Luggage
-                .content
-                  .submenu
-                    a.title(href="#") Suitcases
-              .list.submenu
-                .title Sale
-          
-          //- WATCHES & JEWELRY
-          .list.submenu.expandable
-            .title WATCHES & JEWELRY
-            .content
-              .list.submenu.expandable
-                .title Watches
-                .content
-                  .submenu
-                    a.title(href="#") Automatic
-                    a.title(href="#") Quartz
-                    a.title(href="#") Other
-
-      //- BEAUTY
-      .list.expandable
-        .title 
-          +icon('beauty icon-prependInline')
-          //- .icon-beauty.icon-prependInline
-          | BEAUTY
-        .content
-          .submenu
-            a.title(href="#") Featured Brands
-
-          //- FOR HER
-          .list.submenu.expandable
-            .title FOR HER
-            .content
-              .list.submenu.expandable
-                .title Skincare
-                .content
-                  .submenu
-                    a.title(href="#") Moisturizer
-                    a.title(href="#") Cleanser
-                    a.title(href="#") Toner
-                    a.title(href="#") Eye Care
-                    a.title(href="#") Lip Care
-                    a.title(href="#") Whitening
-                    a.title(href="#") Anti-aging
-                    a.title(href="#") Sun Protection
-                    a.title(href="#") Body Products
-                    a.title(href="#") Hair Products
-                    a.title(href="#") Other
-              .list.submenu.expandable
-                .title Makeup
-                .content
-                  .submenu
-                    a.title(href="#") Foundation
-                    a.title(href="#") Blusher
-                    a.title(href="#") Powder
-                    a.title(href="#") Eye Colour
-                    a.title(href="#") Mascara
-                    a.title(href="#") Lipstick
-                    a.title(href="#") Nails
-                    a.title(href="#") Other
-              .list.submenu
-                .title Fragrance
-          
-          //- FOR HIM
-          .list.submenu.expandable
-            .title FOR HIM
-            .content
-              .list.submenu.expandable
-                .title Skincare
-                .content
-                  .submenu
-                    a.title(href="#") Moisturizer
-                    a.title(href="#") Cleanser
-                    a.title(href="#") Eye Treatment
-                    a.title(href="#") Other
-              .list.submenu
-                .title Fragrance
-
       //- WINE & SPIRITS
       .list.expandable
         .title 
-          +icon('wine icon-prependInline')
-          //- .icon-wine.icon-prependInline
+          +icon-svg('icon-glass')
           | WINE & SPIRITS
         .content
           .submenu
@@ -315,43 +107,51 @@ mixin menu-mobile(current)
                 a.title(href="#") Tequila
                 a.title(href="#") Other Spirits
 
-      //- TRAVEL GUIDES
-      .list.expandable
+      //- OUR STORES
+      .list
+        .title
+          +icon-svg('icon-location2')
+          | OUR STORES
+
+      //- OUR BRANDS
+      .list
+        .title
+          //- .icon-featuredc
+          +icon-svg('icon-book')
+          | OUR BRANDS
+      
+      //- WOMEN
+      .list
+        .title
+          +icon-svg('icon-woman')
+          | WOMEN
+      
+      //- MEN
+      .list
         .title 
-          +icon('travelguides icon-prependInline')
-          //- .icon-travelguides.icon-prependInline
+          +icon-svg('icon-man')
+          | MEN
+
+      //- TRAVEL GUIDES
+      .list
+        .title 
+          +icon-svg('icon-aid-kit')
           | TRAVEL GUIDES
-        .content
-          .submenu
-            a.title(href="#") GUAM
-            a.title(href="#") HONG KONG
-            a.title(href="#") MACAU
-            a.title(href="#") NEW YORK
-            a.title(href="#") OKINAWA
-            a.title(href="#") SINGAPORE
-            a.title(href="#") HAWAI
 
       //- T JOURNAL
       .list
         .title 
-          +icon('tjournal icon-prependInline')
-          //- .icon-tjournal.icon-prependInline
+          +icon-svg('icon-binoculars')
           strong T
           |  JOURNAL
 
       //- LANGUAGES
       .list.secondary-menu
         .title.selected-language
-          +icon('languages icon-prependInline')
-          //- .icon-languages.icon-prependInline
+          +icon-svg('icon-sphere')
           a(href="#") ENGLISH
-          //- span.divider |
-          //- a(href="#") 中文
-          //- span.divider |
-          //- a(href="#") 日本語
           .content.language-list
             a.title(href="#") 简体中文
-            a.title(href="#") 日本語
 
   <!-- END mobile menu -->
 
